@@ -14,12 +14,13 @@ namespace Microsoft.Dynamics365.UIAutomation.Sample
         private static readonly string Type = System.Configuration.ConfigurationManager.AppSettings["BrowserType"].ToString();
 
         public static BrowserOptions Options = new BrowserOptions
-                                                {
+        {
             BrowserType = (BrowserType)Enum.Parse(typeof(BrowserType), Type),
-            PrivateMode = true,
+            PrivateMode = false,
             FireEvents = false,
             Headless = false,
-            UserAgent = false
-                                                };
+            UserAgent = false,
+            //DriversPath = @"""C:\Users\sa286848\Documents\RedCortex\EasyRepro\Microsoft.Dynamics365.UIAutomation.Sample\chromedriver\chromedriver.exe"""
+        };
     }
 }

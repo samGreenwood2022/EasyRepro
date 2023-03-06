@@ -158,9 +158,16 @@ namespace Microsoft.Dynamics365.UIAutomation.Api
             //Example
 
             var d = args.Driver;
+            d.FindElement(By.XPath("//*[@id=\"bySelection\"]/div[6]/div/span")).Click();
 
+            // ADFS login screen
+            d.FindElement(By.Id("userNameInput")).SendKeys(args.Username.ToUnsecureString());
             d.FindElement(By.Id("passwordInput")).SendKeys(args.Password.ToUnsecureString());
-            d.ClickWhenAvailable(By.Id("submitButton"), new TimeSpan(0, 0, 2));
+            d.FindElement(By.Id("submitButton")).Click();
+
+            // d.FindElement(By.CssSelector("img[@alt='CCIS']")).Click();
+            //d.FindElement(By.Id("passwordInput")).SendKeys(args.Password.ToUnsecureString());
+            //d.ClickWhenAvailable(By.Id("submitButton"), new TimeSpan(0, 0, 2));
 
             //Insert any additional code as required for the SSO scenario
 
@@ -176,5 +183,8 @@ namespace Microsoft.Dynamics365.UIAutomation.Api
                 f => { throw new Exception("Login page failed."); });
 
         }
+
+        
+
     }
 }

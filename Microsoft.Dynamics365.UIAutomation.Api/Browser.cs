@@ -39,6 +39,7 @@ namespace Microsoft.Dynamics365.UIAutomation.Api
         public void GoToXrmUri(Uri xrmUri)
         {
             this.Driver.Navigate().GoToUrl(xrmUri);
+
             this.Driver.WaitForPageToLoad();
         }
 
