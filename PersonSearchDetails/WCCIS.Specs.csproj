@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extentions\DHCWExtentions.cs" />
     <Compile Include="Features\PersonSearch.feature.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="StepDefinitions\PersonSearchStepDefinitions.cs" />

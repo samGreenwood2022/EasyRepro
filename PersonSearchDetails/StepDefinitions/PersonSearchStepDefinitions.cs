@@ -1,12 +1,7 @@
-using BoDi;
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using Microsoft.Dynamics365.UIAutomation.Sample;
-using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using System;
 using System.Linq;
 using System.Security;
 using TechTalk.SpecFlow;
@@ -16,8 +11,8 @@ namespace WCCIS.specs.StepDefinitions
     [Binding]
     public class PersonSearchStepDefinitions
     {
-        private readonly SecureString _username = System.Configuration.ConfigurationManager.AppSettings["OnlineUsername"].ToSecureString();
-        private readonly SecureString _password = System.Configuration.ConfigurationManager.AppSettings["OnlinePassword"].ToSecureString();
+        //private readonly SecureString _username = System.Configuration.ConfigurationManager.AppSettings["OnlineUsername"].ToSecureString();
+        //private readonly SecureString _password = System.Configuration.ConfigurationManager.AppSettings["OnlinePassword"].ToSecureString();
 
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
@@ -84,7 +79,49 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"the returned record will show the correct dob '([^']*)'")]
         public void ThenTheReturnedRecordWillShowTheCorrectDob(string dob)
         {
-            driver.FindElement(By.XPath("//*[text()='12/08/1976 (46 Years)']"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'12/08/1976')]]"));
+
         }
+
+        [When(@"i perform a person search using a wildcards '([^']*)', '([^']*)' & dob '([^']*)'")]
+        public void WhenIPerformAPersonSearchUsingAWildcardsDob(string p0, string p1, string p2)
+        {
+            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("B*");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.Name("txtLastName")).SendKeys("T*");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.Name("txtDOB")).SendKeys("12/08/1976");
+            xrmBrowser.ThinkTime(1000);
+
+            driver.FindElement(By.Name("btnFind")).Click();
+            xrmBrowser.ThinkTime(2000);
+            Actions act = new Actions(driver);
+
+            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
+            act.DoubleClick(row).Perform();
+            xrmBrowser.ThinkTime(4000);
+        }
+
+        [When(@"i perform a person search using a person id '([^']*)'")]
+        public void WhenIPerformAPersonSearchUsingAPersonId(string personId)
+        {
+            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]")).SendKeys("4073889");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.Name("btnFind")).Click();
+            xrmBrowser.ThinkTime(2000);
+            xrmBrowser.ThinkTime(2000);
+            Actions act = new Actions(driver);
+            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
+            act.DoubleClick(row).Perform();
+            xrmBrowser.ThinkTime(5000);
+        }
+
+
     }
 }

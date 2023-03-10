@@ -40,12 +40,11 @@ namespace Microsoft.Dynamics365.UIAutomation.Sample.Web
 
                 driver.FindElement(By.Name("btnFind")).Click();
                 xrmBrowser.ThinkTime(2000);
-                xrmBrowser.ThinkTime(2000);
                 Actions act = new Actions(driver);
 
                 IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
                 act.DoubleClick(row).Perform();
-                xrmBrowser.ThinkTime(5000);
+                xrmBrowser.ThinkTime(4000);
                 driver.SwitchTo().Window(driver.WindowHandles.First());
                 driver.SwitchTo().Window(driver.WindowHandles[2]);
                 driver.SwitchTo().Frame("contentIFrame0");

@@ -15,9 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowCalculator", "SpecF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowCalculator.Specs", "SpecFlowCalculator.Specs\SpecFlowCalculator.Specs.csproj", "{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCCIS.specs", "WCCIS.specs\WCCIS.specs.csproj", "{F9C04767-51B8-4566-8C83-63BDAC63A022}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchDetails", "PersonSearchDetails\PersonSearchDetails.csproj", "{A2D39B17-32FB-4015-A0F8-4878888257F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCCIS.Specs", "PersonSearchDetails\WCCIS.Specs.csproj", "{A2D39B17-32FB-4015-A0F8-4878888257F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,12 +60,6 @@ Global
 		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.UnitTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.UnitTest|Any CPU.Build.0 = Debug|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.UnitTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9C04767-51B8-4566-8C83-63BDAC63A022}.UnitTest|Any CPU.Build.0 = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
