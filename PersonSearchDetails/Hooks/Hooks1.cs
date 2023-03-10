@@ -5,8 +5,6 @@ using TechTalk.SpecFlow;
 using System.Security;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using BoDi;
-using OpenQA.Selenium.Chrome;
-using System;
 using Microsoft.Dynamics365.UIAutomation.Api;
 
 namespace PersonSearchDetails.Hooks
@@ -23,7 +21,7 @@ namespace PersonSearchDetails.Hooks
             _objectContainer = objectContainer;
         }
 
-        [BeforeScenario("@mytag1")]
+        [BeforeScenario]
         public void BeforeScenarioWithTag()
         {
             var xrmBrowser = new Microsoft.Dynamics365.UIAutomation.Api.Browser(TestSettings.Options);
