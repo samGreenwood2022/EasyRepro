@@ -2,6 +2,8 @@ using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace WCCIS.specs.StepDefinitions
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
         public string lastname { get; set; }
+        public string personId { get; set; }
 
         public PersonCreateStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
         {
@@ -45,7 +48,7 @@ namespace WCCIS.specs.StepDefinitions
 
 
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public string WhenAPersonIsCreatedByCompletingMandatoryFieldsOnlyJohnAndAndAndAfricanAndMale(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
+        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnlyJohnAndAndAndAfricanAndMale(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
         {
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
@@ -57,7 +60,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             // generate a random string for surname
-            String lastname = DHCWExtentions.RandomString(6, true);
+            lastname = DHCWExtensions.RandomString(6, false);
             driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
@@ -80,62 +83,50 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
             xrmBrowser.ThinkTime(3000);
             Console.WriteLine(lastname);
-            return lastname;
-            
+             
         }
 
-
-        [When(@"a person is created by completing mandatory fields only Alice,(.*)/(.*)/(.*),English,Female")]
-        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnlyAliceEnglishFemale(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
-        {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
-            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
-            // generate a random string for surname
-            String s1 = DHCWExtentions.RandomString(6, true);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(s1);
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
-            xrmBrowser.ThinkTime(1000);
-            // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement = new SelectElement(dropDownOption);
-            selectElement.SelectByText(gender);
-            //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
-            // enter a value into the dob field
-            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
-            xrmBrowser.ThinkTime(1000);
-            // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
-            xrmBrowser.ThinkTime(3000);
-        }
-
-        [Then(@"new person can be returned in a search (.*) and (.*) and (.*)")]
-        public void ThenNewPersonCanBeReturnedInASearchJohnAndAndLastname(string firstname, string dob, string s1)
+        [Then(@"new person can be returned in a search (.*) and (.*)")]
+        public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(s1);
+            driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
+            xrmBrowser.ThinkTime(2000);
+
+
+            // finds the element that stores the person id
+            // searching for a partial id, then getting the text value
+            String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
+            Console.WriteLine(personId);
+            
+
+            Actions act = new Actions(driver);
+            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
+            act.DoubleClick(row).Perform();
+            xrmBrowser.ThinkTime(2000);
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            driver.SwitchTo().Window(driver.WindowHandles[2]);
+            driver.SwitchTo().Frame("contentIFrame0");
+            driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
+
+            // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
+            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
+            // write the string to the console so we can see whats in it, handy for debugging
+            Console.WriteLine(concatName);
+            //possibly remove the below line as the the test is being performed above
+            driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
+            //search for our dob value within the iframe
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
+
         }
+        
     }
 }

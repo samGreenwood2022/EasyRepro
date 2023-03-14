@@ -113,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "3} and {4}", firstname, dob, dateMovedIn, ethnicity, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
- testRunner.Then(string.Format("new person can be returned in a search {0} and {1} and <lastname>", firstname, dob), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("new person can be returned in a search {0} and {1}", firstname, dob), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

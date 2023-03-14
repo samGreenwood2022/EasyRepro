@@ -1,14 +1,12 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 
 namespace Microsoft.Dynamics365.UIAutomation.Sample.Extentions
 {
-    public static class DHCWExtentions
+    public static class DHCWExtensions
     {       // this code will log us into CareDirector
         public static void Login(Api.Browser xrmBrowser, SecureString _username, SecureString _password)
         {
