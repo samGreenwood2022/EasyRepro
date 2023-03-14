@@ -36,7 +36,7 @@ namespace WCCIS.specs.StepDefinitions
 
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(2000);
+            xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
@@ -47,6 +47,25 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(4000);
 
         }
+
+        [Then(@"the returned record will show the correct name, id, dob & address")]
+        public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
+        {
+            Actions act = new Actions(driver);
+
+            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
+            act.DoubleClick(row).Perform();
+            xrmBrowser.ThinkTime(3000);
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            driver.SwitchTo().Window(driver.WindowHandles[2]);
+            driver.SwitchTo().Frame("contentIFrame0");
+            driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
+            driver.FindElement(By.XPath("//*[text()='TEST, Billy (WCCIS ID: 4073889)']"));
+            driver.FindElement(By.XPath("//*[text()='11 GRANGE STREET']"));
+            driver.FindElement(By.XPath("//*[text()='PORT TALBOT ']"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'12/08/1976')]]"));
+        }
+
 
         [Then(@"the returned record will show the correct name and id '([^']*)'")]
         public void ThenTheReturnedRecordWillShowTheCorrectNameAndId(string name)
@@ -64,7 +83,7 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [Then(@"the returned record will show the correct house number & street '([^']*)'")]
-        public void ThenTheReturnedRecordWillShowTheCorrectHouseNumberStreet(string p0)
+        public void ThenTheReturnedRecordWillShowTheCorrectHouseNumberStreet(string houseNoAndStreet)
         {
             driver.FindElement(By.XPath("//*[text()='11 GRANGE STREET']"));
         }
@@ -84,16 +103,16 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [When(@"i perform a person search using a wildcards '([^']*)', '([^']*)' & dob '([^']*)'")]
-        public void WhenIPerformAPersonSearchUsingAWildcardsDob(string p0, string p1, string p2)
+        public void WhenIPerformAPersonSearchUsingAWildcardsDob(string firstLetter, string secondLetter, string dob)
         {
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("B*");
+            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstLetter);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys("T*");
+            driver.FindElement(By.Name("txtLastName")).SendKeys(secondLetter);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtDOB")).SendKeys("12/08/1976");
+            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
             xrmBrowser.ThinkTime(1000);
 
             driver.FindElement(By.Name("btnFind")).Click();
@@ -108,16 +127,17 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"i perform a person search using a person id '([^']*)'")]
         public void WhenIPerformAPersonSearchUsingAPersonId(string personId)
         {
+            // need to pass the person id so other methods can use it in this script
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]")).SendKeys("4073889");
+            driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]")).SendKeys(personId);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("btnFind")).Click();
             xrmBrowser.ThinkTime(2000);
             xrmBrowser.ThinkTime(2000);
             Actions act = new Actions(driver);
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
+            IWebElement row = driver.FindElement(By.XPath("//*[text()='" + personId + "']"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(5000);
         }
