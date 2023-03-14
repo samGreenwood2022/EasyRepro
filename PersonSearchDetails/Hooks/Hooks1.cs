@@ -26,7 +26,7 @@ namespace PersonSearchDetails.Hooks
         {
             var xrmBrowser = new Microsoft.Dynamics365.UIAutomation.Api.Browser(TestSettings.Options);
             var driver = xrmBrowser.Driver;
-            DHCWExtentions.Login(xrmBrowser, _username, _password);
+            DHCWExtensions.Login(xrmBrowser, _username, _password);
             xrmBrowser.GuidedHelp.CloseGuidedHelp();
             driver.Manage().Window.Maximize();
 
