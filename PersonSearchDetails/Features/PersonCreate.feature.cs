@@ -75,11 +75,11 @@ namespace PersonSearchDetails.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a new person by completing mandatory fields only")]
+        [NUnit.Framework.DescriptionAttribute("Ensure a new person can be created by completing mandatory fields only")]
         [NUnit.Framework.CategoryAttribute("tag1")]
         [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", null)]
         [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Chinese", "Female", null)]
-        public void CreateANewPersonByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string[] exampleTags)
+        public void EnsureANewPersonCanBeCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "tag1"};
@@ -94,7 +94,7 @@ namespace PersonSearchDetails.Features
             argumentsOfScenario.Add("dateMovedIn", dateMovedIn);
             argumentsOfScenario.Add("Ethnicity", ethnicity);
             argumentsOfScenario.Add("Gender", gender);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new person by completing mandatory fields only", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ensure a new person can be created by completing mandatory fields only", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
