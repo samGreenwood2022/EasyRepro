@@ -22,6 +22,8 @@ namespace WCCIS.specs.StepDefinitions
 
         public PersonCreateStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
         {
+            // Create an instance of our webbrowser (defined in the Hooks) to be used by all methods in this class
+            // also create an instance of a dynamics365 library (xrmBrowser) containing commands we can use
             driver = webDriver;
             xrmBrowser = browser;
         }
@@ -48,7 +50,7 @@ namespace WCCIS.specs.StepDefinitions
 
 
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnlyJohnAndAndAndAfricanAndMale(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
+        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
         {
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
@@ -89,6 +91,7 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"new person can be returned in a search (.*) and (.*)")]
         public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
+            // search for our person
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
@@ -102,16 +105,16 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(2000);
 
 
-            // finds the element that stores the person id
-            // searching for a partial id, then getting the text value
+            // finds the element that stores the person id by searching on a partial id
+            // then getting the text value from that element
             String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
-            Console.WriteLine(personId);
-            
-
+            Console.WriteLine(personId);           
+            // the Actions class contains functions like 'doubleClick' which can be used on ui elements
             Actions act = new Actions(driver);
             IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(2000);
+            // switch tio the correctr browser window and iFrame we want to use
             driver.SwitchTo().Window(driver.WindowHandles.First());
             driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");

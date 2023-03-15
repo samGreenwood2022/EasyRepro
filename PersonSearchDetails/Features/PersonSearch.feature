@@ -4,7 +4,7 @@ ensure the returned record is correct
 
 @mytag1
 Scenario: A person search using forename, surname & dob
-	Given that i login with a username & password
+	Given that i've logged in as an administrator
 	When i perform a person search using firstname 'Billy', lastname 'Test' & dob '12/08/1976'
 	Then the returned record will show the correct name, id, dob & address
 
