@@ -1,14 +1,15 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Browser;
+﻿using Microsoft.Dynamics365.UIAutomation.Api;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using System;
 using System.Security;
 using System.Text;
 
-namespace Microsoft.Dynamics365.UIAutomation.Sample.Extentions
+namespace WCCIS.Specs.Extentions
 {
     public static class DHCWExtensions
     {       // this code will log us into CareDirector
-        public static void Login(Api.Browser xrmBrowser, SecureString _username, SecureString _password)
+        public static void Login(Browser xrmBrowser, SecureString _username, SecureString _password)
         {
             // wait for page to load
             var driver = xrmBrowser.Driver;

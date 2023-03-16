@@ -1,11 +1,11 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
-using Microsoft.Dynamics365.UIAutomation.Sample;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using System.Security;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using BoDi;
 using Microsoft.Dynamics365.UIAutomation.Api;
+using WCCIS.Specs;
+using WCCIS.Specs.Extentions;
 
 namespace PersonSearchDetails.Hooks
 {

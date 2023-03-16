@@ -11,10 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Dynamics365.UIAut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Dynamics365.UIAutomation.Api.UCI", "Microsoft.Dynamics365.UIAutomation.Api.UCI\Microsoft.Dynamics365.UIAutomation.Api.UCI.csproj", "{AFCB5BB5-4512-4019-A911-5D56CFF4F3D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowCalculator", "SpecFlowCalculator\SpecFlowCalculator.csproj", "{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowCalculator.Specs", "SpecFlowCalculator.Specs\SpecFlowCalculator.Specs.csproj", "{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCCIS.Specs", "PersonSearchDetails\WCCIS.Specs.csproj", "{A2D39B17-32FB-4015-A0F8-4878888257F2}"
 EndProject
 Global
@@ -48,18 +44,6 @@ Global
 		{AFCB5BB5-4512-4019-A911-5D56CFF4F3D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFCB5BB5-4512-4019-A911-5D56CFF4F3D0}.UnitTest|Any CPU.ActiveCfg = Release|Any CPU
 		{AFCB5BB5-4512-4019-A911-5D56CFF4F3D0}.UnitTest|Any CPU.Build.0 = Release|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.UnitTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2FFE7C0-515B-4DEF-BC49-7A5DE816BA59}.UnitTest|Any CPU.Build.0 = Debug|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.UnitTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{44A239A2-75D7-4A52-BC67-96DC4BECAA2C}.UnitTest|Any CPU.Build.0 = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2D39B17-32FB-4015-A0F8-4878888257F2}.Release|Any CPU.ActiveCfg = Release|Any CPU

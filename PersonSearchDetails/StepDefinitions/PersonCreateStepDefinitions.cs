@@ -1,13 +1,12 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WCCIS.Specs.Extentions;
 
 namespace WCCIS.specs.StepDefinitions
 {
