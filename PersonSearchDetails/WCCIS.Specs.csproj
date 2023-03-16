@@ -93,6 +93,7 @@
     <Compile Include="StepDefinitions\PersonCreateStepDefinitions.cs" />
     <Compile Include="StepDefinitions\PersonSearchStepDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -114,10 +115,6 @@
     <ProjectReference Include="..\Microsoft.Dynamics365.UIAutomation.Browser\Microsoft.Dynamics365.UIAutomation.Browser.csproj">
       <Project>{c9748803-f3cb-4531-b313-bc24d4d0bf0c}</Project>
       <Name>Microsoft.Dynamics365.UIAutomation.Browser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Dynamics365.UIAutomation.Sample\Microsoft.Dynamics365.UIAutomation.Sample.csproj">
-      <Project>{a075b87e-dca5-4a2a-909b-932e2f5f98b4}</Project>
-      <Name>Microsoft.Dynamics365.UIAutomation.Sample</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
