@@ -14,7 +14,7 @@ Scenario: A person search using wildcards
 	When i perform a person search using a wildcards 'B*', 'T*' & dob '12/08/1976'
 	Then the returned record will show the correct name, id, dob & address
 
-	@mytag3
+@mytag3
 Scenario: A person search using person id
 	Given that i login with a username & password
 	When i perform a person search using a person id '4073889'
