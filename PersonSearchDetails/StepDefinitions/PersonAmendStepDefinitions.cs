@@ -15,7 +15,7 @@ namespace PersonSearchDetails.StepDefinitions
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
         public string lastname { get; set; }
-        public string personId { get; set; }
+        // public string personId { get; set; }
         public string dateMovedIn { get; set; }
 
         public string propertyNo = "137";
@@ -112,11 +112,11 @@ namespace PersonSearchDetails.StepDefinitions
         public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstname, string dob)
         {
             // call our personSearch method
-            DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            string personId = DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
             
             // switch tio the correct browser window and iFrame we want to use
-            driver.SwitchTo().Window(driver.WindowHandles.First());
-            driver.SwitchTo().Window(driver.WindowHandles[2]);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
