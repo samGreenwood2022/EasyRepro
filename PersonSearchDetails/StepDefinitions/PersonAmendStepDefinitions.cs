@@ -16,13 +16,14 @@ namespace PersonSearchDetails.StepDefinitions
         private readonly Browser xrmBrowser;
         public string lastname { get; set; }
         public string personId { get; set; }
+        public string dateMovedIn { get; set; }
 
         public string propertyNo = "137";
         public string street = "Clydesdale Road";
         public string townCity = "Newcastle Upon Tyne";
         public string county = "Tyne and Wear";
         public string postCode = "NE6 2EQ";
-        // public string dateMovedInNew = "01/01/2003";
+
 
         public PersonAmendStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
         {
@@ -88,6 +89,8 @@ namespace PersonSearchDetails.StepDefinitions
 
             // search for our person, the search person method should be called from here
             DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+
+            
         }
 
         [When(@"i amend a persons primary address details (.*) and (.*) and (.*) and (.*) and (.*)")]
@@ -97,10 +100,12 @@ namespace PersonSearchDetails.StepDefinitions
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
             xrmBrowser.ThinkTime(2000);
+            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2010");
             DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
             xrmBrowser.ThinkTime(1000);
             // xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(6000);
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
