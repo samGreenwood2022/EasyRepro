@@ -52,25 +52,31 @@ namespace WCCIS.Specs.Extentions
         {
             driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
+            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(Keys.Return);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(firstLineOfAddress);
+            driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(Keys.Return);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"address1_city_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(townCity);
+            driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(Keys.Return);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(county);
+            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(Keys.Return);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
+            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(Keys.Return);
             // click postcode lookup
             // driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
             xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
         }
 
-        public static void personSearch(Browser xrmBrowser, IWebDriver driver, string firstname, string lastname, string dob )
+        public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstname, string lastname, string dob)
         {
             // search for our person, the search person method should be called from here
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
@@ -95,12 +101,15 @@ namespace WCCIS.Specs.Extentions
             IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(2000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //driver.Close();
             // switch to the correct browser window and iFrame we want to use
-            driver.SwitchTo().Window(driver.WindowHandles.First());
-            driver.SwitchTo().Window(driver.WindowHandles[2]);
+            // driver.SwitchTo().Window(driver.WindowHandles.First());
+            // driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");
             // driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             xrmBrowser.ThinkTime(2000);
+            return personId;
 
         }
     }

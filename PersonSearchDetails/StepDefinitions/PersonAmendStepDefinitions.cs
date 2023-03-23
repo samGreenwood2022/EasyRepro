@@ -15,14 +15,15 @@ namespace PersonSearchDetails.StepDefinitions
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
         public string lastname { get; set; }
-        public string personId { get; set; }
+        // public string personId { get; set; }
+        public string dateMovedIn { get; set; }
 
         public string propertyNo = "137";
         public string street = "Clydesdale Road";
         public string townCity = "Newcastle Upon Tyne";
         public string county = "Tyne and Wear";
         public string postCode = "NE6 2EQ";
-        // public string dateMovedInNew = "01/01/2003";
+
 
         public PersonAmendStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
         {
@@ -68,7 +69,7 @@ namespace PersonSearchDetails.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             // add an address (currently hard coded above)
             DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-            
+
             //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
             //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
             //xrmBrowser.ThinkTime(1000);
@@ -79,7 +80,7 @@ namespace PersonSearchDetails.StepDefinitions
             //driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
             // click postcode lookup
             //driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
-            
+
             xrmBrowser.ThinkTime(1000);
             // save the record
             // xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
@@ -88,6 +89,8 @@ namespace PersonSearchDetails.StepDefinitions
 
             // search for our person, the search person method should be called from here
             DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+
+
         }
 
         [When(@"i amend a persons primary address details (.*) and (.*) and (.*) and (.*) and (.*)")]
@@ -97,21 +100,23 @@ namespace PersonSearchDetails.StepDefinitions
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
             xrmBrowser.ThinkTime(2000);
+            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2010");
             DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
             xrmBrowser.ThinkTime(1000);
             // xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(6000);
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
         public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstname, string dob)
         {
             // call our personSearch method
-            DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
-            
+            string personId = DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+
             // switch tio the correct browser window and iFrame we want to use
-            driver.SwitchTo().Window(driver.WindowHandles.First());
-            driver.SwitchTo().Window(driver.WindowHandles[2]);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
