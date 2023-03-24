@@ -90,6 +90,7 @@
     <Compile Include="Extentions\DHCWExtentions.cs" />
     <Compile Include="SharedAPI\AzureInsights\OpenLead.cs" />
     <Compile Include="SharedAPI\BrowserTests\BrowserTests.cs" />
+    <Compile Include="TestScripts\ScriptTemplate.cs" />
     <Compile Include="TestScripts\PersonSearch-PersonId.cs" />
     <Compile Include="TestScripts\PersonCreate.cs" />
     <Compile Include="TestScripts\PersonSearch-Wildcard.cs" />

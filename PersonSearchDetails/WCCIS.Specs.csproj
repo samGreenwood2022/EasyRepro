@@ -103,7 +103,6 @@
     <Compile Include="StepDefinitions\PersonCreateStepDefinitions.cs" />
     <Compile Include="StepDefinitions\PersonSearchStepDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepDefinitions\PersonSearchVerifyRecordStepDefinitions.cs" />
     <Compile Include="TestSettings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +113,6 @@
     <None Include="Features\PersonCreate.feature" />
     <None Include="Features\PersonSearch.feature" />
     <None Include="packages.config" />
-    <None Include="Scripts\DemoPersonSearch.feature" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Dynamics365.UIAutomation.Api.UCI\Microsoft.Dynamics365.UIAutomation.Api.UCI.csproj">
@@ -134,7 +132,9 @@
       <Name>Microsoft.Dynamics365.UIAutomation.Sample</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
