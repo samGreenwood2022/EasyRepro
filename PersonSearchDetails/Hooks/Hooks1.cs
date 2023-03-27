@@ -34,7 +34,7 @@ namespace PersonSearchDetails.Hooks
             driver.Manage().Window.Maximize();
 
             // here we are storing an instance of IWebDriver and Browser
-            // IWebDriver allows us to control our Browser
+            // IWebDriver allows us to control our Browser and also allows us to call Selenium commands to interact with html elements
             // Browser contains Dynamics365 methods allowing us to interact the app, ie click certian option in the command bar
             // this step has a Binding with each scenario and passes these values to each step definition
             _objectContainer.RegisterInstanceAs<IWebDriver>(driver);
