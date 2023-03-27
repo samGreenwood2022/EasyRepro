@@ -36,6 +36,7 @@ namespace PersonSearchDetails.Hooks
             // here we are storing an instance of IWebDriver and Browser
             // IWebDriver allows us to control our Browser
             // Browser contains Dynamics365 methods allowing us to interact the app, ie click certian option in the command bar
+            // this step has a Binding with each scenario and passes these values to each step definition
             _objectContainer.RegisterInstanceAs<IWebDriver>(driver);
             _objectContainer.RegisterInstanceAs<Browser>(xrmBrowser);
 

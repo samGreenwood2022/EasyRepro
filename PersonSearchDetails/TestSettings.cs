@@ -18,7 +18,7 @@ namespace WCCIS.Specs
             BrowserType = (BrowserType)Enum.Parse(typeof(BrowserType), Type),
             PrivateMode = false,
             FireEvents = false,
-            Headless = false,
+            Headless = true,
             UserAgent = false,
             //DriversPath = @"""C:\Users\sa286848\Documents\RedCortex\EasyRepro\Microsoft.Dynamics365.UIAutomation.Sample\chromedriver\chromedriver.exe"""
         };
