@@ -112,9 +112,11 @@
     <None Include="Features\PersonAmend.feature" />
     <None Include="Features\PersonCreate.feature" />
     <None Include="Features\PersonSearch.feature" />
+    <None Include="Features\Person\PER0004.feature" />
     <None Include="Features\Person\PER0003.feature" />
     <None Include="Features\Person\PER0002.feature" />
     <None Include="Features\Person\PER0001.feature" />
+    <None Include="Features\Person\PER0006.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
