@@ -112,6 +112,9 @@
     <None Include="Features\PersonAmend.feature" />
     <None Include="Features\PersonCreate.feature" />
     <None Include="Features\PersonSearch.feature" />
+    <None Include="Features\Person\PER0003.feature" />
+    <None Include="Features\Person\PER0002.feature" />
+    <None Include="Features\Person\PER0001.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +136,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Person\" />
     <Folder Include="Features\Referral\" />
     <Folder Include="Scripts\" />
   </ItemGroup>

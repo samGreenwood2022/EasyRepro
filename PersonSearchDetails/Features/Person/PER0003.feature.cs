@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features
+namespace PersonSearchDetails.Features.Person
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,23 +20,23 @@ namespace PersonSearchDetails.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Person Search")]
-    public partial class PersonSearchFeature
+    [NUnit.Framework.DescriptionAttribute("Person Search - personId")]
+    public partial class PersonSearch_PersonIdFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "PersonSearch.feature"
+#line 1 "PER0003.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Person Search", "To ensure a person search can be performed\r\nensure the returned record is correct" +
-                    "", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Person Search - personId", "To ensure a person search can be performed using a personId\r\nensure the returned " +
+                    "record is correct", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,14 +76,14 @@ namespace PersonSearchDetails.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("A person search using person id")]
-        [NUnit.Framework.CategoryAttribute("mytag3")]
+        [NUnit.Framework.CategoryAttribute("smokeTest")]
         public void APersonSearchUsingPersonId()
         {
             string[] tagsOfScenario = new string[] {
-                    "mytag3"};
+                    "smokeTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using person id", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -93,13 +93,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 19
+#line 8
  testRunner.Given("that i login with a username & password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
+#line 9
  testRunner.When("i perform a person search using a person id \'4073889\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
+#line 10
  testRunner.Then("the returned record will show the correct name, id, dob & address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
