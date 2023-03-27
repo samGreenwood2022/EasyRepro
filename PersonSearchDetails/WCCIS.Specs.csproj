@@ -109,6 +109,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Features\Feature1.feature" />
     <None Include="Features\PersonAmend.feature" />
     <None Include="Features\PersonCreate.feature" />
     <None Include="Features\PersonSearch.feature" />
