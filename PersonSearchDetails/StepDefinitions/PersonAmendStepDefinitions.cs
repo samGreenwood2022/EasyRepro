@@ -98,7 +98,7 @@ namespace PersonSearchDetails.StepDefinitions
         {
             xrmBrowser.ThinkTime(2000);
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][1]")).Click();
             xrmBrowser.ThinkTime(2000);
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();

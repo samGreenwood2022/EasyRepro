@@ -81,7 +81,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
             xrmBrowser.ThinkTime(1000);
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
             Console.WriteLine(lastname);
              
@@ -129,6 +129,15 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
 
         }
+
+        [Then(@"the expected audit events would be created")]
+        public void ThenTheExpectedAuditEventsWouldBeCreated()
+        {
+            xrmBrowser.ThinkTime(1000);
+            DHCWExtensions.selectFormSectionsMenu(driver, "audit information");
         
+        }
+
+
     }
 }

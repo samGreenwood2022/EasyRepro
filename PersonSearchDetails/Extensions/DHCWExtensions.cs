@@ -12,6 +12,7 @@ namespace WCCIS.Specs.Extentions
     public static class DHCWExtensions
     {       
         public static string dateMovedInNew = "01/01/2003";
+        public static int menuNumber;
         // this code will log us into CareDirector
         public static void Login(Browser xrmBrowser, SecureString _username, SecureString _password)
         {
@@ -112,5 +113,30 @@ namespace WCCIS.Specs.Extentions
             return personId;
 
         }
+
+        public static void selectFormSectionsMenu(IWebDriver driver, string option)
+        {
+            // this code selects an option in the Form Sections Menu
+            if (option == "core demographics")
+            {
+                menuNumber = 1;
+            }
+
+            if (option == "general practitioner information")
+            {
+                menuNumber = 2;
+            }
+
+            if (option == "audit information")
+            {
+                menuNumber = 3;
+            }
+
+            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][" + menuNumber + "]")).Click();
+
+
+        }
+
+
     }
 }
