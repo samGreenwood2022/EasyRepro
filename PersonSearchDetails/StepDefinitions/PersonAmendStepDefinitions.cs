@@ -97,8 +97,10 @@ namespace PersonSearchDetails.StepDefinitions
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postcode)
         {
             xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][1]")).Click();
+
+            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "core demographics");
+            //driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
+            //driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][1]")).Click();
             xrmBrowser.ThinkTime(2000);
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
@@ -106,6 +108,7 @@ namespace PersonSearchDetails.StepDefinitions
             DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
             xrmBrowser.ThinkTime(1000);
             // xrmBrowser.CommandBar.ClickCommand("SAVE");
+            
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]

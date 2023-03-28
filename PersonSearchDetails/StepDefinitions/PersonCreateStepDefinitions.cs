@@ -134,7 +134,7 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheExpectedAuditEventsWouldBeCreated()
         {
             xrmBrowser.ThinkTime(1000);
-            DHCWExtensions.selectFormSectionsMenu(driver, "audit information");
+            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser,"audit information");
         
         }
 
