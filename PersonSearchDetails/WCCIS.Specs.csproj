@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DHCWExtensions.cs" />
-    <Compile Include="Features\PersonSearch.feature.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="PageObjects\Class1.cs" />
     <Compile Include="StepDefinitions\PersonAmendStepDefinitions.cs" />
@@ -109,10 +108,11 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Features\Feature1.feature" />
-    <None Include="Features\PersonAmend.feature" />
-    <None Include="Features\PersonCreate.feature" />
-    <None Include="Features\PersonSearch.feature" />
+    <None Include="Features\Person\PER0004.feature" />
+    <None Include="Features\Person\PER0003.feature" />
+    <None Include="Features\Person\PER0002.feature" />
+    <None Include="Features\Person\PER0001.feature" />
+    <None Include="Features\Person\PER0006.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +134,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\Referral\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

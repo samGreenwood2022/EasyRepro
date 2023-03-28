@@ -1,6 +1,6 @@
 ﻿Feature: Person Create
 
-Allows the user to create a new Person
+Allows the user to create a new Person using mandatory fields only
 The newly created person can then be returned from a person search
 
 @tag1
