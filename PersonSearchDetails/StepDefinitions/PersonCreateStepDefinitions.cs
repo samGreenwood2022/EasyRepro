@@ -69,8 +69,6 @@ namespace WCCIS.specs.StepDefinitions
             // enter value into preferred language field
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
-
-
             // Select the first value from the gender picklist
             driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
             var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
