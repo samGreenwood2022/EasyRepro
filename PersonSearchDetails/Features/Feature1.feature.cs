@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features.Person
+namespace PersonSearchDetails.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,23 +20,23 @@ namespace PersonSearchDetails.Features.Person
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Person Create")]
-    public partial class PersonCreateFeature
+    [NUnit.Framework.DescriptionAttribute("Audit events - Create person")]
+    public partial class AuditEvents_CreatePersonFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "PER0004.feature"
+#line 1 "Feature1.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Person Create", "Allows the user to create a new Person using mandatory fields only\r\nThe newly cre" +
-                    "ated person can then be returned from a person search", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Audit events - Create person", "Test PER0007 has been automated fro the regression pack\r\nThis test will ensure th" +
+                    "at the correct audit events have \r\nbeen created when a new person is created", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,28 +75,17 @@ namespace PersonSearchDetails.Features.Person
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Ensure a new person can be created by completing mandatory fields only")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", "Welsh", null)]
-        [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Chinese", "Female", "English", null)]
-        public void EnsureANewPersonCanBeCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("To verify that a newly created person has the correct Audit logs created against " +
+            "them")]
+        [NUnit.Framework.CategoryAttribute("smokeTest")]
+        public void ToVerifyThatANewlyCreatedPersonHasTheCorrectAuditLogsCreatedAgainstThem()
         {
-            string[] @__tags = new string[] {
-                    "tag1"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = new string[] {
+                    "smokeTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("firstname", firstname);
-            argumentsOfScenario.Add("dob", dob);
-            argumentsOfScenario.Add("dateMovedIn", dateMovedIn);
-            argumentsOfScenario.Add("Ethnicity", ethnicity);
-            argumentsOfScenario.Add("Gender", gender);
-            argumentsOfScenario.Add("preferredLanguage", preferredLanguage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ensure a new person can be created by completing mandatory fields only", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("To verify that a newly created person has the correct Audit logs created against " +
+                    "them", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -106,15 +95,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
- testRunner.When(string.Format("a person is created by completing mandatory fields only {0} and {1} and {2} and {" +
-                            "3} and {4} and {5}", firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 10
- testRunner.Then(string.Format("new person can be returned in a search {0} and {1}", firstname, dob), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("i perform a person search using firstname \'Billy\', lastname \'Test\' & dob \'12/08/1" +
+                        "976\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }
             this.ScenarioCleanup();
