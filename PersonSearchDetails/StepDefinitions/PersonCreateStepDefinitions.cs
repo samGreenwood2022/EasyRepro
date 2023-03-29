@@ -58,6 +58,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
@@ -95,6 +96,7 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
             // search for our person
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);

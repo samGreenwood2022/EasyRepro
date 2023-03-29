@@ -33,8 +33,8 @@ namespace PersonSearchDetails.StepDefinitions
             xrmBrowser = browser;
         }
 
-        [Given(@"a known person already exists in the system (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
+        [Given(@"a known person already exists in the system (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
+        public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // Create a new person - can we call the  method 'When a person is created by completing mandatory fields only'
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
@@ -52,6 +52,9 @@ namespace PersonSearchDetails.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
             xrmBrowser.ThinkTime(1000);
+            // enter value into preferred language field
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
             // Select the first value from the gender picklist
             driver.FindElement(By.XPath("//*[@id=\"gendercode_cl\"]")).Click();
 
@@ -97,9 +100,8 @@ namespace PersonSearchDetails.StepDefinitions
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postcode)
         {
             xrmBrowser.ThinkTime(2000);
-            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "core demographics");
-            //driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
-            //driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][1]")).Click();
+            driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
             xrmBrowser.ThinkTime(2000);
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
@@ -107,7 +109,6 @@ namespace PersonSearchDetails.StepDefinitions
             DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
             xrmBrowser.ThinkTime(1000);
             // xrmBrowser.CommandBar.ClickCommand("SAVE");
-            
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
