@@ -78,9 +78,9 @@ namespace PersonSearchDetails.Features
         [NUnit.Framework.DescriptionAttribute("To verify that a newly created person has the correct Audit logs created against " +
             "them")]
         [NUnit.Framework.CategoryAttribute("smokeTest")]
-        [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", null)]
-        [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Chinese", "Female", null)]
-        public void ToVerifyThatANewlyCreatedPersonHasTheCorrectAuditLogsCreatedAgainstThem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", "English", null)]
+        [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Chinese", "Female", "Welsh", null)]
+        public void ToVerifyThatANewlyCreatedPersonHasTheCorrectAuditLogsCreatedAgainstThem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "smokeTest"};
@@ -95,6 +95,7 @@ namespace PersonSearchDetails.Features
             argumentsOfScenario.Add("dateMovedIn", dateMovedIn);
             argumentsOfScenario.Add("Ethnicity", ethnicity);
             argumentsOfScenario.Add("Gender", gender);
+            argumentsOfScenario.Add("preferredLanguage", preferredLanguage);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("To verify that a newly created person has the correct Audit logs created against " +
                     "them", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 8
@@ -112,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 10
  testRunner.When(string.Format("a person is created by completing mandatory fields only {0} and {1} and {2} and {" +
-                            "3} and {4}", firstname, dob, dateMovedIn, ethnicity, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                            "3} and {4} and {5}", firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
  testRunner.Then("the expected audit events would be created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

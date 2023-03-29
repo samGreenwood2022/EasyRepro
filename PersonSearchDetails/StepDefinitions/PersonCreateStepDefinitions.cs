@@ -49,7 +49,7 @@ namespace WCCIS.specs.StepDefinitions
 
 
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender)
+        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
@@ -134,10 +134,10 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheExpectedAuditEventsWouldBeCreated()
         {
             xrmBrowser.ThinkTime(1000);
-            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser,"audit information");
-        
-        }
+            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "audit information");
 
+
+        }
 
     }
 }
