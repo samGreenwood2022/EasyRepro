@@ -71,7 +71,7 @@ namespace WCCIS.Specs.Extentions
             driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(Keys.Return);
             // click postcode lookup
             // driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
-            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.ThinkTime(2000);
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(1000);
         }
