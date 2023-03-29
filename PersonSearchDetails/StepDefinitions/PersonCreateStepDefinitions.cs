@@ -1,5 +1,6 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -48,7 +49,7 @@ namespace WCCIS.specs.StepDefinitions
         }
 
 
-        [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*)")]
+        [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
@@ -66,6 +67,9 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
             xrmBrowser.ThinkTime(1000);
+            // enter value into preferred language field
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
             // Select the first value from the gender picklist
             driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
             var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
@@ -134,7 +138,25 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheExpectedAuditEventsWouldBeCreated()
         {
             xrmBrowser.ThinkTime(1000);
+            // select 'audit information' from person record
             DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "audit information");
+            xrmBrowser.ThinkTime(1000);
+            // gets the value of the created by field
+            var createdBy = driver.FindElement(By.XPath("//*[@id=\"createdby_lookupValue\"]")).Text;
+            // writes the value of userId to the console
+            Console.WriteLine(createdBy);
+            // perform an assertion to ensure userId is as expected
+            Assert.AreEqual(createdBy, "CCIS Test16");
+            xrmBrowser.ThinkTime(1000);
+
+            // gets the value of the created by field
+            string createdDate = driver.FindElement(By.XPath("//*[@id=\"Created On_label\"]")).Text;
+            // get letters 0-10 of the createdDate string
+            string shortDate = createdDate.Substring(0, 10);
+            // get todays date and store in the same format as the shortDate string
+            var todaysDate = DateTime.Now.ToString("dd/MM/yyyy");
+            Assert.AreEqual(shortDate, todaysDate);
+            xrmBrowser.ThinkTime(2000);
 
 
         }

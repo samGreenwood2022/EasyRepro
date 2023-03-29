@@ -97,7 +97,6 @@ namespace PersonSearchDetails.StepDefinitions
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postcode)
         {
             xrmBrowser.ThinkTime(2000);
-
             DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "core demographics");
             //driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             //driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][1]")).Click();

@@ -117,27 +117,25 @@ namespace WCCIS.Specs.Extentions
         public static void selectFormSectionsMenu(IWebDriver driver, Browser xrmBrowser, string option)
         {
             // here we click on the navigation control icon to open the form sections menu
+            // selecting the correct frame first
+            driver.SwitchTo().Frame("contentIFrame1");
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             xrmBrowser.ThinkTime(1000);
             // this code selects an option in the Form Sections Menu
             if (option == "core demographics")
             {
-                menuNumber = 1;
+                driver.FindElement(By.XPath("//td[@title='Core Demographics']")).Click();
             }
 
             if (option == "general practitioner information")
             {
-                menuNumber = 2;
+                driver.FindElement(By.XPath("//td[@title='General Practitioner Information']")).Click();
             }
 
             if (option == "audit information")
             {
-                menuNumber = 3;
+                driver.FindElement(By.XPath("//td[@title='Audit Information']")).Click();
             }
-            // menuNumber 1, 2 or 3 will inserted into this XPath selector, there are 3 elements in 
-            // the DOM called 'flyoutFormSection_Cell', selecting 1, 2 or 3 selects the corresponding menu item
-            driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"][" + menuNumber + "]")).Click();
-
         }
 
 
