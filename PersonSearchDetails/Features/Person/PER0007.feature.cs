@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features
+namespace PersonSearchDetails.Features.Person
 {
     using TechTalk.SpecFlow;
     using System;
@@ -35,7 +35,7 @@ namespace PersonSearchDetails.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Audit events - Create person", "Test PER0007 has been automated fro the regression pack\r\nThis test will ensure th" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Audit events - Create person", "Test PER0007 has been automated fro the regression pack\r\nThis test will ensure th" +
                     "at the correct audit events have \r\nbeen created when a new person is created", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
