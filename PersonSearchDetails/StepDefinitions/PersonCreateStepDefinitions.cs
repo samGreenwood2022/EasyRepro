@@ -248,7 +248,14 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"the duplicate detection rules will trigger")]
         public void ThenTheDuplicateDetectionRulesWillTrigger()
         {
-            // upon writing this script the duplicate detection rules werent in place
+            driver.SwitchTo().Frame("id = \"InlineDialog_Iframe\"");
+            xrmBrowser.ThinkTime(1000);
+            String errorTextd = driver.FindElement(By.XPath("//*[@id=\"ErrorTitle\"]")).Text;
+            xrmBrowser.ThinkTime(1000);
+            Assert.AreEqual(errorTextd, "Duplicate Record");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.XPath("//*[@id=\"ErrorTitle\"]")).Click();
+
             driver.FindElement(By.XPath("//*[@id=\"Duplicate detect rules popup\"]")).Click();
             Console.WriteLine("Duplicate detection rules currently not in place");
         }
