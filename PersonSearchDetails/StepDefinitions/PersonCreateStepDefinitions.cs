@@ -1,5 +1,6 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -57,6 +58,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
@@ -84,7 +86,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
             xrmBrowser.ThinkTime(1000);
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
             Console.WriteLine(lastname);
              
@@ -94,6 +96,7 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
             // search for our person
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
@@ -132,6 +135,33 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
 
         }
-        
+
+        [Then(@"the expected audit events would be created")]
+        public void ThenTheExpectedAuditEventsWouldBeCreated()
+        {
+            xrmBrowser.ThinkTime(1000);
+            // select 'audit information' from person record
+            DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "audit information");
+            xrmBrowser.ThinkTime(1000);
+            // gets the value of the created by field
+            var createdBy = driver.FindElement(By.XPath("//*[@id=\"createdby_lookupValue\"]")).Text;
+            // writes the value of userId to the console
+            Console.WriteLine(createdBy);
+            // perform an assertion to ensure userId is as expected
+            Assert.AreEqual(createdBy, "CCIS Test16");
+            xrmBrowser.ThinkTime(1000);
+
+            // gets the value of the created by field
+            string createdDate = driver.FindElement(By.XPath("//*[@id=\"Created On_label\"]")).Text;
+            // get letters 0-10 of the createdDate string
+            string shortDate = createdDate.Substring(0, 10);
+            // get todays date and store in the same format as the shortDate string
+            var todaysDate = DateTime.Now.ToString("dd/MM/yyyy");
+            Assert.AreEqual(shortDate, todaysDate);
+            xrmBrowser.ThinkTime(2000);
+
+
+        }
+
     }
 }
