@@ -108,7 +108,8 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-	<None Include="Features\Person\PER0007.feature" />
+    <None Include="Features\Person\PER0005.feature" />
+    <None Include="Features\Person\PER0007.feature" />
     <None Include="Features\Person\PER0004.feature" />
     <None Include="Features\Person\PER0003.feature" />
     <None Include="Features\Person\PER0002.feature" />
