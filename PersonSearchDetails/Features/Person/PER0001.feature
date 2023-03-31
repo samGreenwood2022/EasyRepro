@@ -1,4 +1,6 @@
-﻿Feature: Person Search - Details
+﻿Feature: PER0001 - Person Search - Details
+
+Regression Pack Scenario - PER0001
 To ensure a person search can be performed using most common search criteria, 
 forename, surname & dob
 ensure the returned record is correct
