@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features.Person
+namespace WCCIS.Specs.Features.Person
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,8 +20,8 @@ namespace PersonSearchDetails.Features.Person
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Person amend")]
-    public partial class PersonAmendFeature
+    [NUnit.Framework.DescriptionAttribute("PER0006 - Person amend")]
+    public partial class PER0006_PersonAmendFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -35,8 +35,8 @@ namespace PersonSearchDetails.Features.Person
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Person amend", "Ensure that a persons core demographic details can be amended by \r\nusing the post" +
-                    " code lookup to amend the primary address", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "PER0006 - Person amend", "Regression Pack Scenario - PER0006\r\nEnsure that a persons core demographic detail" +
+                    "s can be amended by \r\nusing the post code lookup to amend the primary address", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,11 +75,11 @@ namespace PersonSearchDetails.Features.Person
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("To verify that an existing person can have their primary address details successf" +
-            "ully amended")]
+        [NUnit.Framework.DescriptionAttribute("verify that an existing person can have their primary address details successfull" +
+            "y amended")]
         [NUnit.Framework.CategoryAttribute("tag1")]
         [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", "36", "May Avenue", "BLAYDON", "BLAYDON-ON-TYNE", "ne21 6sf", "English", null)]
-        public void ToVerifyThatAnExistingPersonCanHaveTheirPrimaryAddressDetailsSuccessfullyAmended(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string propertyNo, string street, string townCity, string county, string postcode, string preferredLanguage, string[] exampleTags)
+        public void VerifyThatAnExistingPersonCanHaveTheirPrimaryAddressDetailsSuccessfullyAmended(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string propertyNo, string street, string townCity, string county, string postcode, string preferredLanguage, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "tag1"};
@@ -100,9 +100,9 @@ namespace PersonSearchDetails.Features.Person
             argumentsOfScenario.Add("county", county);
             argumentsOfScenario.Add("postcode", postcode);
             argumentsOfScenario.Add("preferredLanguage", preferredLanguage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("To verify that an existing person can have their primary address details successf" +
-                    "ully amended", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("verify that an existing person can have their primary address details successfull" +
+                    "y amended", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -112,17 +112,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  testRunner.And(string.Format("a known person already exists in the system {0} and {1} and {2} and {3} and {4} a" +
                             "nd {5}", firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 11
  testRunner.When(string.Format("i amend a persons primary address details {0} and {1} and {2} and {3} and {4}", propertyNo, street, townCity, county, postcode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 12
  testRunner.Then(string.Format("Then the new address will replace the old address on the persons record {0} and {" +
                             "1}", firstname, dob), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

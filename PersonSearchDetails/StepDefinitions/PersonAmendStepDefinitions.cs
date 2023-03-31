@@ -7,7 +7,7 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
 
-namespace PersonSearchDetails.StepDefinitions
+namespace WCCIS.specs.StepDefinitions
 {
     [Binding]
     public class PersonAmendStepDefinitions

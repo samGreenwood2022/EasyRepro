@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features.Person
+namespace WCCIS.Specs.Features.Person
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,8 +20,8 @@ namespace PersonSearchDetails.Features.Person
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Person Create")]
-    public partial class PersonCreateFeature
+    [NUnit.Framework.DescriptionAttribute("PER0004 - Person Create")]
+    public partial class PER0004_PersonCreateFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -35,8 +35,9 @@ namespace PersonSearchDetails.Features.Person
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Person Create", "Allows the user to create a new Person using mandatory fields only\r\nThe newly cre" +
-                    "ated person can then be returned from a person search", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "PER0004 - Person Create", "Regression Pack Scenario - PER0004\r\nAllows the user to create a new Person using " +
+                    "mandatory fields only\r\nThe newly created person can then be returned from a pers" +
+                    "on search", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -96,7 +97,7 @@ namespace PersonSearchDetails.Features.Person
             argumentsOfScenario.Add("Gender", gender);
             argumentsOfScenario.Add("preferredLanguage", preferredLanguage);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ensure a new person can be created by completing mandatory fields only", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -106,14 +107,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  testRunner.When(string.Format("a person is created by completing mandatory fields only {0} and {1} and {2} and {" +
                             "3} and {4} and {5}", firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 11
  testRunner.Then(string.Format("new person can be returned in a search {0} and {1}", firstname, dob), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

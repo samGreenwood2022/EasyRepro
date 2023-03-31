@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace PersonSearchDetails.Features.Person
+namespace WCCIS.Specs.Features.Person
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,8 +20,8 @@ namespace PersonSearchDetails.Features.Person
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Ensure duplicate detection rules are working")]
-    public partial class EnsureDuplicateDetectionRulesAreWorkingFeature
+    [NUnit.Framework.DescriptionAttribute("PER0005 - Person create - duplicate detection rules")]
+    public partial class PER0005_PersonCreate_DuplicateDetectionRulesFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -35,8 +35,9 @@ namespace PersonSearchDetails.Features.Person
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "Ensure duplicate detection rules are working", "To verify that the duplicate detection rules are in place when creating a new Per" +
-                    "son\r\nDetection rule tested - matching Surname, Forename & DOB", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "PER0005 - Person create - duplicate detection rules", "Regression Pack Scenario - PER0005\r\nTo verify that the duplicate detection rules " +
+                    "are in place when creating a new Person\r\nDetection rule tested - matching Surnam" +
+                    "e, Forename & DOB", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,11 +76,10 @@ namespace PersonSearchDetails.Features.Person
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify that the duplicate detection rules are in place when creating a new Person" +
-            "")]
+        [NUnit.Framework.DescriptionAttribute("duplicate detection rules are in place when creating a new Person")]
         [NUnit.Framework.CategoryAttribute("tag1")]
         [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", "Welsh", null)]
-        public void VerifyThatTheDuplicateDetectionRulesAreInPlaceWhenCreatingANewPerson(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage, string[] exampleTags)
+        public void DuplicateDetectionRulesAreInPlaceWhenCreatingANewPerson(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "tag1"};
@@ -95,9 +95,8 @@ namespace PersonSearchDetails.Features.Person
             argumentsOfScenario.Add("Ethnicity", ethnicity);
             argumentsOfScenario.Add("Gender", gender);
             argumentsOfScenario.Add("preferredLanguage", preferredLanguage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify that the duplicate detection rules are in place when creating a new Person" +
-                    "", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("duplicate detection rules are in place when creating a new Person", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -107,14 +106,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  testRunner.When(string.Format("i create two people using the same details {0} and {1} and {2} and {3} and {4} an" +
                             "d {5}", firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 11
  testRunner.Then("the duplicate detection rules will trigger", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

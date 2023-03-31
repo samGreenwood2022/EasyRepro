@@ -1,6 +1,6 @@
-﻿Feature: Audit events - Create person
+﻿Feature: PER0007 - Person create - audit events
 
-Test PER0007 has been automated fro the regression pack
+Regression Pack Scenario - PER0007
 This test will ensure that the correct audit events have 
 been created when a new person is created
 

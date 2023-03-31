@@ -1,4 +1,6 @@
-﻿Feature: Person Search - wildcards
+﻿Feature: PER0002 - Person Search - wildcards
+
+Regression Pack Scenario - PER0002
 To ensure a person search can be performed when using wildcards
 ensure the returned record is correct
 
