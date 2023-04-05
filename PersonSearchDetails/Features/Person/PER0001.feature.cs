@@ -77,11 +77,11 @@ namespace WCCIS.Specs.Features.Person
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("A person search using forename, surname & dob")]
-        [NUnit.Framework.CategoryAttribute("smokeTest")]
+        [NUnit.Framework.CategoryAttribute("LiveSmokeTest")]
         public void APersonSearchUsingForenameSurnameDob()
         {
             string[] tagsOfScenario = new string[] {
-                    "smokeTest"};
+                    "LiveSmokeTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using forename, surname & dob", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9

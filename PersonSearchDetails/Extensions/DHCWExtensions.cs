@@ -14,11 +14,11 @@ namespace WCCIS.Specs.Extentions
         public static string dateMovedInNew = "01/01/2003";
         public static int menuNumber;
         // this code will log us into CareDirector
-        public static void Login(Browser xrmBrowser, SecureString _username, SecureString _password)
+        public static void Login(IWebDriver webDriver, Browser xrmBrowser, string username, string password)
         {
             // wait for page to load
-            var driver = xrmBrowser.Driver;
-            xrmBrowser.ThinkTime(2000);
+            var driver = webDriver;
+            //var browser = xrmBrowser;
             driver.Navigate().GoToUrl("https://caredirectoruat365.ccis.cymru");
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"bySelection\"]/div[2]/img")).Click();
@@ -27,8 +27,8 @@ namespace WCCIS.Specs.Extentions
             // wait for page to load
             xrmBrowser.ThinkTime(1000);
             // ADFS login screen
-            driver.FindElement(By.Id("userNameInput")).SendKeys(_username.ToUnsecureString());
-            driver.FindElement(By.Id("passwordInput")).SendKeys(_password.ToUnsecureString());
+            driver.FindElement(By.Id("userNameInput")).SendKeys(username);
+            driver.FindElement(By.Id("passwordInput")).SendKeys(password);
             driver.FindElement(By.Id("submitButton")).Click();
             // xrmBrowser.ThinkTime(2000);
         }

@@ -28,25 +28,25 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
-        [Given(@"that i've logged in as an administrator")]
-        public void GivenThatIveLoggedInAsAnAdministrator()
-        {
-            // removes any popups displayed when we 1st log in
-            try
-            {
-                driver.SwitchTo().Frame("InlineDialog_Iframe");
-                xrmBrowser.ThinkTime(2000);
-                driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
+        //[Given(@"that i've logged in as an administrator")]
+        //public void GivenThatIveLoggedInAsAnAdministrator()
+        //{
+        //    // removes any popups displayed when we 1st log in
+        //    try
+        //    {
+        //        driver.SwitchTo().Frame("InlineDialog_Iframe");
+        //        xrmBrowser.ThinkTime(2000);
+        //        driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
                
-            }
-            catch 
-            {
-                Console.WriteLine("No popup displayed");
+        //    }
+        //    catch 
+        //    {
+        //        Console.WriteLine("No popup displayed");
 
-            }
-               // check to ensure the caredirector logo is displayed
-            driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
-        }
+        //    }
+        //       // check to ensure the caredirector logo is displayed
+        //    driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
+        //}
 
 
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
@@ -259,6 +259,28 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"Duplicate detect rules popup\"]")).Click();
             Console.WriteLine("Duplicate detection rules currently not in place");
         }
+
+        [When(@"i create a person to test the mandatory fields")]
+        public void WhenICreateAPersonToTestTheMandatoryFields()
+        {
+            // begin the process of creating a new person
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+
+        }
+
+        [Then(@"the expected mandatory fields are active")]
+        public void ThenTheExpectedMandatoryFieldsAreActive()
+        {
+            throw new PendingStepException();
+        }
+
 
 
     }
