@@ -1,11 +1,9 @@
-﻿using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using System.Security;
-using Microsoft.Dynamics365.UIAutomation.Browser;
-using BoDi;
+﻿using BoDi;
 using Microsoft.Dynamics365.UIAutomation.Api;
-using WCCIS.Specs;
-using WCCIS.Specs.Extentions;
+using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
+using System.Security;
+using TechTalk.SpecFlow;
 
 namespace WCCIS.Specs.Hooks
 {
@@ -29,6 +27,8 @@ namespace WCCIS.Specs.Hooks
             // This before scenario initialises our browser before each test
             var xrmBrowser = new Microsoft.Dynamics365.UIAutomation.Api.Browser(TestSettings.Options);
             var driver = xrmBrowser.Driver;
+            // the below code has been commented out as we are now using our Given statements to
+            // specify which user we would like to log in with
             //DHCWExtensions.Login(xrmBrowser, _username, _password);
             //xrmBrowser.GuidedHelp.CloseGuidedHelp();
             //driver.Manage().Window.Maximize();
