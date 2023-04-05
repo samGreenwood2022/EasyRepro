@@ -28,27 +28,6 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
-        //[Given(@"that i've logged in as an administrator")]
-        //public void GivenThatIveLoggedInAsAnAdministrator()
-        //{
-        //    // removes any popups displayed when we 1st log in
-        //    try
-        //    {
-        //        driver.SwitchTo().Frame("InlineDialog_Iframe");
-        //        xrmBrowser.ThinkTime(2000);
-        //        driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
-               
-        //    }
-        //    catch 
-        //    {
-        //        Console.WriteLine("No popup displayed");
-
-        //    }
-        //       // check to ensure the caredirector logo is displayed
-        //    driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
-        //}
-
-
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {

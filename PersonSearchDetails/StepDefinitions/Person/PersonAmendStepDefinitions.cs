@@ -74,16 +74,6 @@ namespace WCCIS.specs.StepDefinitions
             // add an address (currently hard coded above)
             // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
             PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-            //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
-            //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
-            //xrmBrowser.ThinkTime(1000);
-            //driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]")).Click();
-            //driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(firstLineOfAddress);
-            //xrmBrowser.ThinkTime(1000);
-            //driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]")).Click();
-            //driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
-            // click postcode lookup
-            //driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
 
             xrmBrowser.ThinkTime(4000);
             Console.WriteLine(lastname);
