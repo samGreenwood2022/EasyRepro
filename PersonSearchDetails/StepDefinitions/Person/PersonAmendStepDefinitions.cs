@@ -2,6 +2,7 @@ using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PersonSearchDetails.PageObjects;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
@@ -71,8 +72,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
             xrmBrowser.ThinkTime(1000);
             // add an address (currently hard coded above)
-            DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-
+            // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
+            PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
             //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
             //driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
             //xrmBrowser.ThinkTime(1000);
@@ -84,14 +85,12 @@ namespace WCCIS.specs.StepDefinitions
             // click postcode lookup
             //driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
 
-            xrmBrowser.ThinkTime(1000);
-            // save the record
-            // xrmBrowser.CommandBar.ClickCommand("SAVE & CLOSE");
-            xrmBrowser.ThinkTime(3000);
+            xrmBrowser.ThinkTime(4000);
             Console.WriteLine(lastname);
 
             // search for our person, the search person method should be called from here
-            DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            PersonMethods.personSearch(xrmBrowser, driver, firstname, lastname, dob);
 
 
         }
@@ -106,7 +105,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2010");
-            DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
+            // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
+            PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
             xrmBrowser.ThinkTime(1000);
             // xrmBrowser.CommandBar.ClickCommand("SAVE");
         }

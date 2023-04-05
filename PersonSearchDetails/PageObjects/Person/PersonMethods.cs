@@ -1,53 +1,17 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
-using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Linq;
-using System.Text;
 
-namespace WCCIS.Specs.Extentions
+namespace PersonSearchDetails.PageObjects
 {
-    public static class DHCWExtensions
-    {       
+    internal class PersonMethods
+        // a collection of methods that can be used in the Person area of CareDirector
+    {
         public static string dateMovedInNew = "01/01/2003";
-        public static int menuNumber;
-        // this code will log us into CareDirector
-        public static void Login(IWebDriver webDriver, Browser xrmBrowser, string username, string password)
-        {
-            // wait for page to load
-            var driver = webDriver;
-            //var browser = xrmBrowser;
-            driver.Navigate().GoToUrl("https://caredirectoruat365.ccis.cymru");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"bySelection\"]/div[2]/img")).Click();
-            // driver.FindElement(By.XPath("//*[@id=\"bySelection\"]/div[6]/div/span")).Click();
-            
-            // wait for page to load
-            xrmBrowser.ThinkTime(1000);
-            // ADFS login screen
-            driver.FindElement(By.Id("userNameInput")).SendKeys(username);
-            driver.FindElement(By.Id("passwordInput")).SendKeys(password);
-            driver.FindElement(By.Id("submitButton")).Click();
-            // xrmBrowser.ThinkTime(2000);
-        }
 
-        // Generate a random string with a given size
-        public static string RandomString(int size, bool lowerCase)
-        {
-            StringBuilder builder = new StringBuilder();
-            Random random = new Random();
-            char ch;
-            for (int i = 0; i < size; i++)
-            {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-                builder.Append(ch);
-            }
-            if (lowerCase)
-                return builder.ToString().ToLower();
-            return builder.ToString();
-        }
-
+        // this method completes the mandatory fields required to add a valid address to a Person
         public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
         {
             driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
@@ -113,29 +77,6 @@ namespace WCCIS.Specs.Extentions
 
         }
 
-        public static void selectFormSectionsMenu(IWebDriver driver, Browser xrmBrowser, string option)
-        {
-            // here we click on the navigation control icon to open the form sections menu
-            // selecting the correct frame first
-            driver.SwitchTo().Frame("contentIFrame1");
-            driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
-            xrmBrowser.ThinkTime(1000);
-            // this code selects an option in the Form Sections Menu
-            if (option == "core demographics")
-            {
-                driver.FindElement(By.XPath("//td[@title='Core Demographics']")).Click();
-            }
-
-            if (option == "general practitioner information")
-            {
-                driver.FindElement(By.XPath("//td[@title='General Practitioner Information']")).Click();
-            }
-
-            if (option == "audit information")
-            {
-                driver.FindElement(By.XPath("//td[@title='Audit Information']")).Click();
-            }
-        }
 
 
     }
