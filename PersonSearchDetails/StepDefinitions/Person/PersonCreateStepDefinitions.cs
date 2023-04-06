@@ -292,9 +292,9 @@ namespace WCCIS.specs.StepDefinitions
             webElement = we.GetAttribute("style");
             // ensure the validation element has been set to be visible, ie "display: block";
 
-            driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
+            //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
             
-            driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
+            //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
 
             Assert.IsTrue(webElement.Contains("display: block;"));
             webElementText = we.Text;

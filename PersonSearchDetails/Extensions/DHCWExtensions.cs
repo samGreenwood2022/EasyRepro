@@ -137,6 +137,77 @@ namespace WCCIS.Specs.Extentions
             }
         }
 
+        public static string ReturnNHSNumber()
+        {
+            string nhsNumber = MakeNHSNumber();
+            while (nhsNumber.Length > 10)
+            {
+                nhsNumber = MakeNHSNumber();
+            }
+            return nhsNumber;
+        }
+
+        private static string MakeNHSNumber()
+        {
+            string firstNumber = ChooseStartNumber();
+            string middleNumbers = FillMiddleNumbers();
+            string firstTen = firstNumber + middleNumbers;
+            string finalNumber = CalculateEndNumber(firstTen);
+            string nhsNumber = firstTen + finalNumber;
+            return nhsNumber;
+        }
+
+        private static string ChooseStartNumber()
+        {
+            Random number = new Random(Guid.NewGuid().GetHashCode());
+            int startNo = number.Next(0, 3) + 1;
+            return startNo.ToString();
+        }
+
+        private static string FillMiddleNumbers()
+        {
+            Random number = new Random(Guid.NewGuid().GetHashCode());
+
+            //String is filled with 8 characters so that the Remove/Insert functions correctly
+            string middleNumbers = "12345678";
+
+            //Use a for loop to remove a number from the string, then insert another in it's place
+            for (int i = 0; i <= 7; i++)
+            {
+                int randNumber = number.Next(0, 9);
+                middleNumbers = middleNumbers.Remove(i, 1);
+                middleNumbers = middleNumbers.Insert(i, randNumber.ToString());
+            }
+            return middleNumbers;
+        }
+
+        private static string CalculateEndNumber(string nhsNumber)
+        {
+            //Create an array to contain each individual number
+            int[] numberList = new int[9];
+
+            //Use a for loop to populate the array at position "i"
+            for (int i = 0; i <= 8; i++)
+            {
+                string thisNumber = nhsNumber.Substring(i, 1);
+                int number = Int32.Parse(thisNumber);
+                numberList[i] = number;
+            }
+
+            //Divide Each number by it's position in the string
+            int moduloDivisor = (numberList[0] * 10) + (numberList[1] * 9)
+                + (numberList[2] * 8) + (numberList[3] * 7) + (numberList[4] * 6)
+                + (numberList[5] * 5) + (numberList[6] * 4) + (numberList[7] * 3) + (numberList[8] * 2);
+
+            //Get the remainder when divided by 11
+            int moduloResult = moduloDivisor % 11;
+
+            //Take the remainder away from 11 to get the final number
+            int finalNumber = 11 - moduloResult;
+
+            string finalNumberString = finalNumber.ToString();
+            return finalNumberString;
+        }
 
     }
 }
