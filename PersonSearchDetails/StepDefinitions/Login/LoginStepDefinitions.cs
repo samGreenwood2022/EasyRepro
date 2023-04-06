@@ -43,6 +43,52 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
+        [Given(@"that i've logged in as a social worker")]
+        public void GivenThatIveLoggedInAsSocialWorker()
+        {
+            // call our AdministratorLogin method
+            LoginCredentials.SocialWorkerLogin(xrmBrowser, driver);
+            // removes any popups displayed when we 1st log in
+            xrmBrowser.ThinkTime(2000);
+            try
+            {
+                driver.SwitchTo().Frame("InlineDialog_Iframe");
+                xrmBrowser.ThinkTime(2000);
+                driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
+
+            }
+            catch
+            {
+                Console.WriteLine("No popup displayed");
+
+            }
+            // check to ensure the caredirector logo is displayed
+            driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
+        }
+
+        [Given(@"that i've logged in as a social worker")]
+        public void GivenThatIveLoggedInAsCareWorker()
+        {
+            // call our AdministratorLogin method
+            LoginCredentials.CareWorkerLogin(xrmBrowser, driver);
+            // removes any popups displayed when we 1st log in
+            xrmBrowser.ThinkTime(2000);
+            try
+            {
+                driver.SwitchTo().Frame("InlineDialog_Iframe");
+                xrmBrowser.ThinkTime(2000);
+                driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
+
+            }
+            catch
+            {
+                Console.WriteLine("No popup displayed");
+
+            }
+            // check to ensure the caredirector logo is displayed
+            driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
+        }
+
 
     }
 }

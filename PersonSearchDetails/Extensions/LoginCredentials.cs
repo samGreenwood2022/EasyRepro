@@ -14,5 +14,15 @@ namespace WCCIS.Specs.Extentions
             DHCWExtensions.Login(webDriver, xrmBrowser, "ccis\\ccis_test16", "smpzM2Pe");
         }
 
+        public static void SocialWorkerLogin(Browser xrmBrowser, IWebDriver webDriver)
+        {
+            DHCWExtensions.Login(webDriver, xrmBrowser, "username", "password");
+        }
+
+        public static void CareWorkerLogin(Browser xrmBrowser, IWebDriver webDriver)
+        {
+            DHCWExtensions.Login(webDriver, xrmBrowser, "username", "password");
+        }
+
     }
 }
