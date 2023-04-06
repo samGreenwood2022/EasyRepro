@@ -44,6 +44,16 @@ namespace WCCIS.specs.StepDefinitions
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastname = DHCWExtensions.RandomString(6, false);
             driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            // add NHS number
+            // generate a random number 1st
+            var number = DHCWExtensions.ReturnNHSNumber();
+            // convert to a string so we can type it into out field
+            string nhsNumber = number.ToString();
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(nhsNumber);
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(Keys.Enter);
+            //xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
             xrmBrowser.ThinkTime(1000);
