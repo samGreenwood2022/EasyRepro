@@ -239,10 +239,10 @@ namespace WCCIS.specs.StepDefinitions
             Console.WriteLine("Duplicate detection rules currently not in place");
         }
 
-        [When(@"i create a person to test the mandatory fields")]
-        public void WhenICreateAPersonToTestTheMandatoryFields()
+        [When(@"i start the process of creating a new person")]
+        public void WhenIStartTheProcessOfCreatingANewPerson()
         {
-            // begin the process of creating a new person
+            // begin start the  process of creating a new person
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
@@ -250,14 +250,106 @@ namespace WCCIS.specs.StepDefinitions
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-
         }
+
 
         [Then(@"the expected mandatory fields are active")]
         public void ThenTheExpectedMandatoryFieldsAreActive()
         {
-            throw new PendingStepException();
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            // grab a hold of our webElement by finding its class name, ie the Ethnicity validation message
+            IWebElement we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            string webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            string webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Ethnicity.");
+            // add a value to the field so we can test validation on the next field
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            // display the next validation message
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
+            // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+
+            driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
+            
+            driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
+
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Preferred Language.");
+            
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("English");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Last Name.");
+
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+            
+            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
+            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
+            var selectElement = new SelectElement(dropDownOption);
+            selectElement.SelectByText("Male");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in.");
+
+
+
+
+
+
         }
 
 
