@@ -28,27 +28,6 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
-        [Given(@"that i've logged in as an administrator")]
-        public void GivenThatIveLoggedInAsAnAdministrator()
-        {
-            // removes any popups displayed when we 1st log in
-            try
-            {
-                driver.SwitchTo().Frame("InlineDialog_Iframe");
-                xrmBrowser.ThinkTime(2000);
-                driver.FindElement(By.XPath("//*[@id=\"butBegin\"]")).Click();
-               
-            }
-            catch 
-            {
-                Console.WriteLine("No popup displayed");
-
-            }
-               // check to ensure the caredirector logo is displayed
-            driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
-        }
-
-
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
@@ -65,6 +44,17 @@ namespace WCCIS.specs.StepDefinitions
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastname = DHCWExtensions.RandomString(6, false);
             driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            //-------------------
+            //// add NHS number
+            //// generate a random number 1st
+            //var number = DHCWExtensions.ReturnNHSNumber();
+            //// convert to a string so we can type it into out field
+            //string nhsNumber = number.ToString();
+            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
+            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(nhsNumber);
+            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(Keys.Enter);
+            //xrmBrowser.ThinkTime(1000);
+            //-------------------
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
             xrmBrowser.ThinkTime(1000);
@@ -259,6 +249,170 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"Duplicate detect rules popup\"]")).Click();
             Console.WriteLine("Duplicate detection rules currently not in place");
         }
+
+        [When(@"i start the process of creating a new person")]
+        public void WhenIStartTheProcessOfCreatingANewPerson()
+        {
+            // begin start the  process of creating a new person
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+        }
+
+
+        [Then(@"the expected mandatory fields are active")]
+        public void ThenTheExpectedMandatoryFieldsAreActive()
+        {
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            // grab a hold of our webElement by finding its class name, ie the Ethnicity validation message
+            IWebElement we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            string webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            string webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Ethnicity.");
+            // add a value to the field so we can test validation on the next field
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            // display the next validation message
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
+            // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+
+            //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
+            
+            //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
+
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Preferred Language.");
+            
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("English");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Last Name.");
+
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+            
+            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
+            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
+            var selectElement = new SelectElement(dropDownOption);
+            selectElement.SelectByText("Male");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in.");
+
+
+        }
+
+        [When(@"i've created a new person with an NHS Number")]
+        public void WhenIveCreatedANewPersonWithAnNHSNumber()
+        {
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys("TestX");
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            // generate a random string for surname, false or true sets the string to upper or lower case
+            lastname = DHCWExtensions.RandomString(6, false);
+            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            //-------------------
+            // add NHS number
+            // generate a random number 1st
+            var number = DHCWExtensions.ReturnNHSNumber();
+            // convert to a string so we can type it into out field
+            string nhsNumber = number.ToString();
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(nhsNumber);
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(Keys.Enter);
+            xrmBrowser.ThinkTime(1000);
+            //-------------------
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
+            xrmBrowser.ThinkTime(1000);
+            // enter value into preferred language field
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("English");
+            // Select the first value from the gender picklist
+            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
+            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
+            var selectElement = new SelectElement(dropDownOption);
+            selectElement.SelectByText("Male");
+            //selectElement.SelectByIndex(0);
+            xrmBrowser.ThinkTime(1000);
+            // enter a value into the dob field
+            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys("12/10/1976");
+            xrmBrowser.ThinkTime(2000);
+            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
+            xrmBrowser.ThinkTime(1000);
+            // save the record
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(3000);
+            Console.WriteLine(lastname);
+        }
+
+
 
 
     }

@@ -1,13 +1,11 @@
-﻿using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using System.Security;
-using Microsoft.Dynamics365.UIAutomation.Browser;
-using BoDi;
+﻿using BoDi;
 using Microsoft.Dynamics365.UIAutomation.Api;
-using WCCIS.Specs;
-using WCCIS.Specs.Extentions;
+using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
+using System.Security;
+using TechTalk.SpecFlow;
 
-namespace PersonSearchDetails.Hooks
+namespace WCCIS.Specs.Hooks
 {
     [Binding]
     public class SingleBrowserHook
@@ -29,9 +27,11 @@ namespace PersonSearchDetails.Hooks
             // This before scenario initialises our browser before each test
             var xrmBrowser = new Microsoft.Dynamics365.UIAutomation.Api.Browser(TestSettings.Options);
             var driver = xrmBrowser.Driver;
-            DHCWExtensions.Login(xrmBrowser, _username, _password);
-            xrmBrowser.GuidedHelp.CloseGuidedHelp();
-            driver.Manage().Window.Maximize();
+            // the below code has been commented out as we are now using our Given statements to
+            // specify which user we would like to log in with
+            //DHCWExtensions.Login(xrmBrowser, _username, _password);
+            //xrmBrowser.GuidedHelp.CloseGuidedHelp();
+            //driver.Manage().Window.Maximize();
 
             // here we are storing an instance of IWebDriver and Browser
             // IWebDriver allows us to control our Browser and also allows us to call Selenium commands to interact with html elements
