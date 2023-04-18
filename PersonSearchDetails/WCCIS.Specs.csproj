@@ -57,6 +57,9 @@
     <Reference Include="LivingDoc.SpecFlowPlugin, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Plus.LivingDocPlugin.3.9.57\lib\net461\LivingDoc.SpecFlowPlugin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.2.7\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -72,6 +75,9 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -99,7 +105,11 @@
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="PageObjects\Person\PersonMethods.cs" />
     <Compile Include="Extensions\LoginCredentials.cs" />
+    <Compile Include="StepDefinitions\MPI0001_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0003_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0002_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Login\LoginStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0001_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonAmendStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonCreateStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonSearchStepDefinitions.cs" />
@@ -110,6 +120,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Features\MPI\MPI0003.feature" />
+    <None Include="Features\MPI\MPI0002.feature" />
+    <None Include="Features\MPI\MPI0001.feature" />
     <None Include="Features\Person\PER0008.feature" />
     <None Include="Features\Person\PER0005.feature" />
     <None Include="Features\Person\PER0007.feature" />
