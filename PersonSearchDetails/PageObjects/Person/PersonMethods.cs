@@ -1,8 +1,10 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
+using WCCIS.Specs.Extentions;
 
 namespace PersonSearchDetails.PageObjects
 {
@@ -10,6 +12,7 @@ namespace PersonSearchDetails.PageObjects
         // a collection of methods that can be used in the Person area of CareDirector
     {
         public static string dateMovedInNew = "01/01/2003";
+        public string lastname { get; set; }
 
         // this method completes the mandatory fields required to add a valid address to a Person
         public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
@@ -74,6 +77,50 @@ namespace PersonSearchDetails.PageObjects
             // driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             xrmBrowser.ThinkTime(2000);
             return personId;
+
+        }
+
+        public static string createBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastname)
+        {
+            // create a basic person using mandatory fields only plus the firstname field
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
+            xrmBrowser.ThinkTime(1000);
+            // enter value into preferred language field
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
+            // Select the first value from the gender picklist
+            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
+            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
+            var selectElement = new SelectElement(dropDownOption);
+            selectElement.SelectByText(gender);
+            //selectElement.SelectByIndex(0);
+            xrmBrowser.ThinkTime(1000);
+            // enter a value into the dob field
+            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
+            xrmBrowser.ThinkTime(2000);
+            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
+            xrmBrowser.ThinkTime(1000);
+            // save the record
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(3000);
+            Console.WriteLine(lastname);
+
+            return lastname;
+
 
         }
 
