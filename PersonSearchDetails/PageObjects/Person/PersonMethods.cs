@@ -80,7 +80,7 @@ namespace PersonSearchDetails.PageObjects
 
         }
 
-        public static string createBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastname)
+        public static string CreateBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastname)
         {
             // create a basic person using mandatory fields only plus the firstname field
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");

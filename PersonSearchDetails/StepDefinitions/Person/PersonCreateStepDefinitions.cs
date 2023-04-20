@@ -241,8 +241,7 @@ namespace WCCIS.specs.StepDefinitions
             webElement = we.GetAttribute("style");
             Assert.IsTrue(webElement.Contains("display: block;"));
             webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in.");
-
+            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in."); 
 
         }
 
