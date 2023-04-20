@@ -18,7 +18,7 @@ namespace WCCIS.specs.StepDefinitions
 
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
-        public string lastname { get; set; }
+        public string lastName { get; set; }
         public string personId { get; set; }
 
         public PersonCreateStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
@@ -33,9 +33,9 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
+            lastName = DHCWExtensions.RandomString(6, false);
             // create our first person
-            PersonMethods.createBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastname);
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
 
         }
 
@@ -49,7 +49,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
+            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
             xrmBrowser.ThinkTime(1000);
@@ -73,11 +73,11 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
 
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
-            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
+            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
             // write the string to the console so we can see whats in it, handy for debugging
             Console.WriteLine(concatName);
             //possibly remove the below line as the the test is being performed above
-            driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
+            driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
             //search for our dob value within the iframe
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
 
@@ -113,11 +113,11 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenICreateTwoPeopleUsingTheSameDetails(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
+            lastName = DHCWExtensions.RandomString(6, false);
             // create our first person
-            PersonMethods.createBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastname);
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
             // create the 2nd person using the same details as above
-            PersonMethods.createBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastname);
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
             
         }
 
@@ -259,8 +259,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys("TestX");
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            lastName = DHCWExtensions.RandomString(6, false);
+            driver.FindElement(By.Id("lastname_i")).SendKeys(lastName);
             //-------------------
             // add NHS number
             // generate a random number 1st
@@ -295,7 +295,7 @@ namespace WCCIS.specs.StepDefinitions
             // save the record
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastname);
+            Console.WriteLine(lastName);
         }
 
 
