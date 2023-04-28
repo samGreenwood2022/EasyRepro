@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using PersonSearchDetails.PageObjects;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
@@ -17,7 +18,7 @@ namespace WCCIS.specs.StepDefinitions
 
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
-        public string lastname { get; set; }
+        public string lastName { get; set; }
         public string personId { get; set; }
 
         public PersonCreateStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
@@ -31,55 +32,11 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
-            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
-            //-------------------
-            //// add NHS number
-            //// generate a random number 1st
-            //var number = DHCWExtensions.ReturnNHSNumber();
-            //// convert to a string so we can type it into out field
-            //string nhsNumber = number.ToString();
-            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
-            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(nhsNumber);
-            //driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(Keys.Enter);
-            //xrmBrowser.ThinkTime(1000);
-            //-------------------
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
-            xrmBrowser.ThinkTime(1000);
-            // enter value into preferred language field
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
-            // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement = new SelectElement(dropDownOption);
-            selectElement.SelectByText(gender);
-            //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
-            // enter a value into the dob field
-            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
-            xrmBrowser.ThinkTime(1000);
-            // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastname);
-             
+            lastName = DHCWExtensions.RandomString(6, false);
+            // create our first person
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
+
         }
 
         [Then(@"new person can be returned in a search (.*) and (.*)")]
@@ -92,7 +49,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
+            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
             xrmBrowser.ThinkTime(1000);
@@ -116,11 +73,11 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
 
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
-            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
+            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
             // write the string to the console so we can see whats in it, handy for debugging
             Console.WriteLine(concatName);
             //possibly remove the below line as the the test is being performed above
-            driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
+            driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
             //search for our dob value within the iframe
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
 
@@ -153,85 +110,15 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [When(@"i create two people using the same details (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenICreateTwoPeopleUsingTheSameDetailsForenameAndAndAndAfricanAndMaleAndWelsh(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void WhenICreateTwoPeopleUsingTheSameDetails(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
-            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
-            xrmBrowser.ThinkTime(1000);
-            // enter value into preferred language field
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
-            // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement = new SelectElement(dropDownOption);
-            selectElement.SelectByText(gender);
-            //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
-            // enter a value into the dob field
-            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
-            xrmBrowser.ThinkTime(1000);
-            // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastname);
-
+            lastName = DHCWExtensions.RandomString(6, false);
+            // create our first person
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
             // create the 2nd person using the same details as above
-            // for info the create person steps could be turned into one re-usable method to reduce duplicated code
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
-            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
-            // use the same details tat were entered above
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
-            xrmBrowser.ThinkTime(1000);
-            // enter value into preferred language field
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
-
-            // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption2 = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement2 = new SelectElement(dropDownOption2);
-            selectElement2.SelectByText(gender);
-            //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
-            // enter a value into the dob field
-            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
-            xrmBrowser.ThinkTime(1000);
-            // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastname);
+            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
+            
         }
 
 
@@ -354,8 +241,7 @@ namespace WCCIS.specs.StepDefinitions
             webElement = we.GetAttribute("style");
             Assert.IsTrue(webElement.Contains("display: block;"));
             webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in.");
-
+            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in."); 
 
         }
 
@@ -373,8 +259,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys("TestX");
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastname = DHCWExtensions.RandomString(6, false);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            lastName = DHCWExtensions.RandomString(6, false);
+            driver.FindElement(By.Id("lastname_i")).SendKeys(lastName);
             //-------------------
             // add NHS number
             // generate a random number 1st
@@ -409,7 +295,7 @@ namespace WCCIS.specs.StepDefinitions
             // save the record
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastname);
+            Console.WriteLine(lastName);
         }
 
 
