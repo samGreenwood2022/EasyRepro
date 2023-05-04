@@ -6,6 +6,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using PersonSearchDetails.PageObjects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
@@ -177,20 +178,21 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame1");
             // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
             // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
-            var wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
+            
+            // *****demo
+            // var wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
 
+            IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
             Console.WriteLine(wei);
-            //webElement = wei.GetAttribute("style");
+            string a = wei.ElementAt(0).GetAttribute("textContent");
+            string b = wei.ElementAt(1).GetAttribute("textContent");
+            Console.WriteLine(a);
+            Console.WriteLine(b);
+            webElement = wei.ElementAt(1).GetAttribute("style");
             // ensure the validation element has been set to be visible, ie "display: block";
-
-            //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
-
-            //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
-
             Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
             // ensure the expected validation text is also as expected
-            Assert.AreEqual(webElementText, "You must provide a value for Preferred Language.");
+            Assert.AreEqual("You must provide a value for Preferred Language.", b);
             
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("English");
@@ -301,6 +303,18 @@ namespace WCCIS.specs.StepDefinitions
             Console.WriteLine(lastName);
         }
 
+        [Then(@"check to see if the NHS Number field is blank")]
+        public void ThenCheckToSeeIfTheNHSNumberFieldIsBlank()
+        {
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys("abcd");
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            string titleValue = driver.FindElement(By.XPath("//*[@id=\"NHS No_label\"]")).Text;
+            Console.WriteLine(titleValue);
+            Assert.AreEqual("--", titleValue);
+            
+
+        }
 
 
 

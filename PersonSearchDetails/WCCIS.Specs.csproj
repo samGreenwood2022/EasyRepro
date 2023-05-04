@@ -110,6 +110,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Features\BlankNHSNumberTest.feature" />
     <None Include="Features\Person\PER0008.feature" />
     <None Include="Features\Person\PER0005.feature" />
     <None Include="Features\Person\PER0007.feature" />
