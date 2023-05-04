@@ -169,19 +169,22 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
             // display the next validation message
             xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(500);
             driver.SwitchTo().Frame("contentIFrame1");
             // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
             // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
+            var wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
+
+            Console.WriteLine(wei);
+            //webElement = wei.GetAttribute("style");
             // ensure the validation element has been set to be visible, ie "display: block";
 
             //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
-            
+
             //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
 
             Assert.IsTrue(webElement.Contains("display: block;"));
