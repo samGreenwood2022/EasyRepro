@@ -158,7 +158,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
-            // grab a hold of our webElement by finding its class name, ie the Ethnicity validation message
+            // grab a hold of our validation message webElement by finding its class name, ie the Ethnicity validation message
             IWebElement we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
             string webElement = we.GetAttribute("style");
             // ensure the validation element has been set to be visible, ie "display: block";
@@ -176,8 +176,9 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(500);
             driver.SwitchTo().Frame("contentIFrame1");
-            // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
-            // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
+            
+            // the class=ms-crm-inline-validation has a new instance generated each time a different validation message is triggered
+            // however only 1 validation message is 'visible' at any 1 time, we can identify the visible validation message by the elements style = block
             
             // *****demo
             // var wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));

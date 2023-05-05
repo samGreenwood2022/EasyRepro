@@ -43,11 +43,11 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [Given(@"that i've logged in as a social worker")]
-        public void GivenThatIveLoggedInAsSocialWorker()
+        [Given(@"that an adult support worker has logged in")]
+        public void GivenThatAnAdultSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.SocialWorkerLogin(xrmBrowser, driver);
+            LoginCredentials.AdultSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
@@ -66,11 +66,11 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [Given(@"that i've logged in as a social worker")]
-        public void GivenThatIveLoggedInAsCareWorker()
+        [Given(@"that a childrens support worker has logged in")]
+        public void GivenAChildrensSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.CareWorkerLogin(xrmBrowser, driver);
+            LoginCredentials.ChildrensSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
