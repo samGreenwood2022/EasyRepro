@@ -6,7 +6,7 @@ using the post code lookup to amend the primary address
 
 @tag1
 Scenario Outline: verify that an existing person can have their primary address details successfully amended
-	Given that i've logged in as an administrator
+	Given that an adult support worker has logged in
 	And a known person already exists in the system <firstname> and <dob> and <dateMovedIn> and <ethnicity> and <gender> and <preferredLanguage>
 	When i amend a persons primary address details <propertyNo> and <street> and <townCity> and <county> and <postcode>
 	Then Then the new address will replace the old address on the persons record <firstname> and <dob>

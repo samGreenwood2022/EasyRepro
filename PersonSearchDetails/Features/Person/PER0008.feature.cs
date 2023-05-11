@@ -93,7 +93,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("that an adult support worker has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
  testRunner.When("i start the process of creating a new person", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

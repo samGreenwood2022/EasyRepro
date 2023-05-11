@@ -1,8 +1,10 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
+using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using WCCIS.Specs.Extentions;
 
@@ -12,6 +14,9 @@ namespace PersonSearchDetails.PageObjects
         // a collection of methods that can be used in the Person area of CareDirector
     {
         public static string dateMovedInNew = "01/01/2003";
+        private static string field;
+        private static bool elementTrue;
+
         public string lastName { get; set; }
 
         // this method completes the mandatory fields required to add a valid address to a Person
@@ -124,10 +129,64 @@ namespace PersonSearchDetails.PageObjects
 
             return lastName;
 
-
         }
 
 
+        public static bool IsPersonMandatoryFieldValidationErrorPresent(Browser xrmBrowser, IWebDriver driver, string fieldExpected)
+        {
+            // this needs to be changes to use the reference data instead, ie enum
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            // get all instances of class 'ms-crm-Inline-Validation'
+            IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
 
+            //Loop through all elements returned in the above array 
+            bool elementFound = false;
+            foreach (IWebElement element in wei)
+            {
+                //Only check next element, if you haven't found the one you're looking for
+                if (!elementFound)
+                {
+                    string a = element.GetAttribute("textContent");
+                    string b = element.GetAttribute("style");
+                    Console.WriteLine(a);
+                    Console.WriteLine(b);
+                    // switch/case statement where expression needs to match case
+                    // how do we pass in the field we are checking, create class with field values? where to store?
+                    switch (fieldExpected)
+                    {
+                        //switch statement then executes code which looks for the error of each type
+                        //ethnicity
+                        case "ethnicity":
+                        if (a == "You must provide a value for Ethnicity." && b.Contains("display: block;"))
+                        {
+                            elementFound = true;
+                            return elementFound;
+
+                        }
+                        break;
+
+                        //switch statement then executes code which looks for the error of each type
+                        //prefLang
+                        case "preferredLanguage":
+                            if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
+                            {
+                                elementFound = true;
+                                return elementFound;
+
+                            }
+                            break;
+                            //ethnicity
+                            //gender 
+                            //movedInDate
+                            //surname
+
+                    }
+                }
+            }
+            return elementFound;
+        }      
     }
 }
+

@@ -79,7 +79,7 @@ namespace WCCIS.Specs.Features.Person
             "them")]
         [NUnit.Framework.CategoryAttribute("smokeTest")]
         [NUnit.Framework.TestCaseAttribute("John", "12/08/1976", "01/01/2000", "African", "Male", "English", null)]
-        [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Chinese", "Female", "Welsh", null)]
+        [NUnit.Framework.TestCaseAttribute("Alice", "11/02/1980", "10/05/2005", "Any other Asian background", "Female", "Welsh", null)]
         public void ToVerifyThatANewlyCreatedPersonHasTheCorrectAuditLogsCreatedAgainstThem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -109,7 +109,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 9
- testRunner.Given("that i\'ve logged in as an administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("that a childrens support worker has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 10
  testRunner.When(string.Format("a person is created by completing mandatory fields only {0} and {1} and {2} and {" +
