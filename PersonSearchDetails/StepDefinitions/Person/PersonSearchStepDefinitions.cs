@@ -43,8 +43,6 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"i perform a person search using firstname '([^']*)', lastname '([^']*)' & dob '([^']*)'")]
         public void WhenIPerformAPersonSearchUsingFirstnameLastnameDob(string firstname, string lastname, string dob)
         {
-
-
             //Select Person Search
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());

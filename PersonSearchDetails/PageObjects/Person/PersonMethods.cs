@@ -4,6 +4,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
+using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.Extentions;
 
 namespace PersonSearchDetails.PageObjects
@@ -11,6 +12,12 @@ namespace PersonSearchDetails.PageObjects
     internal class PersonMethods
         // a collection of methods that can be used in the Person area of CareDirector
     {
+
+
+
+        // THIS DOES NOT FOLLOW THE PAGE OBJECT PATTERN - WE MAY NEED TO RECONSIDER WHERE THIS FILE SHOULD LIVE
+
+
         public static string dateMovedInNew = "01/01/2003";
         public string lastName { get; set; }
 
@@ -82,6 +89,8 @@ namespace PersonSearchDetails.PageObjects
 
         public static string CreateBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastName)
         {
+
+            throw new Exception("This method is deprecated in favour of individual steps for maintenance reasons. It will be deleted in the future");
             // this method will create a basic new person, the way the tests are structured means that the lastName needs to be generated outside of this method, its them passed into this method to be used as the lastName
             // for example, PER0005 needs to create 2 identical people, if the random lastName generator was used here we couldnt create 2 identical people, as the lastName would be random
 
@@ -93,16 +102,27 @@ namespace PersonSearchDetails.PageObjects
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
+
+            //added 
             driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
+
+            ////Added
+         
+
             driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
             driver.FindElement(By.Id("lastname_i")).SendKeys(lastName);
+
+            ///
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
             xrmBrowser.ThinkTime(1000);
+
             // enter value into preferred language field
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
+
+
             // Select the first value from the gender picklist
             driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
             var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
@@ -110,13 +130,18 @@ namespace PersonSearchDetails.PageObjects
             selectElement.SelectByText(gender);
             //selectElement.SelectByIndex(0);
             xrmBrowser.ThinkTime(1000);
+
             // enter a value into the dob field
             driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
             xrmBrowser.ThinkTime(2000);
+
+            ////
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
             xrmBrowser.ThinkTime(1000);
+
+
             // save the record
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);

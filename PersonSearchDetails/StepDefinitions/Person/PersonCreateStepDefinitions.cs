@@ -9,12 +9,15 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.specs.StepDefinitions
 {
     [Binding]
     public class PersonCreateStepDefinitions
     {
+
+        //THE SPECFLOW STEP DEFINITIONS SHOULD CONTAIN THE GROUPING OF TEST STEPS AND HOW THOSE MAP TO THE USER STORY STATEMENTS
 
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
@@ -29,13 +32,23 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
+
+        //Can we give this field default values? The specflow might make this challenging...
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
             // create our first person
             PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
+            //Split this into these methods 
+            Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+            Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+            Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+            Page_PersonCoreDemographics.EnterDateOfBirth(driver);
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver);
+            Page_PersonCoreDemographics.EnterGender(driver);
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver);
 
         }
 
