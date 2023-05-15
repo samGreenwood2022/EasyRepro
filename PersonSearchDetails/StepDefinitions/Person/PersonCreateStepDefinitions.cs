@@ -40,15 +40,27 @@ namespace WCCIS.specs.StepDefinitions
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
             // create our first person
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
+            //PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstName, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
             //Split this into these methods 
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
-            Page_PersonCoreDemographics.EnterDateOfBirth(driver);
-            Page_PersonCoreDemographics.EnterDateMovedIn(driver);
-            Page_PersonCoreDemographics.EnterGender(driver);
-            Page_PersonCoreDemographics.EnterPreferredLanguage(driver);
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+            Page_PersonCoreDemographics.EnterGender(driver, gender);
+            Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+            // save the record
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(3000);
 
         }
 

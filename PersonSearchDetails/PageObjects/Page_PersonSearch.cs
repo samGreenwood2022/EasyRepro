@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WCCIS.Specs.PageObjects.Person
 {
-    internal class PersonSearchPage
+    internal class Page_PersonSearch
     {
     }
 }

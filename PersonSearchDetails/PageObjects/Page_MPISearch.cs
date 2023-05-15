@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WCCIS.Specs.PageObjects
 {
-    internal class MPISearchPage
+    internal class Page_MPISearch
     {
 
 
