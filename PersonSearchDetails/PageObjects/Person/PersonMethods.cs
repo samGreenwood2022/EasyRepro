@@ -89,8 +89,7 @@ namespace PersonSearchDetails.PageObjects
 
         public static string CreateBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastName)
         {
-
-            //throw new Exception("This method is deprecated in favour of individual steps for maintenance reasons. It will be deleted in the future");
+            throw new Exception("This method is deprecated in favour of individual steps for maintenance reasons. It will be deleted in the future");
             // this method will create a basic new person, the way the tests are structured means that the lastName needs to be generated outside of this method, its them passed into this method to be used as the lastName
             // for example, PER0005 needs to create 2 identical people, if the random lastName generator was used here we couldnt create 2 identical people, as the lastName would be random
 

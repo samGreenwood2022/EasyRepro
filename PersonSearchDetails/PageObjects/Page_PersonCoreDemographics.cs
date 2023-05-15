@@ -152,13 +152,14 @@ namespace WCCIS.Specs.PageObjects
 
         private static void ClickLabelDateMovedIn(IWebDriver driver)
         {
-            IWebElement dateMovedInLabel = LocateLabelDateMovedIn(driver);
+            IWebElement dateMovedInLabel = LocateDivDateMovedIn(driver);
             dateMovedInLabel.Click();
         }
 
-        private static IWebElement LocateLabelDateMovedIn(IWebDriver driver)
+        private static IWebElement LocateDivDateMovedIn(IWebDriver driver)
         {
-            IWebElement dateMovedInLabel = driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]"));
+            //IWebElement dateMovedInLabel = driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]"));
+            IWebElement dateMovedInLabel = driver.FindElement(By.Id("cw_datepersonmovedin"));
             return dateMovedInLabel;
         }
 

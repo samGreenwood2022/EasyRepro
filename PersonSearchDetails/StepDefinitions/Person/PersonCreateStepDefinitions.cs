@@ -135,15 +135,35 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [When(@"i create two people using the same details (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenICreateTwoPeopleUsingTheSameDetails(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void WhenICreateTwoPeopleUsingTheSameDetails(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
-            // create our first person
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
-            // create the 2nd person using the same details as above
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
-            
+
+            for (int i= 0; i<2; i++)
+            {
+                xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+                xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+                driver.SwitchTo().Window(driver.WindowHandles.Last());
+                //xrmBrowser.ThinkTime(1000);
+                // select the correct iFrame
+                driver.SwitchTo().Frame("contentIFrame1");
+                //xrmBrowser.ThinkTime(1000);
+
+
+                Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+                Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+                Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+                Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+                Page_PersonCoreDemographics.EnterGender(driver, gender);
+                Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+                Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+                // save the record
+                xrmBrowser.CommandBar.ClickCommand("SAVE");
+                //xrmBrowser.ThinkTime(3000);
+                Console.WriteLine(lastName);
+            }
         }
 
 
