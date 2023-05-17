@@ -262,7 +262,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxFirstLineOfAddress(IWebDriver driver)
         {
-            IWebElement firstLineOfAddressTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]"));
+            IWebElement firstLineOfAddressTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]"));
             return firstLineOfAddressTextBox;
         }
 

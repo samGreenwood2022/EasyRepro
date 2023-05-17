@@ -16,7 +16,7 @@ namespace WCCIS.specs.StepDefinitions
     {
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
-        public string lastname { get; set; }
+        public string lastName { get; set; }
         // public string personId { get; set; }
         public string dateMovedIn { get; set; }
 
@@ -57,7 +57,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterFirstName(driver, firstname);
             
             // generate a random string for surname
-            string lastName = DHCWExtensions.RandomString(6, false);
+            lastName = DHCWExtensions.RandomString(6, false);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
 
@@ -78,17 +78,17 @@ namespace WCCIS.specs.StepDefinitions
             PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
 
             xrmBrowser.ThinkTime(4000);
-            Console.WriteLine(lastname);
+            Console.WriteLine(lastName);
 
             // search for our person, the search person method should be called from here
             // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
-            PersonMethods.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            PersonMethods.personSearch(xrmBrowser, driver, firstname, lastName, dob);
 
 
         }
 
         [When(@"i amend a persons primary address details (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postcode)
+        public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postCode)
         {
             xrmBrowser.ThinkTime(2000);
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
@@ -107,10 +107,10 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
-        public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstname, string dob)
+        public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstName, string dob)
         {
             // call our personSearch method
-            string personId = DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            string personId = DHCWExtensions.personSearch(xrmBrowser, driver, firstName, lastName, dob);
 
             // switch tio the correct browser window and iFrame we want to use
             driver.SwitchTo().Window(driver.WindowHandles.Last());
@@ -118,11 +118,11 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame0");
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
-            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
+            String concatName = driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstName + " (WCCIS ID: " + personId + ")']")).Text;
             // write the string to the console so we can see whats in it, handy for debugging
             Console.WriteLine(concatName);
             //possibly remove the below line as the the test is being performed above
-            driver.FindElement(By.XPath("//*[text()='" + lastname + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
+            driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstName + " (WCCIS ID: " + personId + ")']"));
             //search for our dob value within the iframe
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + dob + "')]]"));
         }

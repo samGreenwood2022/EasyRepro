@@ -76,16 +76,16 @@ namespace WCCIS.Specs.Extentions
             xrmBrowser.ThinkTime(1000);
         }
 
-        public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstname, string lastname, string dob)
+        public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstName, string lastName, string dob)
         {
             // search for our person, the search person method should be called from here
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
+            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstName);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
+            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
             xrmBrowser.ThinkTime(1000);
@@ -98,7 +98,7 @@ namespace WCCIS.Specs.Extentions
             Console.WriteLine(personId);
             // the Actions class contains functions like 'doubleClick' which can be used on ui elements
             Actions act = new Actions(driver);
-            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
+            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstName + "')]]"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(2000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
