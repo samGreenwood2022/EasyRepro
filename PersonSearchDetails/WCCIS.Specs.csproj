@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="PageObjects\Person\PersonMethods.cs" />

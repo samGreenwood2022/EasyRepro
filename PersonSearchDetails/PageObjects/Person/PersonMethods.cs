@@ -1,11 +1,13 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using WCCIS.Specs.Extentions;
 
 namespace PersonSearchDetails.PageObjects
@@ -16,6 +18,7 @@ namespace PersonSearchDetails.PageObjects
         public static string dateMovedInNew = "01/01/2003";
         private static string field;
         private static bool elementTrue;
+        private static string fieldExpected;
 
         public string lastName { get; set; }
 
@@ -131,11 +134,17 @@ namespace PersonSearchDetails.PageObjects
 
         }
 
-
-        public static bool IsPersonMandatoryFieldValidationErrorPresent(Browser xrmBrowser, IWebDriver driver, string fieldExpected)
+        public static bool IsPersonMandatoryFieldValidationErrorPresent(Browser xrmBrowser, IWebDriver driver, Enum enumFieldExpected)
         {
-            // this needs to be changes to use the reference data instead, ie enum
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // convert enum to string
+            fieldExpected = enumFieldExpected.ToString();
+            // this needs to be changes to use the reference data instead, ie enu
+
+            // xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            driver.FindElement(By.Id(@"contact|NoRelationship|Form|Mscrm.Form.contact.Save")).Click();
+
+
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             // get all instances of class 'ms-crm-Inline-Validation'
@@ -166,8 +175,6 @@ namespace PersonSearchDetails.PageObjects
 
                         }
                         break;
-
-                        //switch statement then executes code which looks for the error of each type
                         //prefLang
                         case "preferredLanguage":
                             if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
@@ -177,16 +184,55 @@ namespace PersonSearchDetails.PageObjects
 
                             }
                             break;
-                            //ethnicity
-                            //gender 
-                            //movedInDate
-                            //surname
+                        //gender 
+                        case "gender":
+                            if (a == "You must provide a value for Gender." && b. Contains("display: block;"))
+                            {
+                                elementFound = true;
+                                return elementFound;
 
+                            }
+                            break;
+                        //lastName
+                        case "lastName":
+                            if (a == "You must provide a value for Last Name." && b.Contains("display: block;"))
+                            {
+                                elementFound = true;
+                                return elementFound;
+                            }
+                            break;
+                        //movedInDate
+                        case "movedInDate":
+                            if (a == "You must provide a value for Date Person moved in." && b.Contains("display: block;"))
+                            {
+                                elementFound = true;
+                                return elementFound;
+
+                            }
+                            break;
+                        //dob
+                        case "dob":
+                            try
+                            {
+                                // Check the presence of alert
+                                string alertText = driver.SwitchTo().Alert().Text;
+                                Console.WriteLine(alertText);
+                                Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
+                                elementFound = true;
+                                return elementFound;
+                            }
+                            catch
+                            {
+                                // Alert not present
+                                Console.WriteLine("Alert not present or text incorrect");
+                            }
+                            break;
                     }
                 }
             }
             return elementFound;
-        }      
+        }
+       
     }
 }
 
