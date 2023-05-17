@@ -542,6 +542,7 @@ namespace WCCIS.Specs.PageObjects
         {
             //Enter field by clicking on the label
             // Use this locate method also if you wish to, for example, check the text of the label. 
+
             IWebElement divFirstName = driver.FindElement(By.Id("firstname_cl"));
             return divFirstName;
         }
