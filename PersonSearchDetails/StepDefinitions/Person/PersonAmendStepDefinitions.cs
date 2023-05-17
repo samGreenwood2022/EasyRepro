@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -34,62 +35,63 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
-        ////THIS GIVEN STATEMENT IS NOT USED
 
-        //[Given(@"a known person already exists in the system (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        //public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
-        //{
+        /////a known person already exists in the system <firstname> and <dob> and <dateMovedIn> and <ethnicity> and <gender> and <preferredLanguage>
 
-        //    // This method is technically wrong - it should be using a static reference patient and not creating a new one
-        //    // It is missing the opportunity to find any issues when opening legacy data - which is what the userstory seems to suggest
+        [Given(@"a known person already exists in the system (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
+        public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        {
 
-        //    // Create a new person - can we call the  method 'When a person is created by completing mandatory fields only'
-        //    xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-        //    xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
-        //    driver.SwitchTo().Window(driver.WindowHandles.Last());
-        //    xrmBrowser.ThinkTime(1000);
-        //    // select the correct iFrame
-        //    driver.SwitchTo().Frame("contentIFrame1");
-        //    driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-        //    driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
-        //    driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
-        //    // generate a random string for surname
-        //    lastname = DHCWExtensions.RandomString(6, false);
-        //    driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
-        //    driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-        //    driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
-        //    xrmBrowser.ThinkTime(1000);
-        //    // enter value into preferred language field
-        //    driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-        //    driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
-        //    // Select the first value from the gender picklist
-        //    driver.FindElement(By.XPath("//*[@id=\"gendercode_cl\"]")).Click();
+            // This method is technically wrong - it should be using a static reference patient and not creating a new one
+            // It is missing the opportunity to find any issues when opening legacy data - which is what the userstory seems to suggest
 
-        //    var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-        //    var selectElement = new SelectElement(dropDownOption);
-        //    selectElement.SelectByText(gender);
-        //    //selectElement.SelectByIndex(0);
-        //    xrmBrowser.ThinkTime(1000);
-        //    // enter a value into the dob field
-        //    driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-        //    driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
-        //    xrmBrowser.ThinkTime(2000);
-        //    driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-        //    driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
-        //    xrmBrowser.ThinkTime(1000);
-        //    // add an address (currently hard coded above)
-        //    // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-        //    PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
+            // Create a new person - can we call the  method 'When a person is created by completing mandatory fields only'
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys(firstname);
+            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+            // generate a random string for surname
+            lastname = DHCWExtensions.RandomString(6, false);
+            driver.FindElement(By.Id("lastname_i")).SendKeys(lastname);
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys(ethnicity);
+            xrmBrowser.ThinkTime(1000);
+            // enter value into preferred language field
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys(preferredLanguage);
+            // Select the first value from the gender picklist
+            driver.FindElement(By.XPath("//*[@id=\"gendercode_cl\"]")).Click();
 
-        //    xrmBrowser.ThinkTime(4000);
-        //    Console.WriteLine(lastname);
+            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
+            var selectElement = new SelectElement(dropDownOption);
+            selectElement.SelectByText(gender);
+            //selectElement.SelectByIndex(0);
+            xrmBrowser.ThinkTime(1000);
+            // enter a value into the dob field
+            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys(dob);
+            xrmBrowser.ThinkTime(2000);
+            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys(dateMovedIn);
+            xrmBrowser.ThinkTime(1000);
+            // add an address (currently hard coded above)
+            // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
+            PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
 
-        //    // search for our person, the search person method should be called from here
-        //    // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
-        //    PersonMethods.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            xrmBrowser.ThinkTime(4000);
+            Console.WriteLine(lastname);
+
+            // search for our person, the search person method should be called from here
+            // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
+            PersonMethods.personSearch(xrmBrowser, driver, firstname, lastname, dob);
 
 
-        //}
+        }
 
         [When(@"i amend a persons primary address details (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postcode)
@@ -98,9 +100,12 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
             xrmBrowser.ThinkTime(2000);
+
+            //Create a clear etail
             driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2010");
+
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2010");
             // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
             PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
             xrmBrowser.ThinkTime(1000);

@@ -24,25 +24,13 @@ namespace PersonSearchDetails.PageObjects
         // this method completes the mandatory fields required to add a valid address to a Person
         public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
         {
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(firstLineOfAddress);
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(townCity);
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(county);
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(Keys.Return);
+    
+            Page_PersonCoreDemographics.EnterPropertyNumber(driver, propertyNo);
+            Page_PersonCoreDemographics.EnterFirstLineOfAddress(driver, firstLineOfAddress);
+            Page_PersonCoreDemographics.EnterTownCity(driver, townCity);
+            Page_PersonCoreDemographics.EnterCounty(driver, county);
+            Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
+           
             // click postcode lookup
             // driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
             xrmBrowser.ThinkTime(2000);
@@ -84,7 +72,6 @@ namespace PersonSearchDetails.PageObjects
             // driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             xrmBrowser.ThinkTime(2000);
             return personId;
-
         }
 
         public static string CreateBasicPerson(Browser xrmBrowser, IWebDriver driver, string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage,string lastName)
@@ -116,7 +103,6 @@ namespace PersonSearchDetails.PageObjects
             Console.WriteLine(lastName);
 
             return lastName;
-
 
         }
 
