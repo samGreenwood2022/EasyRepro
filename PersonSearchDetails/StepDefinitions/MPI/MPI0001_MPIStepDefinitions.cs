@@ -64,12 +64,13 @@ namespace WCCIS.Specs.StepDefinitions
             xrmBrowser.ThinkTime(2000);
         }
 
-        [Then(@"\an error message contains text '([^']*)'")]
+        [Then(@"an error message contains text '([^']*)'")]
         public void ThenAnErrorMessageContainsText(string errorMessage)
         {
             String error = driver.FindElement(By.XPath("//*[@id=\"CWNotificationMessage_EMPISearch\"]")).Text;
             Console.WriteLine(error);
             Assert.IsTrue(error.Contains(errorMessage));
         }
+
     }
 }
