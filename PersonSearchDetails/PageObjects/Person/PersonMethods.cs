@@ -24,6 +24,8 @@ namespace PersonSearchDetails.PageObjects
         // this method completes the mandatory fields required to add a valid address to a Person
         public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
         {
+
+            throw new NotImplementedException("");
     
             Page_PersonCoreDemographics.EnterPropertyNumber(driver, propertyNo);
             Page_PersonCoreDemographics.EnterFirstLineOfAddress(driver, firstLineOfAddress);

@@ -49,11 +49,11 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
 
-            xrmBrowser.ThinkTime(1000);
+
+
             Page_PersonCoreDemographics.EnterFirstName(driver, firstname);
             
             // generate a random string for surname
@@ -67,7 +67,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);
 
             //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
             // enter a value into the dob field
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
 
@@ -75,10 +74,14 @@ namespace WCCIS.specs.StepDefinitions
 
             // add an address (currently hard coded above)
             // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-            PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
+            Page_PersonCoreDemographics.EnterPropertyNumber(driver, propertyNo);
+            Page_PersonCoreDemographics.EnterFirstLineOfAddress(driver, street);
+            Page_PersonCoreDemographics.EnterTownCity(driver, townCity);
+            Page_PersonCoreDemographics.EnterCounty(driver, county);
+            Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
 
-            xrmBrowser.ThinkTime(4000);
-            Console.WriteLine(lastName);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+
 
             // search for our person, the search person method should be called from here
             // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
@@ -90,20 +93,25 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"i amend a persons primary address details (.*) and (.*) and (.*) and (.*) and (.*)")]
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postCode)
         {
-            xrmBrowser.ThinkTime(2000);
+            //CH Comment = what are these doing? Need to find out and refactor
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
-            xrmBrowser.ThinkTime(2000);
+
 
             //Create a clear details
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).Clear();
-
+            Page_PersonCoreDemographics.ClearDateMovedIn(driver);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2010");
-            // DHCWExtensions.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postcode);
-            PersonMethods.enterAddressDetails(xrmBrowser, driver, propertyNo, street, townCity, county, postCode);
-            xrmBrowser.ThinkTime(1000);
-            // xrmBrowser.CommandBar.ClickCommand("SAVE");
+
+            Page_PersonCoreDemographics.EnterPropertyNumber(driver, propertyNo);
+            Page_PersonCoreDemographics.EnterFirstLineOfAddress(driver, street);
+            Page_PersonCoreDemographics.EnterTownCity(driver, townCity);
+            Page_PersonCoreDemographics.EnterCounty(driver, county);
+            Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
+
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+
+
+
         }
 
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]

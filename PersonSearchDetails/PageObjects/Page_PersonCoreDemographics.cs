@@ -170,6 +170,13 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoTextBoxPostCode(driver, postCode);
         }
 
+        public static void ClearDateMovedIn(IWebDriver driver)
+        {
+            ClickLabelDateMovedIn(driver);
+            ClearTextBoxDateMovedIn(driver);
+        }
+
+
 
         //---------------------------------------------------------------------------------------------------------
 
@@ -578,6 +585,12 @@ namespace WCCIS.Specs.PageObjects
             //private method - not to be called in main script
             IWebElement nhsNumberTextBox = LocateTextBoxNHSNumber(driver);
             nhsNumberTextBox.SendKeys(nhsNumber + Keys.Enter);
+        }
+
+        private static void ClearTextBoxDateMovedIn(IWebDriver driver)
+        {
+            IWebElement dateMovedInTextBox = LocateTextBoxDateMovedIn(driver);
+            dateMovedInTextBox.Clear();
         }
     }
 }

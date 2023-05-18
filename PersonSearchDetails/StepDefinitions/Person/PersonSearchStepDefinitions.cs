@@ -151,6 +151,7 @@ namespace WCCIS.specs.StepDefinitions
             //Click a row based on the person ID
             //To check if this can be used with other fields (e.g. name, DOB)
             Actions act = new Actions(driver);
+            xrmBrowser.ThinkTime(2000);
             IWebElement row = driver.FindElement(By.XPath("//*[text()='" + personId + "']"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(5000);

@@ -8,5 +8,14 @@ namespace WCCIS.Specs.PageObjects
 {
     internal class SharedNavigation
     {
+        //Click Save
+
+        //Select New Person
+
+        //Navigate to People
+
+        //Navigate to Referrals 
+
+        //etc.
     }
 }
