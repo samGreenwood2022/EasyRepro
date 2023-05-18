@@ -25,7 +25,7 @@ namespace PersonSearchDetails.PageObjects
         public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
         {
 
-            throw new NotImplementedException("");
+            throw new Exception("No longer maintained, please use individual step methods from relevan page object.");
     
             Page_PersonCoreDemographics.EnterPropertyNumber(driver, propertyNo);
             Page_PersonCoreDemographics.EnterFirstLineOfAddress(driver, firstLineOfAddress);

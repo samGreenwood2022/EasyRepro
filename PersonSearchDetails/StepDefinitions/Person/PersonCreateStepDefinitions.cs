@@ -50,6 +50,7 @@ namespace WCCIS.specs.StepDefinitions
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
+            driver.WaitForPageToLoad();
 
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
@@ -63,6 +64,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
 
+
         }
 
         [Then(@"new person can be returned in a search (.*) and (.*)")]
@@ -73,6 +75,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
+            driver.WaitForPageToLoad();
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
@@ -117,6 +120,8 @@ namespace WCCIS.specs.StepDefinitions
             DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "audit information");
             xrmBrowser.ThinkTime(1000);
             // gets the value of the created by field
+            driver.WaitForPageToLoad();
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"createdby_lookupValue\"]"));
             var createdBy = driver.FindElement(By.XPath("//*[@id=\"createdby_lookupValue\"]")).Text;
             // writes the value of userId to the console
             Console.WriteLine(createdBy);
@@ -153,7 +158,7 @@ namespace WCCIS.specs.StepDefinitions
                 driver.SwitchTo().Frame("contentIFrame1");
 
 
-
+                driver.WaitForPageToLoad();
                 Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
                 Page_PersonCoreDemographics.EnterLastName(driver, lastName);
                 Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
@@ -175,6 +180,7 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheDuplicateDetectionRulesWillTrigger()
         {
             //On the person page
+            driver.WaitUntilAvailable(By.Id("InlineDialog_Iframe"));
             driver.SwitchTo().Frame("id = \"InlineDialog_Iframe\"");
             xrmBrowser.ThinkTime(1000);
 

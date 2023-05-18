@@ -36,10 +36,9 @@ namespace WCCIS.specs.StepDefinitions
         }
 
 
-        /////a known person already exists in the system <firstname> and <dob> and <dateMovedIn> and <ethnicity> and <gender> and <preferredLanguage>
 
         [Given(@"a known person already exists in the system (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void GivenAKnownPersonAlreadyExistsInTheSystem(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
 
             // This method is technically wrong - it should be using a static reference patient and not creating a new one
@@ -54,7 +53,7 @@ namespace WCCIS.specs.StepDefinitions
 
 
 
-            Page_PersonCoreDemographics.EnterFirstName(driver, firstname);
+            Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             
             // generate a random string for surname
             lastName = DHCWExtensions.RandomString(6, false);
@@ -85,7 +84,7 @@ namespace WCCIS.specs.StepDefinitions
 
             // search for our person, the search person method should be called from here
             // DHCWExtensions.personSearch(xrmBrowser, driver, firstname, lastname, dob);
-            PersonMethods.personSearch(xrmBrowser, driver, firstname, lastName, dob);
+            PersonMethods.personSearch(xrmBrowser, driver, firstName, lastName, dob);
 
 
         }
@@ -94,6 +93,8 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIAmendAPersonsPrimaryAddressDetails(string propertyNo, string street, string townCity, string county, string postCode)
         {
             //CH Comment = what are these doing? Need to find out and refactor
+            //For info, this clicks the menu to the right of the Person label which is displayed when amending a person,
+            ////we click the 1st menu option which is 'core demographics', allowing us to amend the address details
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
             driver.FindElement(By.XPath("//*[@id=\"flyoutFormSection_Cell\"]")).Click();
 
