@@ -105,6 +105,7 @@
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="PageObjects\Person\PersonMethods.cs" />
     <Compile Include="Extensions\LoginCredentials.cs" />
+    <Compile Include="StepDefinitions\MPI\MPINewPatientInvalidNameStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByTooLongNameStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByStreetDesTownCountyStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByDesTownCountyStepDefinitions.cs" />
@@ -148,6 +149,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Features\MPI\MPINewPatientInvalidName.feature" />
     <None Include="Features\MPI\MPISearchBy5LineAddress.feature" />
     <None Include="Features\MPI\MPISearchByDesTownCounty.feature" />
     <None Include="Features\MPI\MPISearchByNameAndDOB.feature" />

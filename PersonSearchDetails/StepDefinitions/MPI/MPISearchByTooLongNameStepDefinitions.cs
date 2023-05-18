@@ -49,17 +49,14 @@ namespace WCCIS.Specs.StepDefinitions
         public void ThenTheMPISearchFieldWillAllowTheSpecialCharactersButRemoveExcessFromFirstNameAndSurname(string Forename, string Surname)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            //String firstName = driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).Text;
-            object firstNameObject = js.ExecuteScript("$('txtFirstName').val()");
+            object firstNameObject = js.ExecuteScript("return $.trim($('#txtFirstName').val());");
             Console.WriteLine(firstNameObject);
-            //string firstName = firstNameObject.ToString();
-            //Console.WriteLine(firstName);
+            Assert.IsTrue(firstNameObject.ToString() == Forename.Substring(0, 50));
             xrmBrowser.ThinkTime(1000);
-            //Assert.IsTrue(firstName.Length == 50);
-            String lastName = driver.FindElement(By.XPath("//*[@id=\"txtLastName\"]")).Text;
-            Console.WriteLine(lastName);
+            object lastNameObject = js.ExecuteScript("return $.trim($('#txtLastName').val());");
+            Console.WriteLine(lastNameObject);
             xrmBrowser.ThinkTime(1000);
-            //Assert.IsTrue(lastName.Length == 50);
+            Assert.IsTrue(lastNameObject.ToString() == Surname.Substring(0, 50));
             driver.FindElement(By.XPath("//*[@id=\"txtDOB\"]")).SendKeys("01/01/2000");
             xrmBrowser.ThinkTime(1000);
         }
