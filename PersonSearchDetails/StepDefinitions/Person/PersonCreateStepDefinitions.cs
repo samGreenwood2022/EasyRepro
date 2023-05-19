@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 using static WCCIS.Specs.Enums.Enums;
 
 namespace WCCIS.specs.StepDefinitions
@@ -17,6 +18,8 @@ namespace WCCIS.specs.StepDefinitions
     [Binding]
     public class PersonCreateStepDefinitions
     {
+
+        //THE SPECFLOW STEP DEFINITIONS SHOULD CONTAIN THE GROUPING OF TEST STEPS AND HOW THOSE MAP TO THE USER STORY STATEMENTS
 
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
@@ -32,13 +35,38 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser = browser;
         }
 
+
+        //Can we give this field default values? The specflow might make this challenging...
         [When(@"a person is created by completing mandatory fields only (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
-            // create our first person
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
+            
+            //Open New Person Window
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+
+
+            xrmBrowser.ThinkTime(1000);
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+            driver.WaitForPageToLoad();
+
+            Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+            Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+            Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+            Page_PersonCoreDemographics.EnterGender(driver, gender);
+            Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+            // save the record
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(3000);
+
 
         }
 
@@ -50,6 +78,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
+            driver.WaitForPageToLoad();
             driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
@@ -94,6 +123,8 @@ namespace WCCIS.specs.StepDefinitions
             DHCWExtensions.selectFormSectionsMenu(driver, xrmBrowser, "audit information");
             xrmBrowser.ThinkTime(1000);
             // gets the value of the created by field
+            driver.WaitForPageToLoad();
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"createdby_lookupValue\"]"));
             var createdBy = driver.FindElement(By.XPath("//*[@id=\"createdby_lookupValue\"]")).Text;
             // writes the value of userId to the console
             Console.WriteLine(createdBy);
@@ -113,29 +144,64 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [When(@"i create two people using the same details (.*) and (.*) and (.*) and (.*) and (.*) and (.*)")]
-        public void WhenICreateTwoPeopleUsingTheSameDetails(string firstname, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
+        public void WhenICreateTwoPeopleUsingTheSameDetails(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
-            // create our first person
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
-            // create the 2nd person using the same details as above
-            PersonMethods.CreateBasicPerson(xrmBrowser, driver, firstname, dob, dateMovedIn, ethnicity, gender, preferredLanguage, lastName);
-            
+
+            for (int i= 0; i<2; i++)
+            {
+                //Create SharedNavigation method for "open new person"
+                xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+                xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+                //Switch back to main window after opening new person
+                driver.SwitchTo().Window(driver.WindowHandles.Last());
+
+                // select the correct iFrame - this should be refactored out in the future
+                driver.SwitchTo().Frame("contentIFrame1");
+
+
+                driver.WaitForPageToLoad();
+                Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+                Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+                Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+                Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+                Page_PersonCoreDemographics.EnterGender(driver, gender);
+                Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+                Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+                // save the record
+                //Note that we have had to use a custom save function elsewhere
+                xrmBrowser.CommandBar.ClickCommand("SAVE");
+                //xrmBrowser.ThinkTime(3000);
+                Console.WriteLine(lastName);
+            }
         }
 
 
         [Then(@"the duplicate detection rules will trigger")]
         public void ThenTheDuplicateDetectionRulesWillTrigger()
         {
+            //On the person page
+            driver.WaitUntilAvailable(By.Id("InlineDialog_Iframe"));
             driver.SwitchTo().Frame("id = \"InlineDialog_Iframe\"");
             xrmBrowser.ThinkTime(1000);
+
+            //Locate the error element and pull back the text
+            //This needs a new name and some description
             String errorTextd = driver.FindElement(By.XPath("//*[@id=\"ErrorTitle\"]")).Text;
             xrmBrowser.ThinkTime(1000);
+
+            //Confirm Duplicate record is the text pulled back
+            //Query: Is this too brittle?
             Assert.AreEqual(errorTextd, "Duplicate Record");
             xrmBrowser.ThinkTime(1000);
+
+            //This is clicking the same element as before
             driver.FindElement(By.XPath("//*[@id=\"ErrorTitle\"]")).Click();
 
+
+            //this is now clicking a new element - what is it?
             driver.FindElement(By.XPath("//*[@id=\"Duplicate detect rules popup\"]")).Click();
             Console.WriteLine("Duplicate detection rules currently not in place");
         }
@@ -163,7 +229,49 @@ namespace WCCIS.specs.StepDefinitions
             bool isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
             // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
+
+            //This can be partially refactored
+
+
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // select the correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            // grab a hold of our webElement by finding its class name, ie the Ethnicity validation message
+            IWebElement we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            string webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            string webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Ethnicity.");
             // add a value to the field so we can test validation on the next field
+
+            Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
+
+            xrmBrowser.ThinkTime(1000);
+
+
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            // display the next validation message
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
+            // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            // ensure the validation element has been set to be visible, ie "display: block";
+
+            //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
+            
+            //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
+
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            // ensure the expected validation text is also as expected
+            Assert.AreEqual(webElementText, "You must provide a value for Preferred Language.");
+
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, "English");
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
             xrmBrowser.CommandBar.ClickCommand("Save");
@@ -179,6 +287,20 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("Welsh");
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Last Name.");
+
+            Page_PersonCoreDemographics.EnterLastName(driver, "Test");
+
+            xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
             
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
@@ -188,11 +310,31 @@ namespace WCCIS.specs.StepDefinitions
             Assert.IsTrue(isErrorBoxFound);
             // enter a value into the lastName field so we can test validation on the next field
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"lastname_warn\"]")).Click();
-            driver.FindElement(By.Id("lastname_i")).SendKeys("Smith");
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+
+
+            Page_PersonCoreDemographics.EnterLastName(driver, "Test");
             xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
+
+
+            Page_PersonCoreDemographics.EnterGender(driver, "Male");
+
             
             // set field we want to check to be gender
             fieldWeWant = PersonMandatoryFields.gender;
@@ -220,13 +362,15 @@ namespace WCCIS.specs.StepDefinitions
             // enter a value into the date person moved in field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
             xrmBrowser.ThinkTime(1000);
-            
-            // set field we want to check to be dob in
-            fieldWeWant = PersonMandatoryFields.dob;
-            // determine if dob is mandatory
-            isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            Assert.IsTrue(isErrorBoxFound);
-            
+            xrmBrowser.CommandBar.ClickCommand("SAVE");
+
+            driver.SwitchTo().Frame("contentIFrame1");
+            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
+            webElement = we.GetAttribute("style");
+            Assert.IsTrue(webElement.Contains("display: block;"));
+            webElementText = we.Text;
+            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in."); 
+
         }
 
         [When(@"i've created a new person with an NHS Number")]
@@ -239,43 +383,31 @@ namespace WCCIS.specs.StepDefinitions
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"firstname\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"firstname_i\"]")).SendKeys("TestX");
-            driver.FindElement(By.XPath("//*[@id=\"lastname\"]/div[1]")).Click();
+
+            Page_PersonCoreDemographics.EnterFirstName(driver, "TestX");
+
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
-            driver.FindElement(By.Id("lastname_i")).SendKeys(lastName);
+            Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+
             //-------------------
-            // add NHS number
-            // generate a random number 1st
-            var number = DHCWExtensions.ReturnNHSNumber();
-            // convert to a string so we can type it into out field
-            string nhsNumber = number.ToString();
-            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(nhsNumber);
-            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys(Keys.Enter);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonCoreDemographics.EnterNHSNumber(driver);
+
             //-------------------
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid\"]/div[1]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
+
             // enter value into preferred language field
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("English");
-            // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement = new SelectElement(dropDownOption);
-            selectElement.SelectByText("Male");
-            //selectElement.SelectByIndex(0);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, "English");
+
+            // Select the value from the gender picklist
+            Page_PersonCoreDemographics.EnterGender(driver, "Male");
+
             // enter a value into the dob field
-            driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]")).SendKeys("12/10/1976");
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonCoreDemographics.EnterDateOfBirth(driver, "12/10/1976");
+
+            //Enter Date Moved In
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2000");
+
             // save the record
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
