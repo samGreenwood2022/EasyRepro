@@ -218,8 +218,6 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
         }
-
-
         [Then(@"the expected mandatory fields are active")]
         public void ThenTheExpectedMandatoryFieldsAreActive()
         {
@@ -230,52 +228,13 @@ namespace WCCIS.specs.StepDefinitions
             // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
 
-            //This can be partially refactored
+            // this can be partially refactored
 
-
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            // grab a hold of our webElement by finding its class name, ie the Ethnicity validation message
-            IWebElement we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            string webElement = we.GetAttribute("style");
-            // ensure the validation element has been set to be visible, ie "display: block";
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            string webElementText = we.Text;
-            // ensure the expected validation text is also as expected
-            Assert.AreEqual(webElementText, "You must provide a value for Ethnicity.");
             // add a value to the field so we can test validation on the next field
-
-            Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
-
-            xrmBrowser.ThinkTime(1000);
-
-
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(1000);
-            // display the next validation message
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            driver.SwitchTo().Frame("contentIFrame1");
-            // the element where the class=ms-crm-inline-validation is only displayed when a validation message is triggered
-            // so we can use the same selector, but this time when we check the message itself ensure that we are checking for the 'Preferred language' text
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
-            // ensure the validation element has been set to be visible, ie "display: block";
-
-            //driver.FindElement(By.XPath("//div[@class='ms-crm-Inline-Validation'] and contain)    /div[@style='Following'] and contains(@style, '')"));
-            
-            //driver.findElement(By.xpath("//table[@title='not derp' and contains(@id, 'yyy')]"));
-
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
-            // ensure the expected validation text is also as expected
-            Assert.AreEqual(webElementText, "You must provide a value for Preferred Language.");
-
-            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, "English");
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
             xrmBrowser.CommandBar.ClickCommand("Save");
-            
+
             // test the next validation message 
             fieldWeWant = PersonMandatoryFields.preferredLanguage;
             // determine if preferredLanguage is mandatory
@@ -287,21 +246,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("Welsh");
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            driver.SwitchTo().Frame("contentIFrame1");
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Last Name.");
 
-            Page_PersonCoreDemographics.EnterLastName(driver, "Test");
-
-            xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
             // determine if lastName is mandatory
@@ -310,32 +255,12 @@ namespace WCCIS.specs.StepDefinitions
             Assert.IsTrue(isErrorBoxFound);
             // enter a value into the lastName field so we can test validation on the next field
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            driver.SwitchTo().Frame("contentIFrame1");
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
-
-
-            Page_PersonCoreDemographics.EnterLastName(driver, "Test");
+            driver.FindElement(By.XPath("//*[@id=\"lastname_warn\"]")).Click();
+            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
             xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
 
-            driver.SwitchTo().Frame("contentIFrame1");
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Gender.");
-
-
-            Page_PersonCoreDemographics.EnterGender(driver, "Male");
-
-            
             // set field we want to check to be gender
             fieldWeWant = PersonMandatoryFields.gender;
             // determine if gender is mandatory
@@ -349,7 +274,7 @@ namespace WCCIS.specs.StepDefinitions
             selectElement.SelectByText("Male");
             // xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
-            
+
             // set field we want to check to be gender
             fieldWeWant = PersonMandatoryFields.movedInDate;
             // determine if movedInDate is mandatory
@@ -362,14 +287,12 @@ namespace WCCIS.specs.StepDefinitions
             // enter a value into the date person moved in field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
 
-            driver.SwitchTo().Frame("contentIFrame1");
-            we = driver.FindElement(By.ClassName("ms-crm-Inline-Validation"));
-            webElement = we.GetAttribute("style");
-            Assert.IsTrue(webElement.Contains("display: block;"));
-            webElementText = we.Text;
-            Assert.AreEqual(webElementText, "You must provide a value for Date Person moved in."); 
+            // set field we want to check to be dob in
+            fieldWeWant = PersonMandatoryFields.dob;
+            // determine if dob is mandatory
+            isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
+            Assert.IsTrue(isErrorBoxFound);
 
         }
 
