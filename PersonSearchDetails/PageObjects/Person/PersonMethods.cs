@@ -144,6 +144,7 @@ namespace PersonSearchDetails.PageObjects
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             // click Save fro the command bar
             driver.FindElement(By.Id(@"contact|NoRelationship|Form|Mscrm.Form.contact.Save")).Click();
+            xrmBrowser.ThinkTime(500);
             // set default value for element found to be false
             bool elementFound = false;
             // dob validation is different to the other fields as its displayed in an alert instead of the validation message inline with the field

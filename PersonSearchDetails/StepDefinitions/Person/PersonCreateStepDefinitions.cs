@@ -167,6 +167,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
             xrmBrowser.CommandBar.ClickCommand("Save");
+            
             // test the next validation message 
             fieldWeWant = PersonMandatoryFields.preferredLanguage;
             // determine if preferredLanguage is mandatory
@@ -178,6 +179,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("Welsh");
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
+            
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
             // determine if lastName is mandatory
@@ -191,6 +193,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
+            
             // set field we want to check to be gender
             fieldWeWant = PersonMandatoryFields.gender;
             // determine if gender is mandatory
@@ -202,15 +205,22 @@ namespace WCCIS.specs.StepDefinitions
             var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
             var selectElement = new SelectElement(dropDownOption);
             selectElement.SelectByText("Male");
-            xrmBrowser.CommandBar.ClickCommand("Save");
+            // xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
-
+            
+            // set field we want to check to be gender
+            fieldWeWant = PersonMandatoryFields.movedInDate;
+            // determine if movedInDate is mandatory
+            isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
+            // ensure the validation message displayed is for the expected 
+            Assert.IsTrue(isErrorBoxFound);
             // switch to the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
+            // driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(2000);
             // enter a value into the date person moved in field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
             xrmBrowser.ThinkTime(1000);
+            
             // set field we want to check to be dob in
             fieldWeWant = PersonMandatoryFields.dob;
             // determine if dob is mandatory
