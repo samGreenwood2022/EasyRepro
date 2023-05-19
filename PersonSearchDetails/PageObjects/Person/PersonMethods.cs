@@ -140,36 +140,43 @@ namespace PersonSearchDetails.PageObjects
             fieldExpected = enumFieldExpected.ToString();
             // this needs to be changes to use the reference data instead, ie enu
 
-            // xrmBrowser.CommandBar.ClickCommand("SAVE");
+            // switch to the last open browser window
             driver.SwitchTo().Window(driver.WindowHandles.Last());
+            // click Save fro the command bar
             driver.FindElement(By.Id(@"contact|NoRelationship|Form|Mscrm.Form.contact.Save")).Click();
-
+            // set default value for element found to be false
             bool elementFound = false;
-
+            // dob validation is different to the other fields as its displayed in an alert instead of the validation message inline with the field
+            // this if statement is to cater for the alert instead of the regular validation messages
             if (fieldExpected == "dob")
             {
-                    // Check the presence of alert
+                    // check the presence of alert and get the text it contains
                     string alertText = driver.SwitchTo().Alert().Text;
                     Console.WriteLine(alertText);
+                    // assert the alert text is as expected
                     Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
+                    // close the alert
                     driver.SwitchTo().Alert().Dismiss();
+                    // set elementFound to be true
                     elementFound = true;
                     return elementFound;
             }
-            else
+            else // if we arent dealing with the dob field then run the following code
             {
                 // select the correct iFrame
                 driver.SwitchTo().Frame("contentIFrame1");
                 // get all instances of class 'ms-crm-Inline-Validation'
                 IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
+                
                 //Loop through all elements returned in the above array 
-
                 foreach (IWebElement element in wei)
                 {
                     //Only check next element, if you haven't found the one you're looking for
                     if (!elementFound)
                     {
+                        // get the text content for the validation message
                         string a = element.GetAttribute("textContent");
+                        // get the style of the validation message, should equal 'display: block;' if visible
                         string b = element.GetAttribute("style");
                         Console.WriteLine(a);
                         Console.WriteLine(b);
@@ -182,6 +189,7 @@ namespace PersonSearchDetails.PageObjects
                             case "ethnicity":
                                 if (a == "You must provide a value for Ethnicity." && b.Contains("display: block;"))
                                 {
+                                    // set elementFound to be true and return our value
                                     elementFound = true;
                                     return elementFound;
 
@@ -191,6 +199,7 @@ namespace PersonSearchDetails.PageObjects
                             case "preferredLanguage":
                                 if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
                                 {
+                                    // set elementFound to be true and return our value
                                     elementFound = true;
                                     return elementFound;
 
@@ -200,6 +209,7 @@ namespace PersonSearchDetails.PageObjects
                             case "gender":
                                 if (a == "You must provide a value for Gender." && b.Contains("display: block;"))
                                 {
+                                    // set elementFound to be true and return our value
                                     elementFound = true;
                                     return elementFound;
 
@@ -209,6 +219,7 @@ namespace PersonSearchDetails.PageObjects
                             case "lastName":
                                 if (a == "You must provide a value for Last Name." && b.Contains("display: block;"))
                                 {
+                                    // set elementFound to be true and return our value
                                     elementFound = true;
                                     return elementFound;
                                 }
@@ -217,35 +228,16 @@ namespace PersonSearchDetails.PageObjects
                             case "movedInDate":
                                 if (a == "You must provide a value for Date Person moved in." && b.Contains("display: block;"))
                                 {
+                                    // set elementFound to be true and return our value
                                     elementFound = true;
                                     return elementFound;
-
                                 }
                                 break;
-                            ////dob
-                            //case "dob":
-                            //    try
-                            //    {
-                            //        // Check the presence of alert
-                            //        string alertText = driver.SwitchTo().Alert().Text;
-                            //        Console.WriteLine(alertText);
-                            //        Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
-                            //        elementFound = true;
-                            //        return elementFound;
-                            //    }
-                            //    catch
-                            //    {
-                            //        // Alert not present
-                            //        Console.WriteLine("Alert not present or text incorrect");
-                            //    }
-                            //    break;
                         }
                     }
                 }
 
             }
-
-
             return elementFound;
         }
        

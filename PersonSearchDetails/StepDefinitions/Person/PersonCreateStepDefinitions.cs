@@ -161,29 +161,28 @@ namespace WCCIS.specs.StepDefinitions
             PersonMandatoryFields fieldWeWant = PersonMandatoryFields.ethnicity;
             // determine if ethnicity is mandatory
             bool isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            // ensure the validation message displayed is for the expected 
+            // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
             // add a value to the field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
-            // xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
-            xrmBrowser.ThinkTime(1000);
             // test the next validation message 
             fieldWeWant = PersonMandatoryFields.preferredLanguage;
+            // determine if preferredLanguage is mandatory
             isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
+            // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
             // enter value into preferred language field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("Welsh");
-            // xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
             // determine if lastName is mandatory
             isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            // ensure the validation message displayed is for the expected 
+            // ensure the validation message displayed is for the expected feld
             Assert.IsTrue(isErrorBoxFound);
             // enter a value into the lastName field so we can test validation on the next field
             xrmBrowser.ThinkTime(1000);
@@ -206,37 +205,18 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
 
-            // set field we want to check to be date person moved in
-            // fieldWeWant = PersonMandatoryFields.movedInDate;
-            // determine if moved in date is mandatory
-            // isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            // ensure the validation message displayed is for the person moved in field
-            // Assert.IsTrue(isErrorBoxFound);
-
-            // enter a value into the date person moved in field so we can test validation on the next field
+            // switch to the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(2000);
-            // driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]")).Click();
+            // enter a value into the date person moved in field so we can test validation on the next field
             driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
-            xrmBrowser.ThinkTime(1000);
-            // xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
             // set field we want to check to be dob in
             fieldWeWant = PersonMandatoryFields.dob;
             // determine if dob is mandatory
             isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            
-            // the error box isnt found because when we click Save, it hits a try catch statement because of the dob prompt
-            // the prompt is then removed (as part of the try catch?) so we cant interact with it with our code
             Assert.IsTrue(isErrorBoxFound);
-            //try
-            //{
-            //    Assert.IsTrue(isErrorBoxFound);
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Theres an issue with the dob alert");
-            //}  
+            
         }
 
         [When(@"i've created a new person with an NHS Number")]
