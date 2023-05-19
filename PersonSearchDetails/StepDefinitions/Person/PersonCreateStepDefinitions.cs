@@ -1,6 +1,5 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using Microsoft.Dynamics365.UIAutomation.Sample.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -218,6 +217,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
         }
+
         [Then(@"the expected mandatory fields are active")]
         public void ThenTheExpectedMandatoryFieldsAreActive()
         {
@@ -228,11 +228,8 @@ namespace WCCIS.specs.StepDefinitions
             // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
 
-            // this can be partially refactored
-
             // add a value to the field so we can test validation on the next field
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_ethnicityid_ledit\"]")).SendKeys("African");
+            Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
             xrmBrowser.CommandBar.ClickCommand("Save");
 
             // test the next validation message 
@@ -242,8 +239,7 @@ namespace WCCIS.specs.StepDefinitions
             // ensure the validation message displayed is for the expected field
             Assert.IsTrue(isErrorBoxFound);
             // enter value into preferred language field so we can test validation on the next field
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_ledit\"]")).SendKeys("Welsh");
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, "Welsh");
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
 
@@ -255,8 +251,7 @@ namespace WCCIS.specs.StepDefinitions
             Assert.IsTrue(isErrorBoxFound);
             // enter a value into the lastName field so we can test validation on the next field
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"lastname_warn\"]")).Click();
-            driver.FindElement(By.Id("lastname_i")).SendKeys("Test");
+            Page_PersonCoreDemographics.EnterLastName(driver, "Test");
             xrmBrowser.ThinkTime(1000);
             xrmBrowser.CommandBar.ClickCommand("Save");
             xrmBrowser.ThinkTime(1000);
@@ -268,11 +263,7 @@ namespace WCCIS.specs.StepDefinitions
             // ensure the validation message displayed is for the expected 
             Assert.IsTrue(isErrorBoxFound);
             // Select the first value from the gender picklist
-            driver.FindElement(By.XPath("//*[@id=\"gendercode\"]")).Click();
-            var dropDownOption = driver.FindElement(By.XPath("//*[@id=\"gendercode_i\"]"));
-            var selectElement = new SelectElement(dropDownOption);
-            selectElement.SelectByText("Male");
-            // xrmBrowser.CommandBar.ClickCommand("Save");
+            Page_PersonCoreDemographics.EnterGender(driver, "Male");
             xrmBrowser.ThinkTime(1000);
 
             // set field we want to check to be gender
@@ -285,7 +276,7 @@ namespace WCCIS.specs.StepDefinitions
             // driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(2000);
             // enter a value into the date person moved in field so we can test validation on the next field
-            driver.FindElement(By.XPath("//*[@id=\"cw_datepersonmovedin_iDateInput\"]")).SendKeys("01/01/2000");
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2000");
             xrmBrowser.ThinkTime(1000);
 
             // set field we want to check to be dob in

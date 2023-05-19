@@ -133,24 +133,24 @@ namespace PersonSearchDetails.PageObjects
             // this if statement is to cater for the alert instead of the regular validation messages
             if (fieldExpected == "dob")
             {
-                    // check the presence of alert and get the text it contains
-                    string alertText = driver.SwitchTo().Alert().Text;
-                    Console.WriteLine(alertText);
-                    // assert the alert text is as expected
-                    Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
-                    // close the alert
-                    driver.SwitchTo().Alert().Dismiss();
-                    // set elementFound to be true
-                    elementFound = true;
-                    return elementFound;
+                // check the presence of alert and get the text it contains
+                string alertText = driver.SwitchTo().Alert().Text;
+                Console.WriteLine(alertText);
+                // assert the alert text is as expected
+                Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
+                // close the alert
+                driver.SwitchTo().Alert().Dismiss();
+                // set elementFound to be true
+                elementFound = true;
+                return elementFound;
             }
-            else // if we arent dealing with the dob field then run the following code
+            else // if we arent dealing with the dob field then run the following code to test the other validation messages
             {
                 // select the correct iFrame
                 driver.SwitchTo().Frame("contentIFrame1");
                 // get all instances of class 'ms-crm-Inline-Validation'
                 IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
-                
+
                 //Loop through all elements returned in the above array 
                 foreach (IWebElement element in wei)
                 {
@@ -223,7 +223,7 @@ namespace PersonSearchDetails.PageObjects
             }
             return elementFound;
         }
-       
+
     }
 }
 
