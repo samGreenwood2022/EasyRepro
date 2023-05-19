@@ -144,92 +144,108 @@ namespace PersonSearchDetails.PageObjects
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             driver.FindElement(By.Id(@"contact|NoRelationship|Form|Mscrm.Form.contact.Save")).Click();
 
-
-            // select the correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            // get all instances of class 'ms-crm-Inline-Validation'
-            IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
-
-            //Loop through all elements returned in the above array 
             bool elementFound = false;
-            foreach (IWebElement element in wei)
+
+            if (fieldExpected == "dob")
             {
-                //Only check next element, if you haven't found the one you're looking for
-                if (!elementFound)
+                    // Check the presence of alert
+                    string alertText = driver.SwitchTo().Alert().Text;
+                    Console.WriteLine(alertText);
+                    Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
+                    driver.SwitchTo().Alert().Dismiss();
+                    elementFound = true;
+                    return elementFound;
+            }
+            else
+            {
+                // select the correct iFrame
+                driver.SwitchTo().Frame("contentIFrame1");
+                // get all instances of class 'ms-crm-Inline-Validation'
+                IList<IWebElement> wei = driver.FindElements(By.ClassName("ms-crm-Inline-Validation"));
+                //Loop through all elements returned in the above array 
+
+                foreach (IWebElement element in wei)
                 {
-                    string a = element.GetAttribute("textContent");
-                    string b = element.GetAttribute("style");
-                    Console.WriteLine(a);
-                    Console.WriteLine(b);
-                    // switch/case statement where expression needs to match case
-                    // how do we pass in the field we are checking, create class with field values? where to store?
-                    switch (fieldExpected)
+                    //Only check next element, if you haven't found the one you're looking for
+                    if (!elementFound)
                     {
-                        //switch statement then executes code which looks for the error of each type
-                        //ethnicity
-                        case "ethnicity":
-                        if (a == "You must provide a value for Ethnicity." && b.Contains("display: block;"))
+                        string a = element.GetAttribute("textContent");
+                        string b = element.GetAttribute("style");
+                        Console.WriteLine(a);
+                        Console.WriteLine(b);
+                        // switch/case statement where expression needs to match case
+                        // how do we pass in the field we are checking, create class with field values? where to store?
+                        switch (fieldExpected)
                         {
-                            elementFound = true;
-                            return elementFound;
+                            //switch statement then executes code which looks for the error of each type
+                            //ethnicity
+                            case "ethnicity":
+                                if (a == "You must provide a value for Ethnicity." && b.Contains("display: block;"))
+                                {
+                                    elementFound = true;
+                                    return elementFound;
 
+                                }
+                                break;
+                            //prefLang
+                            case "preferredLanguage":
+                                if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
+                                {
+                                    elementFound = true;
+                                    return elementFound;
+
+                                }
+                                break;
+                            //gender 
+                            case "gender":
+                                if (a == "You must provide a value for Gender." && b.Contains("display: block;"))
+                                {
+                                    elementFound = true;
+                                    return elementFound;
+
+                                }
+                                break;
+                            //lastName
+                            case "lastName":
+                                if (a == "You must provide a value for Last Name." && b.Contains("display: block;"))
+                                {
+                                    elementFound = true;
+                                    return elementFound;
+                                }
+                                break;
+                            //movedInDate
+                            case "movedInDate":
+                                if (a == "You must provide a value for Date Person moved in." && b.Contains("display: block;"))
+                                {
+                                    elementFound = true;
+                                    return elementFound;
+
+                                }
+                                break;
+                            ////dob
+                            //case "dob":
+                            //    try
+                            //    {
+                            //        // Check the presence of alert
+                            //        string alertText = driver.SwitchTo().Alert().Text;
+                            //        Console.WriteLine(alertText);
+                            //        Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
+                            //        elementFound = true;
+                            //        return elementFound;
+                            //    }
+                            //    catch
+                            //    {
+                            //        // Alert not present
+                            //        Console.WriteLine("Alert not present or text incorrect");
+                            //    }
+                            //    break;
                         }
-                        break;
-                        //prefLang
-                        case "preferredLanguage":
-                            if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
-                            {
-                                elementFound = true;
-                                return elementFound;
-
-                            }
-                            break;
-                        //gender 
-                        case "gender":
-                            if (a == "You must provide a value for Gender." && b. Contains("display: block;"))
-                            {
-                                elementFound = true;
-                                return elementFound;
-
-                            }
-                            break;
-                        //lastName
-                        case "lastName":
-                            if (a == "You must provide a value for Last Name." && b.Contains("display: block;"))
-                            {
-                                elementFound = true;
-                                return elementFound;
-                            }
-                            break;
-                        //movedInDate
-                        case "movedInDate":
-                            if (a == "You must provide a value for Date Person moved in." && b.Contains("display: block;"))
-                            {
-                                elementFound = true;
-                                return elementFound;
-
-                            }
-                            break;
-                        //dob
-                        case "dob":
-                            try
-                            {
-                                // Check the presence of alert
-                                string alertText = driver.SwitchTo().Alert().Text;
-                                Console.WriteLine(alertText);
-                                Assert.IsTrue(alertText.Contains("Please enter estimated age or DOB."));
-                                elementFound = true;
-                                return elementFound;
-                            }
-                            catch
-                            {
-                                // Alert not present
-                                Console.WriteLine("Alert not present or text incorrect");
-                            }
-                            break;
                     }
                 }
+
             }
+
+
             return elementFound;
         }
        
