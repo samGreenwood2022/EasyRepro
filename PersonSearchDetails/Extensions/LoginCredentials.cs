@@ -1,12 +1,9 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
 using OpenQA.Selenium;
-using System;
-using System.Security;
-using System.Text;
 
 namespace WCCIS.Specs.Extentions
 {
-    internal class LoginCredentials
+    internal class UserLogin
     {
 
         public static void AdministratorLogin(Browser xrmBrowser, IWebDriver driver)

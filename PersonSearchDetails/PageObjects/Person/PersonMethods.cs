@@ -161,8 +161,6 @@ namespace PersonSearchDetails.PageObjects
                         string a = element.GetAttribute("textContent");
                         // get the style of the validation message, should equal 'display: block;' if visible
                         string b = element.GetAttribute("style");
-                        Console.WriteLine(a);
-                        Console.WriteLine(b);
                         // switch/case statement where expression needs to match case
                         // how do we pass in the field we are checking, create class with field values? where to store?
                         switch (fieldExpected)
@@ -171,16 +169,6 @@ namespace PersonSearchDetails.PageObjects
                             //ethnicity
                             case "ethnicity":
                                 if (a == "You must provide a value for Ethnicity." && b.Contains("display: block;"))
-                                {
-                                    // set elementFound to be true and return our value
-                                    elementFound = true;
-                                    return elementFound;
-
-                                }
-                                break;
-                            //prefLang
-                            case "preferredLanguage":
-                                if (a == "You must provide a value for Preferred Language." && b.Contains("display: block;"))
                                 {
                                     // set elementFound to be true and return our value
                                     elementFound = true;

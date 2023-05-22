@@ -24,7 +24,7 @@ namespace WCCIS.Specs.StepDefinitions
         public void GivenThatIveLoggedInAsAnAdministrator()
         {
             // call our AdministratorLogin method
-            LoginCredentials.AdministratorLogin(xrmBrowser, driver);
+            UserLogin.AdministratorLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
@@ -47,7 +47,7 @@ namespace WCCIS.Specs.StepDefinitions
         public void GivenThatAnAdultSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.AdultSupportWorkerLogin(xrmBrowser, driver);
+            UserLogin.AdultSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
@@ -70,7 +70,7 @@ namespace WCCIS.Specs.StepDefinitions
         public void GivenAChildrensSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.ChildrensSupportWorkerLogin(xrmBrowser, driver);
+            UserLogin.ChildrensSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try

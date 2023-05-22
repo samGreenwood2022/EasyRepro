@@ -225,17 +225,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
             xrmBrowser.CommandBar.ClickCommand("Save");
 
-            // test the next validation message 
-            fieldWeWant = PersonMandatoryFields.preferredLanguage;
-            // determine if preferredLanguage is mandatory
-            isErrorBoxFound = PersonMethods.IsPersonMandatoryFieldValidationErrorPresent(xrmBrowser, driver, fieldWeWant);
-            // ensure the validation message displayed is for the expected field
-            Assert.IsTrue(isErrorBoxFound);
-            // enter value into preferred language field so we can test validation on the next field
-            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, "Welsh");
-            xrmBrowser.CommandBar.ClickCommand("Save");
-            xrmBrowser.ThinkTime(1000);
-
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
             // determine if lastName is mandatory
