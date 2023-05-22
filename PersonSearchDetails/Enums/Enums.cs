@@ -1,6 +1,6 @@
 ﻿namespace WCCIS.Specs.Enums
 {
-    internal class Enums
+    internal class MandatoryFields
     {
         public enum PersonMandatoryFields
         {

@@ -10,7 +10,7 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
-using static WCCIS.Specs.Enums.Enums;
+using static WCCIS.Specs.Enums.MandatoryFields;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -90,8 +90,7 @@ namespace WCCIS.specs.StepDefinitions
 
             // finds the element that stores the person id by searching on a partial id
             // then getting the text value from that element
-            String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
-            Console.WriteLine(personId);           
+            String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;    
             // the Actions class contains functions like 'doubleClick' which can be used on ui elements
             Actions act = new Actions(driver);
             IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
@@ -105,8 +104,6 @@ namespace WCCIS.specs.StepDefinitions
 
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
             String concatName = driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']")).Text;
-            // write the string to the console so we can see whats in it, handy for debugging
-            Console.WriteLine(concatName);
             //possibly remove the below line as the the test is being performed above
             driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstname + " (WCCIS ID: " + personId + ")']"));
             //search for our dob value within the iframe
@@ -125,8 +122,6 @@ namespace WCCIS.specs.StepDefinitions
             driver.WaitForPageToLoad();
             driver.WaitUntilVisible(By.XPath("//*[@id=\"createdby_lookupValue\"]"));
             var createdBy = driver.FindElement(By.XPath("//*[@id=\"createdby_lookupValue\"]")).Text;
-            // writes the value of userId to the console
-            Console.WriteLine(createdBy);
             // perform an assertion to ensure userId is as expected
             Assert.AreEqual(createdBy, "CCIS Test55");
             xrmBrowser.ThinkTime(1000);
@@ -172,8 +167,6 @@ namespace WCCIS.specs.StepDefinitions
                 // save the record
                 //Note that we have had to use a custom save function elsewhere
                 xrmBrowser.CommandBar.ClickCommand("SAVE");
-                //xrmBrowser.ThinkTime(3000);
-                Console.WriteLine(lastName);
             }
         }
 
@@ -325,17 +318,17 @@ namespace WCCIS.specs.StepDefinitions
             // save the record
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             xrmBrowser.ThinkTime(3000);
-            Console.WriteLine(lastName);
         }
 
         [Then(@"check to see if the NHS Number field is blank")]
         public void ThenCheckToSeeIfTheNHSNumberFieldIsBlank()
         {
-            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]")).SendKeys("abcd");
-            driver.FindElement(By.XPath("//*[@id=\"cw_languageid_cl\"]")).Click();
+            // this method will test that letters cant be submitted into the NHS Number field
+            // attempt to submit 'abcd' into the NHS Number field
+            Page_PersonCoreDemographics.EnterNHSNumber(driver, "abcd" + Keys.Enter);
+            // get the value for the NHS Number field
             string titleValue = driver.FindElement(By.XPath("//*[@id=\"NHS No_label\"]")).Text;
-            Console.WriteLine(titleValue);
+            // we then assert that the NHS number field doesnt contain the letters we previously tried to enter
             Assert.AreEqual("--", titleValue);
             
 
