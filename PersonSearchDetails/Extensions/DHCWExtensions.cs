@@ -13,7 +13,7 @@ namespace WCCIS.Specs.Extentions
         public static string dateMovedInNew = "01/01/2003";
         public static int menuNumber;
         // this code will log us into CareDirector
-        public static void Login(IWebDriver webDriver, Browser xrmBrowser, string username, string password)
+        public static void Login(Browser xrmBrowser, IWebDriver webDriver,  string username, string password)
         {
             // wait for page to load
             var driver = webDriver;

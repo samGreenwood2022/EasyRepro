@@ -12,7 +12,7 @@ namespace WCCIS.Specs.StepDefinitions
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
 
-        public LoginStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
+        public LoginStepDefinitions( Browser browser, IWebDriver webDriver)//constructor
         {
             // Create an instance of our webbrowser (defined in the Hooks) to be used by all methods in this class
             // also create an instance of a dynamics365 library (xrmBrowser) containing commands we can use

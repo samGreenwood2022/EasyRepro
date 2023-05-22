@@ -420,7 +420,7 @@ namespace Microsoft.Dynamics365.UIAutomation.Browser
             {
                 if (driver.WindowHandles.Count == 1)
                 {
-                    //driver.SwitchTo().Window(driver.WindowHandles[0]);
+                    driver.SwitchTo().Window(driver.WindowHandles[0]);
                 }
                 state = ((IJavaScriptExecutor)driver).ExecuteScript(@"return document.readyState").ToString();
                 if (!(state.Equals("complete", StringComparison.InvariantCultureIgnoreCase) || state.Equals("loaded", StringComparison.InvariantCultureIgnoreCase)))
