@@ -6,7 +6,7 @@ been created when a new person is created
 
 @smokeTest
 Scenario: To verify that a newly created person has the correct Audit logs created against them
-	Given that i've logged in as an administrator
+	Given that a childrens support worker has logged in
 	When a person is created by completing mandatory fields only <firstname> and <dob> and <dateMovedIn> and <Ethnicity> and <Gender> and <preferredLanguage>
 	Then the expected audit events would be created
 	Examples: 

@@ -128,8 +128,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
             // verify our lastname, firstname and id is correct, then store in a string so we can see what it is
             String concatName = driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstName + " (WCCIS ID: " + personId + ")']")).Text;
-            // write the string to the console so we can see whats in it, handy for debugging
-            Console.WriteLine(concatName);
+            // write the string to the console so we can see whats in it
+            Console.WriteLine("The concatenated person details are: " + concatName);
             //possibly remove the below line as the the test is being performed above
             driver.FindElement(By.XPath("//*[text()='" + lastName + ", " + firstName + " (WCCIS ID: " + personId + ")']"));
             //search for our dob value within the iframe

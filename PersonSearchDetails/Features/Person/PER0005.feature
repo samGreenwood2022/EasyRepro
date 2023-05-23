@@ -6,7 +6,7 @@ Detection rule tested - matching Surname, Forename & DOB
 
 @tag1
 Scenario Outline: duplicate detection rules are in place when creating a new Person
-	Given that i've logged in as an administrator
+	Given that an adult support worker has logged in
 	When i create two people using the same details <firstname> and <dob> and <dateMovedIn> and <Ethnicity> and <Gender> and <preferredLanguage>
 	Then the duplicate detection rules will trigger
 	Examples: 

@@ -378,6 +378,7 @@ namespace Microsoft.Dynamics365.UIAutomation.Browser
         public static bool WaitForPageToLoad(this IWebDriver driver, int maxWaitTimeInSeconds)
         {
             string state = string.Empty;
+            
             try
             {
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(maxWaitTimeInSeconds));
