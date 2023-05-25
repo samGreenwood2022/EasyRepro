@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
 
 namespace PersonSearchDetails.PageObjects
 {
@@ -48,21 +49,27 @@ namespace PersonSearchDetails.PageObjects
             xrmBrowser.ThinkTime(1000);
         }
 
-        public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstname, string lastName, string dob)
+        //Ideally we would be splitting the person search into the individual steps in the method where it is called 
+        public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstName, string lastName, string dob)
         {
+
+            throw new Exception("Method no longer maintained. Use individual step methods defined in Page_PersonSearch class.")
             // search for our person, the search person method should be called from here
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(2000);
+
+            Page_PersonSearch.EnterTextIntoFirstNameField(driver, firstName);
+            Page_PersonSearch.EnterTextIntoLastNameField(driver, lastName);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
+            Page_PersonSearch.ClickSearch(driver);
+
+            //assuming the code below will find the box that has the person ID from the search results
+            //Then will pull the text from that
+            //Then will doubleClick on the box that contains the first name
+            //Then the person ID is returned
+            //This one needs some thought
 
             // finds the element that stores the person id by searching on a partial id
             // then getting the text value from that element
@@ -70,7 +77,7 @@ namespace PersonSearchDetails.PageObjects
             Console.WriteLine(personId);
             // the Actions class contains functions like 'doubleClick' which can be used on ui elements
             Actions act = new Actions(driver);
-            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstname + "')]]"));
+            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstName + "')]]"));
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(2000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
