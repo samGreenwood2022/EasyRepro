@@ -53,7 +53,7 @@ namespace PersonSearchDetails.PageObjects
         public static string personSearch(Browser xrmBrowser, IWebDriver driver, string firstName, string lastName, string dob)
         {
 
-            throw new Exception("Method no longer maintained. Use individual step methods defined in Page_PersonSearch class.")
+            throw new Exception("Method no longer maintained. Use individual step methods defined in Page_PersonSearch class.");
             // search for our person, the search person method should be called from here
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");

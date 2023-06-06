@@ -49,9 +49,9 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            //Enter First Name
-
+            //Enter first name
             Page_PersonSearch.EnterTextIntoFirstNameField(driver, firstName);
+            Page_PersonSearch.EnterGender(driver, "Male");
             //Enter last name
             Page_PersonSearch.EnterTextIntoLastNameField(driver, lastName);
             //Enter Date of Birth (Not via calendar)
@@ -64,10 +64,9 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
         {
             Actions act = new Actions(driver);
-
+            // xrmBrowser.ThinkTime(1000); // this needs removing and relaced with a 'WaitUntil'
             //Double CLick the Returned Patient
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
-            act.DoubleClick(row).Perform();
+            Page_PersonSearch.DoubleClickSearchResult(driver, "4074970");
             xrmBrowser.ThinkTime(3000);
 
             //NAVIGATE TO PERSON ENTITY (EXISTING) WINDOW
@@ -84,7 +83,7 @@ namespace WCCIS.specs.StepDefinitions
             //These methods will end up parameterised
             //The banner here should be it's own page object, it appears on multiple pages 
             //Whichever pages have the banner should inherit the banner page object
-            driver.FindElement(By.XPath("//*[text()='TEST, Billy (WCCIS ID: 4073889)']"));
+            driver.FindElement(By.XPath("//*[text()='MTYDVO, John (WCCIS ID: 4074970)']"));
             //Check Banner iframe for an element containing  Address line 1
             driver.FindElement(By.XPath("//*[text()='11 GRANGE STREET']"));
             //Check Banner iframe for an element containing address line 2

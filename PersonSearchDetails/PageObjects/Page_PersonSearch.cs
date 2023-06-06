@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,8 +86,33 @@ namespace WCCIS.Specs.PageObjects.Person
             bool isPersonResultPresent = personSearchResult.Displayed;
 
             return isPersonResultPresent;
+        }
+
+        //method for entering text into Middle Name field
+
+        public static void EnterMiddleName(IWebDriver driver, string middleName)
+        {
+            IWebElement middleNameTextBox = LocateTextBoxMiddleName(driver);
+            middleNameTextBox.SendKeys(middleName);
+        }
+
+        //method for entering text into Preferred Name field
+
+        public static void EnterPreferredName(IWebDriver driver, string preferredName)
+        {
+            IWebElement preferredNameTextBox = LocateTextBoxPreferredName(driver);
+            preferredNameTextBox.SendKeys(preferredName);
+        }
+
+        //method for selecting a gender from the  field
+
+        public static void EnterGender(IWebDriver driver, string gender)
+        {
+            LocateDropDownGender(driver);
+            SelectGenderFromDropDown(driver, gender);
 
         }
+
 
 
         //private
@@ -133,9 +160,45 @@ namespace WCCIS.Specs.PageObjects.Person
 
         private static IWebElement LocatePersonSearchResult(IWebDriver driver, string personID)
         {
+            driver.WaitUntilVisible(By.XPath("//*[text()='" + personID + "']"));
             IWebElement row = driver.FindElement(By.XPath("//*[text()='" + personID + "']"));
             return row;
         }
+
+        //Method for finding Middle Name field
+
+        private static IWebElement LocateTextBoxMiddleName(IWebDriver driver)
+        {
+            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtMiddleName\"]"));
+            return idTextBox;
+        }
+
+        //Method for finding Preferred Name field
+
+        private static IWebElement LocateTextBoxPreferredName(IWebDriver driver)
+        {
+            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtNickName\"]"));
+            return idTextBox;
+        }
+
+        //Method for finding Gender dropdown menu
+
+        private static void SelectGenderFromDropDown(IWebDriver driver, string gender)
+        {
+            IWebElement genderDropDown = LocateDropDownGender(driver);
+            var selectElementGender = new SelectElement(genderDropDown);
+            selectElementGender.SelectByText(gender);
+        }
+
+        private static IWebElement LocateDropDownGender(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.Id("cboGender"));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement genderDropDownMenu = driver.FindElement(By.Id("cboGender"));
+            return genderDropDownMenu;
+        }
+
 
     }
 }
