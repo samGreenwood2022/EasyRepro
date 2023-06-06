@@ -86,7 +86,8 @@ namespace WCCIS.specs.StepDefinitions
 
             // I've removed the reference to the personSearch method and pulled the individual steps into this method.
             //PersonMethods.personSearch(xrmBrowser, driver, firstName, lastName, dob);
-
+            
+            //Eventually refactor this into a sharednavigation class - method OpenPersonSearch
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
