@@ -60,8 +60,8 @@ namespace PersonSearchDetails.PageObjects
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
-            Page_PersonSearch.EnterTextIntoFirstNameField(driver, firstName);
-            Page_PersonSearch.EnterTextIntoLastNameField(driver, lastName);
+            Page_PersonSearch.EnterFirstName(driver, firstName);
+            Page_PersonSearch.EnterLastName(driver, lastName);
             Page_PersonSearch.EnterDateOfBirth(driver, dob);
             Page_PersonSearch.ClickSearch(driver);
 

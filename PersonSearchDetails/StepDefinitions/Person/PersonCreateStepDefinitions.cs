@@ -10,6 +10,7 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
+using WCCIS.Specs.PageObjects.Person;
 using static WCCIS.Specs.Enums.MandatoryFields;
 
 namespace WCCIS.specs.StepDefinitions
@@ -78,15 +79,12 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(2000);
 
+            Page_PersonSearch.EnterFirstName(driver, firstname);
+            Page_PersonSearch.EnterLastName(driver, lastName);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
+            Page_PersonSearch.ClickSearch(driver);
+            xrmBrowser.ThinkTime(2000);
 
             // finds the element that stores the person id by searching on a partial id
             // then getting the text value from that element

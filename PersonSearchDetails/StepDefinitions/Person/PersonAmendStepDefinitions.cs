@@ -82,10 +82,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
 
             xrmBrowser.CommandBar.ClickCommand("SAVE");
-
-
-            // I've removed the reference to the personSearch method and pulled the individual steps into this method.
-            //PersonMethods.personSearch(xrmBrowser, driver, firstName, lastName, dob);
             
             //Eventually refactor this into a sharednavigation class - method OpenPersonSearch
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
@@ -93,8 +89,8 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
-            Page_PersonSearch.EnterTextIntoFirstNameField(driver, firstName);
-            Page_PersonSearch.EnterTextIntoLastNameField(driver, lastName);
+            Page_PersonSearch.EnterFirstName(driver, firstName);
+            Page_PersonSearch.EnterLastName(driver, lastName);
             Page_PersonSearch.EnterDateOfBirth(driver, dob);
             Page_PersonSearch.ClickSearch(driver);
 
@@ -106,6 +102,7 @@ namespace WCCIS.specs.StepDefinitions
 
             // finds the element that stores the person id by searching on a partial id
             // then getting the text value from that element
+            xrmBrowser.ThinkTime(2000);
             String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
             Console.WriteLine(personId);
             // the Actions class contains functions like 'doubleClick' which can be used on ui elements
@@ -152,11 +149,18 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
         public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstName, string dob)
         {
-            //Note that this is different from the Person Search on the person methods area... needs investigating
-            // call our personSearch method
-            string personId = DHCWExtensions.personSearch(xrmBrowser, driver, firstName, lastName, dob);
+            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
+            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterFirstName(driver, firstName);
+            Page_PersonSearch.EnterLastName(driver, lastName);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
+            Page_PersonSearch.ClickSearch(driver);
+            string personId = Page_PersonSearch.GetFirstPersonId(driver);
+            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
 
-            // switch tio the correct browser window and iFrame we want to use
+            // switch to the correct browser window and iFrame we want to use
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             //driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");

@@ -18,7 +18,7 @@ namespace WCCIS.Specs.PageObjects.Person
 
         //Method for entering text into firstname 
 
-        public static void EnterTextIntoFirstNameField(IWebDriver driver, string firstName)
+        public static void EnterFirstName(IWebDriver driver, string firstName)
         {
             IWebElement firstNameTextBox = LocateTextBoxFirstName(driver);
             firstNameTextBox.SendKeys(firstName);
@@ -26,7 +26,7 @@ namespace WCCIS.Specs.PageObjects.Person
 
         //Method for entering text into lastname
 
-        public static void EnterTextIntoLastNameField(IWebDriver driver, string lastName)
+        public static void EnterLastName(IWebDriver driver, string lastName)
         {
             IWebElement lastNameTextBox = LocateTextBoxLastName(driver);
             lastNameTextBox.SendKeys(lastName);
@@ -258,6 +258,18 @@ namespace WCCIS.Specs.PageObjects.Person
             }
         }
 
+        //method for obtaining the 1st Person Id value from the results page
+
+        public static string GetFirstPersonId(IWebDriver driver)
+        {
+            {
+                IWebElement firstPersonId = LocateFirstPersonId(driver);
+                string personId = firstPersonId.Text;
+                return personId;
+            }
+
+        }
+
 
 
         //private
@@ -474,7 +486,14 @@ namespace WCCIS.Specs.PageObjects.Person
             return idTextBox;
         }
 
+        //Method for obtaining the value for the first Person Id value on the results screen
 
+        private static IWebElement LocateFirstPersonId(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[contains(@id, 'cw_clientid')]"));
+            IWebElement personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]"));
+            return personId;
+        }
 
     }
 }
