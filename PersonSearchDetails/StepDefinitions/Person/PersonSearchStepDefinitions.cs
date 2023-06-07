@@ -64,7 +64,6 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
         {
             Actions act = new Actions(driver);
-            // xrmBrowser.ThinkTime(1000); // this needs removing and relaced with a 'WaitUntil'
             //Double CLick the Returned Patient
             Page_PersonSearch.DoubleClickSearchResult(driver, "4074970");
             xrmBrowser.ThinkTime(3000);
