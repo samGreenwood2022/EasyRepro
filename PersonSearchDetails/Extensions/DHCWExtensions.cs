@@ -48,33 +48,33 @@ namespace WCCIS.Specs.Extentions
             return builder.ToString();
         }
 
-        public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
-        {
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
-            driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(firstLineOfAddress);
-            driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(townCity);
-            driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(county);
-            driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(Keys.Return);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
-            driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(Keys.Return);
-            // click postcode lookup
-            // driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
-            xrmBrowser.ThinkTime(2000);
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            xrmBrowser.ThinkTime(1000);
-        }
+        //public static void enterAddressDetails(Browser xrmBrowser, IWebDriver driver, string propertyNo, string firstLineOfAddress, string townCity, string county, string postCode)
+        //{
+        //    driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]")).Click();
+        //    driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(propertyNo);
+        //    driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]")).SendKeys(Keys.Return);
+        //    xrmBrowser.ThinkTime(1000);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]")).Click();
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(firstLineOfAddress);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]")).SendKeys(Keys.Return);
+        //    xrmBrowser.ThinkTime(1000);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_city_cl\"]")).Click();
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(townCity);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]")).SendKeys(Keys.Return);
+        //    xrmBrowser.ThinkTime(1000);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]")).Click();
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(county);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]")).SendKeys(Keys.Return);
+        //    xrmBrowser.ThinkTime(1000);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]")).Click();
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(postCode);
+        //    driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]")).SendKeys(Keys.Return);
+        //    // click postcode lookup
+        //    // driver.FindElement(By.XPath("//*[@id=\"address1_postalcodeAddressSearch\"]")).Click();
+        //    xrmBrowser.ThinkTime(2000);
+        //    xrmBrowser.CommandBar.ClickCommand("SAVE");
+        //    xrmBrowser.ThinkTime(1000);
+        //}
 
         public static void selectFormSectionsMenu(IWebDriver driver, Browser xrmBrowser, string option)
         {

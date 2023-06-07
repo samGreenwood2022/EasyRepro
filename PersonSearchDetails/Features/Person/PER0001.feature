@@ -8,5 +8,5 @@ ensure the returned record is correct
 @LiveSmokeTest
 Scenario: A person search using forename, surname & dob
 	Given that an adult support worker has logged in
-	When i perform a person search using firstname 'John', lastname 'MTYDVO' & dob '12/08/1976'
+	When i perform a person search using firstname 'John', lastname 'ZJYIGN' & dob '12/08/1976'
 	Then the returned record will show the correct name, id, dob & address

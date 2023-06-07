@@ -64,14 +64,10 @@ namespace WCCIS.specs.StepDefinitions
         {
             //Actions act = new Actions(driver);
             ////Double CLick the Returned Patient
-            //Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
 
             //NAVIGATE TO PERSON ENTITY (EXISTING) WINDOW
-
-            //This is all just switching frames etc. to find the banner area
-            //Can it not be simplified?
-            driver.SwitchTo().Window(driver.WindowHandles.First());
             driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
