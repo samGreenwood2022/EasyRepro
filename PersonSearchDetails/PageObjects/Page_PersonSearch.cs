@@ -20,16 +20,16 @@ namespace WCCIS.Specs.PageObjects.Person
 
         public static void EnterFirstName(IWebDriver driver, string firstName)
         {
-            IWebElement firstNameTextBox = LocateTextBoxFirstName(driver);
-            firstNameTextBox.SendKeys(firstName);
+            IWebElement textBoxfirstName = LocateTextBoxFirstName(driver);
+            textBoxfirstName.SendKeys(firstName);
         }
 
         //Method for entering text into lastname
 
         public static void EnterLastName(IWebDriver driver, string lastName)
         {
-            IWebElement lastNameTextBox = LocateTextBoxLastName(driver);
-            lastNameTextBox.SendKeys(lastName);
+            IWebElement textBoxLastName = LocateTextBoxLastName(driver);
+            textBoxLastName.SendKeys(lastName);
         }
 
         //method for entering text into DOB
@@ -43,8 +43,8 @@ namespace WCCIS.Specs.PageObjects.Person
 
             if (!isUsingCalendar)
             {
-                IWebElement dateOfBirthTextBox = LocateTextBoxDateOfBirth(driver);
-                dateOfBirthTextBox.SendKeys(dateOfBirth);
+                IWebElement textBoxDateOfBirth = LocateTextBoxDateOfBirth(driver);
+                textBoxDateOfBirth.SendKeys(dateOfBirth);
             }
         }
 
@@ -52,16 +52,16 @@ namespace WCCIS.Specs.PageObjects.Person
 
         public static void ClickSearch(IWebDriver driver)
         {
-            IWebElement searchButton = LocateButtonSearch(driver);
-            searchButton.Click();
+            IWebElement buttonSearch = LocateButtonSearch(driver);
+            buttonSearch.Click();
         }
 
         //method for entering text into ID field
 
         public static void EnterPersonID(IWebDriver driver, string personID)
         {
-            IWebElement personIDTextBox = LocateTextBoxID(driver);
-            personIDTextBox.SendKeys(personID);
+            IWebElement textBoxPersonID = LocateTextBoxID(driver);
+            textBoxPersonID.SendKeys(personID);
         }
 
         //method for double clicking a result
@@ -88,16 +88,16 @@ namespace WCCIS.Specs.PageObjects.Person
 
         public static void EnterMiddleName(IWebDriver driver, string middleName)
         {
-            IWebElement middleNameTextBox = LocateTextBoxMiddleName(driver);
-            middleNameTextBox.SendKeys(middleName);
+            IWebElement textBoxMiddleName = LocateTextBoxMiddleName(driver);
+            textBoxMiddleName.SendKeys(middleName);
         }
 
         //method for entering text into Preferred Name field
 
         public static void EnterPreferredName(IWebDriver driver, string preferredName)
         {
-            IWebElement preferredNameTextBox = LocateTextBoxPreferredName(driver);
-            preferredNameTextBox.SendKeys(preferredName);
+            IWebElement textBoxPreferredName = LocateTextBoxPreferredName(driver);
+            textBoxPreferredName.SendKeys(preferredName);
         }
 
         //method for selecting a gender from the dropdown menu
@@ -242,7 +242,7 @@ namespace WCCIS.Specs.PageObjects.Person
 
             if (!isUsingCalendar)
             {
-                IWebElement textBoxToDate = LocateTextBoxFrom(driver);
+                IWebElement textBoxToDate = LocateTextBoxTo(driver);
                 textBoxToDate.SendKeys(toDate);
             }
         }
@@ -258,7 +258,7 @@ namespace WCCIS.Specs.PageObjects.Person
             }
         }
 
-        //method for obtaining the 1st Person Id value from the results page
+        //method for obtaining the 1st Person Id value from returned results on the results page
 
         public static string GetFirstPersonId(IWebDriver driver)
         {
@@ -277,40 +277,40 @@ namespace WCCIS.Specs.PageObjects.Person
         //Method for Finding firstname field
         private static IWebElement LocateTextBoxFirstName(IWebDriver driver)
         {
-            IWebElement firstNameTextBox = driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]"));
-            return firstNameTextBox;
+            IWebElement textBoxFirstName = driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]"));
+            return textBoxFirstName;
         }
 
         //Method for finding last name field
 
         private static IWebElement LocateTextBoxLastName(IWebDriver driver)
         {
-            IWebElement lastNameTextBox = driver.FindElement(By.Name("txtLastName"));
-            return lastNameTextBox;
+            IWebElement textBoxLastName = driver.FindElement(By.Name("txtLastName"));
+            return textBoxLastName;
         }
 
         //Method for finding DOB field
 
         private static IWebElement LocateTextBoxDateOfBirth(IWebDriver driver)
         {
-            IWebElement dateOfBirthTextBox = driver.FindElement(By.Name("txtDOB"));
-            return dateOfBirthTextBox;
+            IWebElement textBoxDateOfBirth = driver.FindElement(By.Name("txtDOB"));
+            return textBoxDateOfBirth;
         }
 
         //Method for finding Search button
 
         private static IWebElement LocateButtonSearch(IWebDriver driver)
         {
-            IWebElement searchButton = driver.FindElement(By.Name("btnFind"));
-            return searchButton;
+            IWebElement buttonSearch = driver.FindElement(By.Name("btnFind"));
+            return buttonSearch;
         }
 
         //Method for finding ID field
 
         private static IWebElement LocateTextBoxID(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]"));
-            return idTextBox;
+            IWebElement textBoxId = driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]"));
+            return textBoxId;
         }
 
         //Method for locating a result
@@ -326,24 +326,24 @@ namespace WCCIS.Specs.PageObjects.Person
 
         private static IWebElement LocateTextBoxMiddleName(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtMiddleName\"]"));
-            return idTextBox;
+            IWebElement idTextBoxtextBoxMiddleName = driver.FindElement(By.XPath("//*[@id=\"txtMiddleName\"]"));
+            return idTextBoxtextBoxMiddleName;
         }
 
         //Method for finding Preferred Name field
 
         private static IWebElement LocateTextBoxPreferredName(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtNickName\"]"));
-            return idTextBox;
+            IWebElement textBoxPreferredName = driver.FindElement(By.XPath("//*[@id=\"txtNickName\"]"));
+            return textBoxPreferredName;
         }
 
         //Method for selecting a value from the gender dropdown menu
 
         private static void SelectGenderFromDropDown(IWebDriver driver, string gender)
         {
-            IWebElement genderDropDown = LocateDropDownGender(driver);
-            var selectElementGender = new SelectElement(genderDropDown);
+            IWebElement dropDownGender = LocateDropDownGender(driver);
+            var selectElementGender = new SelectElement(dropDownGender);
             selectElementGender.SelectByText(gender);
         }
 
@@ -354,136 +354,136 @@ namespace WCCIS.Specs.PageObjects.Person
             driver.WaitUntilVisible(By.Id("cboGender"));
             //Find the drop down only
             // act on the returned value to select items or check current value 
-            IWebElement genderDropDownMenu = driver.FindElement(By.Id("cboGender"));
-            return genderDropDownMenu;
+            IWebElement dropDownMenuGender = driver.FindElement(By.Id("cboGender"));
+            return dropDownMenuGender;
         }
 
-        //Method for finding Preferred Name field
+        //Method for finding NHS Number field
 
         private static IWebElement LocateNumericFieldNHSNumber(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtNHSNo\"]"));
-            return idTextBox;
+            IWebElement textBoxNHSNumber = driver.FindElement(By.XPath("//*[@id=\"txtNHSNo\"]"));
+            return textBoxNHSNumber;
         }
 
         //Method for finding Court Case No field
 
         private static IWebElement LocateTextBoxCourtCaseNo(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtCourtCaseNo\"]"));
-            return idTextBox;
+            IWebElement textBoxCourtCaseNo = driver.FindElement(By.XPath("//*[@id=\"txtCourtCaseNo\"]"));
+            return textBoxCourtCaseNo;
         }
 
         //Method for finding UPN field
 
         private static IWebElement LocateTextBoxUPN(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtPupilNo\"]"));
-            return idTextBox;
+            IWebElement textBoxUPN = driver.FindElement(By.XPath("//*[@id=\"txtPupilNo\"]"));
+            return textBoxUPN;
         }
 
         //Method for finding Ni No field
 
         private static IWebElement LocateTextBoxNiNo(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"TextInsuranceNumber\"]"));
-            return idTextBox;
+            IWebElement textBoxNi = driver.FindElement(By.XPath("//*[@id=\"TextInsuranceNumber\"]"));
+            return textBoxNi;
         }
 
         //Method for finding Property Name field
 
         private static IWebElement LocateTextBoxPropertyName(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtPropertyName\"]"));
-            return idTextBox;
+            IWebElement textBoxPropertyName = driver.FindElement(By.XPath("//*[@id=\"txtPropertyName\"]"));
+            return textBoxPropertyName;
         }
 
         //Method for finding Property No field
 
         private static IWebElement LocateTextBoxPropertyNo(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtPropertyNo\"]"));
-            return idTextBox;
+            IWebElement textBoxPropertyNo = driver.FindElement(By.XPath("//*[@id=\"txtPropertyNo\"]"));
+            return textBoxPropertyNo;
         }
 
         //Method for finding Street field
 
         private static IWebElement LocateTextBoxStreet(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtStreet1\"]"));
-            return idTextBox;
+            IWebElement textBoxStreet = driver.FindElement(By.XPath("//*[@id=\"txtStreet1\"]"));
+            return textBoxStreet;
         }
 
         //Method for finding Vlg/District field
 
         private static IWebElement LocateTextBoxVlgDistrict(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtStreet2\"]"));
-            return idTextBox;
+            IWebElement textBoxVlgDistrict = driver.FindElement(By.XPath("//*[@id=\"txtStreet2\"]"));
+            return textBoxVlgDistrict;
         }
 
         //Method for finding Town/City field
 
         private static IWebElement LocateTextBoxTownCity(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtCity\"]"));
-            return idTextBox;
+            IWebElement textBoxTownCity = driver.FindElement(By.XPath("//*[@id=\"txtCity\"]"));
+            return textBoxTownCity;
         }
 
         //Method for finding County field
 
         private static IWebElement LocateTextBoxCounty(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtState\"]"));
-            return idTextBox;
+            IWebElement textBoxCounty = driver.FindElement(By.XPath("//*[@id=\"txtState\"]"));
+            return textBoxCounty;
         }
 
         //Method for finding Postcode field
 
         private static IWebElement LocateTextBoxPostcode(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtPostCode\"]"));
-            return idTextBox;
+            IWebElement textBoxPostCode = driver.FindElement(By.XPath("//*[@id=\"txtPostCode\"]"));
+            return textBoxPostCode;
         }
 
         //Method for finding Legacy ID field
 
         private static IWebElement LocateTextBoxLegacyID(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"txtLegacyId\"]"));
-            return idTextBox;
+            IWebElement textBoxLegacyId = driver.FindElement(By.XPath("//*[@id=\"txtLegacyId\"]"));
+            return textBoxLegacyId;
         }
 
         //Method for finding the Use Date of Birth Range radio button
 
         private static IWebElement LocateRadioButtonUseDateOfBirthRange(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"BirthDateRangeCheckYes\"]"));
-            return idTextBox;
+            IWebElement radioButtonUseDateOfBirthRange = driver.FindElement(By.XPath("//*[@id=\"BirthDateRangeCheckYes\"]"));
+            return radioButtonUseDateOfBirthRange;
         }
 
         //Method for finding date field From
 
         private static IWebElement LocateTextBoxFrom(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"TextDateOfBirthFrom\"]"));
-            return idTextBox;
+            IWebElement textBoxDateFrom = driver.FindElement(By.XPath("//*[@id=\"TextDateOfBirthFrom\"]"));
+            return textBoxDateFrom;
         }
 
         //Method for finding date field To
 
         private static IWebElement LocateTextBoxTo(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"TextDateOfBirthTo\"]"));
-            return idTextBox;
+            IWebElement textBoxDateTo = driver.FindElement(By.XPath("//*[@id=\"TextDateOfBirthTo\"]"));
+            return textBoxDateTo;
         }
 
         //Method for finding Sounds Like checkbox
 
         private static IWebElement LocateCheckboxSoundsLike(IWebDriver driver)
         {
-            IWebElement idTextBox = driver.FindElement(By.XPath("//*[@id=\"chkSoundsLike\"]"));
-            return idTextBox;
+            IWebElement checkBoxSoundsLike = driver.FindElement(By.XPath("//*[@id=\"chkSoundsLike\"]"));
+            return checkBoxSoundsLike;
         }
 
         //Method for obtaining the value for the first Person Id value on the results screen
