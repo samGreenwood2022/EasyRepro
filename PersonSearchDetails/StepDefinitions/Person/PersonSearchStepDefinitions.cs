@@ -1,10 +1,13 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WCCIS.Specs.Extentions;
+using static Microsoft.Dynamics365.UIAutomation.Browser.Constants;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -156,6 +159,20 @@ namespace WCCIS.specs.StepDefinitions
             act.DoubleClick(row).Perform();
             xrmBrowser.ThinkTime(5000);
         }
+
+        [Given(@"a user has navigated to Person Search")]
+        public void GivenAUserHasNavigatedToPersonSearch()
+        {
+            UserLogin.AdultSupportWorkerLogin(driver, xrmBrowser);
+
+        }
+
+        [When(@"a search is performed using an NHS Number '([^']*)'")]
+        public void WhenASearchIsPerformedUsingAnNHSNumber(string p0)
+        {
+            throw new PendingStepException();
+        }
+
 
 
     }
