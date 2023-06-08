@@ -64,7 +64,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(3000);
 
 
@@ -164,7 +164,7 @@ namespace WCCIS.specs.StepDefinitions
 
                 // save the record
                 //Note that we have had to use a custom save function elsewhere
-                xrmBrowser.CommandBar.ClickCommand("SAVE");
+                SharedNavigation.ClickSave(driver, xrmBrowser);
             }
         }
 
@@ -221,7 +221,7 @@ namespace WCCIS.specs.StepDefinitions
 
             // add a value to the field so we can test validation on the next field
             Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
-            xrmBrowser.CommandBar.ClickCommand("Save");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
 
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
@@ -233,7 +233,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             Page_PersonCoreDemographics.EnterLastName(driver, "Test");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("Save");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);
 
             // set field we want to check to be gender
@@ -303,7 +303,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2000");
 
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(3000);
         }
 

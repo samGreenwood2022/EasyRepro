@@ -81,8 +81,8 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterCounty(driver, county);
             Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
 
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
-            
+            SharedNavigation.ClickSave(driver, xrmBrowser);
+
             //Eventually refactor this into a sharednavigation class - method OpenPersonSearch
             xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
@@ -140,7 +140,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterCounty(driver, county);
             Page_PersonCoreDemographics.EnterPostCode(driver, postCode);
 
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
 
 
 
