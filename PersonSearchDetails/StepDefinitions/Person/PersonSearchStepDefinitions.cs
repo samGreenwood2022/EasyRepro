@@ -5,6 +5,7 @@ using OpenQA.Selenium.Interactions;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 
 namespace WCCIS.specs.StepDefinitions
@@ -64,7 +65,7 @@ namespace WCCIS.specs.StepDefinitions
         {
             //Actions act = new Actions(driver);
             ////Double CLick the Returned Patient
-            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
 
             //NAVIGATE TO PERSON ENTITY (EXISTING) WINDOW
@@ -112,7 +113,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonSearch.ClickSearch(driver);
 
             //NAVIGATE TO PERSON SEARCH RESULTS WINDOW
-            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(2000);
         }
 
@@ -129,11 +130,10 @@ namespace WCCIS.specs.StepDefinitions
 
             //Commit the search with a click
             Page_PersonSearch.ClickSearch(driver);
-
+            
             //Click a row based on the person ID
             //To check if this can be used with other fields (e.g. name, DOB)
-
-            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
         }
     }
 }

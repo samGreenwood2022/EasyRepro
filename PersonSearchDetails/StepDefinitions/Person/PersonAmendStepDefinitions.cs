@@ -158,7 +158,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonSearch.EnterDateOfBirth(driver, dob);
             Page_PersonSearch.ClickSearch(driver);
             string personId = Page_PersonSearch.GetFirstPersonId(driver);
-            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
 
             // switch to the correct browser window and iFrame we want to use
             driver.SwitchTo().Window(driver.WindowHandles.Last());
