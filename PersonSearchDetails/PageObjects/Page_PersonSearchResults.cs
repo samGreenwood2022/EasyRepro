@@ -13,11 +13,20 @@ namespace WCCIS.Specs.PageObjects
     {
         //Method for entering obtaining the client id from the search results list
 
-        public static void GetStringClientIdFromResultsList()
+        public static string GetStringClientIdFromResultsList(IWebDriver driver)
         {
-            
-            //textBoxfirstName = LocateTextBoxFirstName(driver);
-            //textBoxfirstName.SendKeys(firstName);
+            string personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
+            return personId;
+        }
+
+        //Method for entering obtaining the client id from the search results list
+
+        public static void DoubleClickSearchResultContaining(IWebDriver driver,string textInResult)
+        {
+            Actions actions = new Actions(driver);
+            driver.WaitUntilVisible(By.XPath("//*[text()[contains(.,'" + textInResult + "')]]"));
+            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + textInResult + "')]]"));
+            actions.DoubleClick(row).Perform();
         }
 
         //method for double clicking a result
@@ -31,6 +40,7 @@ namespace WCCIS.Specs.PageObjects
         }
 
         //method for asserting a result is present 
+
         public static bool IsPersonSearchResultPresent(IWebDriver driver, string personID)
         {
             IWebElement personSearchResult = LocatePersonSearchResult(driver, personID);
