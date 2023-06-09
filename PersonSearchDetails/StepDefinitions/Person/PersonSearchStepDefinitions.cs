@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
-using static Microsoft.Dynamics365.UIAutomation.Browser.Constants;
+using WCCIS.Specs.PageObjects.Person;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -163,14 +163,15 @@ namespace WCCIS.specs.StepDefinitions
         [Given(@"a user has navigated to Person Search")]
         public void GivenAUserHasNavigatedToPersonSearch()
         {
-            UserLogin.AdultSupportWorkerLogin(driver, xrmBrowser);
+            UserLogin.AdultSupportWorkerLogin(xrmBrowser, driver);
 
         }
 
         [When(@"a search is performed using an NHS Number '([^']*)'")]
-        public void WhenASearchIsPerformedUsingAnNHSNumber(string p0)
+        public void WhenASearchIsPerformedUsingAnNHSNumber(string NHSNumber)
         {
-            throw new PendingStepException();
+            Page_PersonSearch.      
+        
         }
 
 
