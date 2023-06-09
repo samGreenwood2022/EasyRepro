@@ -17,8 +17,6 @@ namespace PersonSearchDetails.PageObjects
 
 
         public static string dateMovedInNew = "01/01/2003";
-        private static string field;
-        private static bool elementTrue;
         private static string fieldExpected;
 
         public string lastName { get; set; }

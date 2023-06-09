@@ -101,8 +101,8 @@
     <Compile Include="PageObjects\Page_CommClinicReferral.cs" />
     <Compile Include="PageObjects\Page_MPISearch.cs" />
     <Compile Include="PageObjects\Page_PersonCoreDemographics.cs" />
-    <Compile Include="PageObjects\Person\PersonMethods.cs" />
-    <Compile Include="Extensions\LoginCredentials.cs" />
+    <Compile Include="Extensions\PersonMethods.cs" />
+    <Compile Include="Extensions\UserLogins.cs" />
     <Compile Include="PageObjects\Page_PersonSearch.cs" />
     <Compile Include="PageObjects\SharedNavigation.cs" />
     <Compile Include="StepDefinitions\Login\LoginStepDefinitions.cs" />
