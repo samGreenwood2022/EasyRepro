@@ -47,14 +47,13 @@ namespace WCCIS.specs.StepDefinitions
             // It is missing the opportunity to find any issues when opening legacy data - which is what the userstory seems to suggest
 
             // Create a new person - can we call the  method 'When a person is created by completing mandatory fields only'
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
 
-
-
+            // enter firstName
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
 
             // generate a random string for surname
@@ -62,15 +61,13 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
 
-            // enter value into preferred language field
+            //Enter value into preferred language field
             Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
-            // Select the first value from the gender picklist
+            //Select the first value from the gender picklist
             Page_PersonCoreDemographics.EnterGender(driver, gender);
-
-            //selectElement.SelectByIndex(0);
-            // enter a value into the dob field
+            //Enter a value into the dob field
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
-
+            //Enter a value into the Date Moved In field
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
             // add an address (currently hard coded above)
@@ -84,8 +81,8 @@ namespace WCCIS.specs.StepDefinitions
             SharedNavigation.ClickSave(driver, xrmBrowser);
 
             //Eventually refactor this into a sharednavigation class - method OpenPersonSearch
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
@@ -100,15 +97,8 @@ namespace WCCIS.specs.StepDefinitions
             //Then the person ID is returned
             //This one needs some thought
 
-            // finds the element that stores the person id by searching on a partial id
-            // then getting the text value from that element
-            xrmBrowser.ThinkTime(2000);
-            String personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]")).Text;
-            Console.WriteLine(personId);
-            // the Actions class contains functions like 'doubleClick' which can be used on ui elements
-            Actions act = new Actions(driver);
-            IWebElement row = driver.FindElement(By.XPath("//*[text()[contains(.,'" + firstName + "')]]"));
-            act.DoubleClick(row).Perform();
+            //Double click search results containing <firstname>
+            Page_PersonSearchResults.DoubleClickSearchResultContaining(driver, firstName);
             xrmBrowser.ThinkTime(2000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             //driver.Close();
@@ -149,16 +139,16 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
         public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstName, string dob)
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             Page_PersonSearch.EnterFirstName(driver, firstName);
             Page_PersonSearch.EnterLastName(driver, lastName);
             Page_PersonSearch.EnterDateOfBirth(driver, dob);
             Page_PersonSearch.ClickSearch(driver);
-            string personId = Page_PersonSearch.GetFirstPersonId(driver);
-            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
+            string personId = Page_PersonSearchResults.GetFirstPersonId(driver);
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
 
             // switch to the correct browser window and iFrame we want to use
             driver.SwitchTo().Window(driver.WindowHandles.Last());

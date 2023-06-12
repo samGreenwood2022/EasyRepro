@@ -64,26 +64,6 @@ namespace WCCIS.Specs.PageObjects.Person
             textBoxPersonID.SendKeys(personID);
         }
 
-        //method for double clicking a result
-
-        public static void DoubleClickSearchResult(IWebDriver driver, string personID)
-        {
-            IWebElement personSearchResult = LocatePersonSearchResult(driver, personID);
-
-            Actions actions = new Actions(driver);
-            actions.DoubleClick(personSearchResult).Perform();
-        }
-
-        //method for asserting a result is present 
-        public static bool IsPersonSearchResultPresent(IWebDriver driver, string personID)
-        {
-            IWebElement personSearchResult = LocatePersonSearchResult(driver, personID);
-
-            bool isPersonResultPresent = personSearchResult.Displayed;
-
-            return isPersonResultPresent;
-        }
-
         //method for entering text into Middle Name field
 
         public static void EnterMiddleName(IWebDriver driver, string middleName)
@@ -258,19 +238,6 @@ namespace WCCIS.Specs.PageObjects.Person
             }
         }
 
-        //method for obtaining the 1st Person Id value from returned results on the results page
-
-        public static string GetFirstPersonId(IWebDriver driver)
-        {
-            {
-                IWebElement firstPersonId = LocateFirstPersonId(driver);
-                string personId = firstPersonId.Text;
-                return personId;
-            }
-
-        }
-
-
 
         //private
 
@@ -311,15 +278,6 @@ namespace WCCIS.Specs.PageObjects.Person
         {
             IWebElement textBoxId = driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]"));
             return textBoxId;
-        }
-
-        //Method for locating a result
-
-        private static IWebElement LocatePersonSearchResult(IWebDriver driver, string personID)
-        {
-            driver.WaitUntilVisible(By.XPath("//*[text()='" + personID + "']"));
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='" + personID + "']"));
-            return row;
         }
 
         //Method for finding Middle Name field
@@ -484,15 +442,6 @@ namespace WCCIS.Specs.PageObjects.Person
         {
             IWebElement checkBoxSoundsLike = driver.FindElement(By.XPath("//*[@id=\"chkSoundsLike\"]"));
             return checkBoxSoundsLike;
-        }
-
-        //Method for obtaining the value for the first Person Id value on the results screen
-
-        private static IWebElement LocateFirstPersonId(IWebDriver driver)
-        {
-            driver.WaitUntilVisible(By.XPath("//*[contains(@id, 'cw_clientid')]"));
-            IWebElement personId = driver.FindElement(By.XPath("//*[contains(@id, 'cw_clientid')]"));
-            return personId;
         }
 
     }

@@ -5,6 +5,7 @@ using OpenQA.Selenium.Interactions;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 
 namespace WCCIS.specs.StepDefinitions
@@ -41,12 +42,11 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [When(@"i perform a person search using firstname '([^']*)', lastname '([^']*)' & dob '([^']*)'")]
-        public void WhenIPerformAPersonSearchUsingFirstnameLastnameDob(string firstName, string lastName, string dob)
+        [When(@"i perform a person search using first name '([^']*)', last name '([^']*)' & dob '([^']*)'")]
+        public void WhenIPerformAPersonSearchUsingFirstNameLastNameDob(string firstName, string lastName, string dob)
         {
             //Select Person Search
-            //Note the clickign person search should be a shared command and not on the person search page object
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             //Enter first name
@@ -64,7 +64,7 @@ namespace WCCIS.specs.StepDefinitions
         {
             //Actions act = new Actions(driver);
             ////Double CLick the Returned Patient
-            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
 
             //NAVIGATE TO PERSON ENTITY (EXISTING) WINDOW
@@ -91,7 +91,7 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIPerformAPersonSearchUsingAWildcardsDob(string firstLetter, string secondLetter, string dob)
         {
             //Person Search could be extracted to the ribbon inherited commands. This might be a lower concern considering it's handled by EasyRepro
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
@@ -112,7 +112,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonSearch.ClickSearch(driver);
 
             //NAVIGATE TO PERSON SEARCH RESULTS WINDOW
-            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(2000);
         }
 
@@ -120,7 +120,7 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIPerformAPersonSearchUsingAPersonId(string personId)
         {
             // need to pass the person id so other methods can use it in this script
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
@@ -129,11 +129,10 @@ namespace WCCIS.specs.StepDefinitions
 
             //Commit the search with a click
             Page_PersonSearch.ClickSearch(driver);
-
+            
             //Click a row based on the person ID
             //To check if this can be used with other fields (e.g. name, DOB)
-
-            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
+            Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
         }
     }
 }
