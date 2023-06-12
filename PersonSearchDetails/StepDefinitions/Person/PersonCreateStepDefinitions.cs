@@ -44,8 +44,8 @@ namespace WCCIS.specs.StepDefinitions
             lastName = DHCWExtensions.RandomString(6, false);
             
             //Open New Person Window
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
 
 
@@ -74,8 +74,8 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
             // search for our person
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
@@ -143,9 +143,9 @@ namespace WCCIS.specs.StepDefinitions
 
             for (int i= 0; i<2; i++)
             {
-                //Create SharedNavigation method for "open new person"
-                xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-                xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+                //Click People, then New Person
+                SharedNavigation.ClickPeople(xrmBrowser);
+                SharedNavigation.ClickNewPerson(xrmBrowser);
                 //Switch back to main window after opening new person
                 driver.SwitchTo().Window(driver.WindowHandles.Last());
 
@@ -200,8 +200,8 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIStartTheProcessOfCreatingANewPerson()
         {
             // begin start the  process of creating a new person
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
@@ -270,8 +270,8 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"i've created a new person with an NHS Number")]
         public void WhenIveCreatedANewPersonWithAnNHSNumber()
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame

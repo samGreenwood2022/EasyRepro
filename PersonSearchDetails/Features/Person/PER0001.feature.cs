@@ -36,8 +36,8 @@ namespace WCCIS.Specs.Features.Person
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person", "PER0001 - Person Search - Details", "Regression Pack Scenario - PER0001\r\nTo ensure a person search can be performed us" +
-                    "ing most common search criteria, \r\nforename, surname & dob\r\nensure the returned " +
-                    "record is correct", ProgrammingLanguage.CSharp, featureTags);
+                    "ing most common search criteria, \r\nfirst name, last name & dob\r\nensure the retur" +
+                    "ned record is correct", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,14 +76,14 @@ namespace WCCIS.Specs.Features.Person
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("A person search using forename, surname & dob")]
+        [NUnit.Framework.DescriptionAttribute("A person search using first name, last name & dob")]
         [NUnit.Framework.CategoryAttribute("LiveSmokeTest")]
-        public void APersonSearchUsingForenameSurnameDob()
+        public void APersonSearchUsingFirstNameLastNameDob()
         {
             string[] tagsOfScenario = new string[] {
                     "LiveSmokeTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using forename, surname & dob", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using first name, last name & dob", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -98,8 +98,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("that an adult support worker has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
- testRunner.When("i perform a person search using firstname \'John\', lastname \'ZJYIGN\' & dob \'12/08/" +
-                        "1976\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i perform a person search using first name \'John\', last name \'ZJYIGN\' & dob \'12/0" +
+                        "8/1976\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
  testRunner.Then("the returned record will show the correct name, id, dob & address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

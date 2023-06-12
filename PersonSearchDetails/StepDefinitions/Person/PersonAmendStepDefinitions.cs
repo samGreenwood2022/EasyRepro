@@ -47,8 +47,8 @@ namespace WCCIS.specs.StepDefinitions
             // It is missing the opportunity to find any issues when opening legacy data - which is what the userstory seems to suggest
 
             // Create a new person - can we call the  method 'When a person is created by completing mandatory fields only'
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
@@ -81,8 +81,8 @@ namespace WCCIS.specs.StepDefinitions
             SharedNavigation.ClickSave(driver, xrmBrowser);
 
             //Eventually refactor this into a sharednavigation class - method OpenPersonSearch
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
@@ -139,8 +139,8 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"Then the new address will replace the old address on the persons record (.*) and (.*)")]
         public void ThenTheNewAddressWillReplaceTheOldAddressOnThePersonsRecord(string firstName, string dob)
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             Page_PersonSearch.EnterFirstName(driver, firstName);

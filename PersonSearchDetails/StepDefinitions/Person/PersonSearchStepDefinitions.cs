@@ -42,12 +42,11 @@ namespace WCCIS.specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [When(@"i perform a person search using firstname '([^']*)', lastname '([^']*)' & dob '([^']*)'")]
-        public void WhenIPerformAPersonSearchUsingFirstnameLastnameDob(string firstName, string lastName, string dob)
+        [When(@"i perform a person search using first name '([^']*)', last name '([^']*)' & dob '([^']*)'")]
+        public void WhenIPerformAPersonSearchUsingFirstNameLastNameDob(string firstName, string lastName, string dob)
         {
             //Select Person Search
-            //Note the clickign person search should be a shared command and not on the person search page object
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             //Enter first name
@@ -92,7 +91,7 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIPerformAPersonSearchUsingAWildcardsDob(string firstLetter, string secondLetter, string dob)
         {
             //Person Search could be extracted to the ribbon inherited commands. This might be a lower concern considering it's handled by EasyRepro
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
@@ -121,7 +120,7 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIPerformAPersonSearchUsingAPersonId(string personId)
         {
             // need to pass the person id so other methods can use it in this script
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
 
