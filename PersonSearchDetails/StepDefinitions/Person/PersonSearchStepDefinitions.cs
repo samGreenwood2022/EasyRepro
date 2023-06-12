@@ -5,6 +5,7 @@ using OpenQA.Selenium.Interactions;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WCCIS.Specs.PageObjects.Person;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -41,42 +42,32 @@ namespace WCCIS.specs.StepDefinitions
         }
 
         [When(@"i perform a person search using firstname '([^']*)', lastname '([^']*)' & dob '([^']*)'")]
-        public void WhenIPerformAPersonSearchUsingFirstnameLastnameDob(string firstname, string lastname, string dob)
+        public void WhenIPerformAPersonSearchUsingFirstnameLastnameDob(string firstName, string lastName, string dob)
         {
             //Select Person Search
+            //Note the clickign person search should be a shared command and not on the person search page object
             xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            //Enter First Name
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
-            xrmBrowser.ThinkTime(1000);
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver, firstName);
             //Enter last name
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastname);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterLastName(driver, lastName);
             //Enter Date of Birth (Not via calendar)
-            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
             //Select Search 
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
-
+            Page_PersonSearch.ClickSearch(driver);
         }
 
         [Then(@"the returned record will show the correct name, id, dob & address")]
         public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
         {
-            Actions act = new Actions(driver);
-
-            //Double CLick the Returned Patient
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
-            act.DoubleClick(row).Perform();
+            //Actions act = new Actions(driver);
+            ////Double CLick the Returned Patient
+            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
 
             //NAVIGATE TO PERSON ENTITY (EXISTING) WINDOW
-
-            //This is all just switching frames etc. to find the banner area
-            //Can it not be simplified?
-            driver.SwitchTo().Window(driver.WindowHandles.First());
             driver.SwitchTo().Window(driver.WindowHandles[2]);
             driver.SwitchTo().Frame("contentIFrame0");
             driver.SwitchTo().Frame(driver.FindElement(By.Id("IFRAME_Banner")));
@@ -84,11 +75,13 @@ namespace WCCIS.specs.StepDefinitions
 
             //Check Banner iframe for an element containing Name & Date Of Birth
             //These methods will end up parameterised
-            driver.FindElement(By.XPath("//*[text()='TEST, Billy (WCCIS ID: 4073889)']"));
+            //The banner here should be it's own page object, it appears on multiple pages 
+            //Whichever pages have the banner should inherit the banner page object
+            driver.FindElement(By.XPath("//*[text()='ZJYIGN, John (WCCIS ID: 4074401)']"));
             //Check Banner iframe for an element containing  Address line 1
-            driver.FindElement(By.XPath("//*[text()='11 GRANGE STREET']"));
+            driver.FindElement(By.XPath("//*[text()='137 Clydesdale Road']"));
             //Check Banner iframe for an element containing address line 2
-            driver.FindElement(By.XPath("//*[text()='PORT TALBOT ']"));
+            driver.FindElement(By.XPath("//*[text()='Newcastle Upon Tyne Tyne and Wear']"));
             //Check Banner iframe for an element containing DOB
             driver.FindElement(By.XPath("//*[text()[contains(.,'12/08/1976')]]"));
         }
@@ -106,29 +99,21 @@ namespace WCCIS.specs.StepDefinitions
 
             //Send "firstletter" to first name field 
             //Rename the fieldname for parameter firstletter
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstLetter);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterFirstName(driver, firstLetter);
 
             //Send "secondletter" to second name field 
             //Rename the field for parameter secondLetter
-            driver.FindElement(By.Name("txtLastName")).SendKeys(secondLetter);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterLastName(driver, secondLetter);
 
             //Send "dob" to date of birth field 
-            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
 
             //This needs some definition - what is btnFind
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(2000);
+            Page_PersonSearch.ClickSearch(driver);
 
             //NAVIGATE TO PERSON SEARCH RESULTS WINDOW
-
-            Actions act = new Actions(driver);
-
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='4073889']"));
-            act.DoubleClick(row).Perform();
-            xrmBrowser.ThinkTime(4000);
+            Page_PersonSearch.DoubleClickSearchResult(driver, "4074401");
+            xrmBrowser.ThinkTime(2000);
         }
 
         [When(@"i perform a person search using a person id '([^']*)'")]
@@ -140,23 +125,15 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
 
             //Enter value into personID field
-            driver.FindElement(By.XPath("//*[@id=\"txtClientId\"]")).SendKeys(personId);
-            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterPersonID(driver, personId);
 
             //Commit the search with a click
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(2000);
-            xrmBrowser.ThinkTime(2000);
+            Page_PersonSearch.ClickSearch(driver);
 
             //Click a row based on the person ID
             //To check if this can be used with other fields (e.g. name, DOB)
-            Actions act = new Actions(driver);
-            xrmBrowser.ThinkTime(2000);
-            IWebElement row = driver.FindElement(By.XPath("//*[text()='" + personId + "']"));
-            act.DoubleClick(row).Perform();
-            xrmBrowser.ThinkTime(5000);
+
+            Page_PersonSearch.DoubleClickSearchResult(driver, personId);
         }
-
-
     }
 }
