@@ -10,6 +10,7 @@ using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.StepDefinitions;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -137,6 +138,24 @@ namespace WCCIS.specs.StepDefinitions
             //To check if this can be used with other fields (e.g. name, DOB)
             Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
         }
+
+        [Given(@"a user has navigated to Person Search")]
+        public void GivenAUserHasNavigatedToPersonSearch()
+        {
+            UserLogin.AdultSupportWorkerLogin(xrmBrowser, driver);
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
+        }
+
+        [When(@"a search is performed using an NHS Number '([^']*)'")]
+        public void WhenASearchIsPerformedUsingAnNHSNumber(string nhsNumber)
+        {
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterNHSNumber(driver, nhsNumber);
+            Page_PersonSearch.ClickSearch(driver);
+        }
+
 
 
     }
