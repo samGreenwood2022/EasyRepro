@@ -10,6 +10,7 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
+using WCCIS.Specs.PageObjects.Person;
 using static WCCIS.Specs.Enums.MandatoryFields;
 
 namespace WCCIS.specs.StepDefinitions
@@ -43,8 +44,8 @@ namespace WCCIS.specs.StepDefinitions
             lastName = DHCWExtensions.RandomString(6, false);
             
             //Open New Person Window
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
 
 
@@ -63,7 +64,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(3000);
 
 
@@ -73,20 +74,17 @@ namespace WCCIS.specs.StepDefinitions
         public void ThenNewPersonCanBeReturnedInASearch(string firstname, string dob)
         {
             // search for our person
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(firstname);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtLastName")).SendKeys(lastName);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("txtDOB")).SendKeys(dob);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(2000);
 
+            Page_PersonSearch.EnterFirstName(driver, firstname);
+            Page_PersonSearch.EnterLastName(driver, lastName);
+            Page_PersonSearch.EnterDateOfBirth(driver, dob);
+            Page_PersonSearch.ClickSearch(driver);
+            xrmBrowser.ThinkTime(2000);
 
             // finds the element that stores the person id by searching on a partial id
             // then getting the text value from that element
@@ -145,9 +143,9 @@ namespace WCCIS.specs.StepDefinitions
 
             for (int i= 0; i<2; i++)
             {
-                //Create SharedNavigation method for "open new person"
-                xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-                xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+                //Click People, then New Person
+                SharedNavigation.ClickPeople(xrmBrowser);
+                SharedNavigation.ClickNewPerson(xrmBrowser);
                 //Switch back to main window after opening new person
                 driver.SwitchTo().Window(driver.WindowHandles.Last());
 
@@ -166,7 +164,7 @@ namespace WCCIS.specs.StepDefinitions
 
                 // save the record
                 //Note that we have had to use a custom save function elsewhere
-                xrmBrowser.CommandBar.ClickCommand("SAVE");
+                SharedNavigation.ClickSave(driver, xrmBrowser);
             }
         }
 
@@ -202,8 +200,8 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenIStartTheProcessOfCreatingANewPerson()
         {
             // begin start the  process of creating a new person
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
@@ -223,7 +221,7 @@ namespace WCCIS.specs.StepDefinitions
 
             // add a value to the field so we can test validation on the next field
             Page_PersonCoreDemographics.EnterEthnicity(driver, "African");
-            xrmBrowser.CommandBar.ClickCommand("Save");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
 
             // set field we want to check to be lastName
             fieldWeWant = PersonMandatoryFields.lastName;
@@ -235,7 +233,7 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             Page_PersonCoreDemographics.EnterLastName(driver, "Test");
             xrmBrowser.ThinkTime(1000);
-            xrmBrowser.CommandBar.ClickCommand("Save");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);
 
             // set field we want to check to be gender
@@ -272,8 +270,8 @@ namespace WCCIS.specs.StepDefinitions
         [When(@"i've created a new person with an NHS Number")]
         public void WhenIveCreatedANewPersonWithAnNHSNumber()
         {
-            xrmBrowser.Navigation.OpenSubArea("Workplace", "People");
-            xrmBrowser.CommandBar.ClickCommand("NEW PERSON");
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
@@ -305,7 +303,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, "01/01/2000");
 
             // save the record
-            xrmBrowser.CommandBar.ClickCommand("SAVE");
+            SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(3000);
         }
 
