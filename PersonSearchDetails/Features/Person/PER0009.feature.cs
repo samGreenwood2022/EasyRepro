@@ -75,14 +75,14 @@ namespace WCCIS.Specs.Features.Person
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("A person search using an NHS Number returns the expected record")]
+        [NUnit.Framework.DescriptionAttribute("Performing a person search using an NHS Number returns the expected record")]
         [NUnit.Framework.CategoryAttribute("Regression")]
-        public void APersonSearchUsingAnNHSNumberReturnsTheExpectedRecord()
+        public void PerformingAPersonSearchUsingAnNHSNumberReturnsTheExpectedRecord()
         {
             string[] tagsOfScenario = new string[] {
                     "Regression"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using an NHS Number returns the expected record", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Performing a person search using an NHS Number returns the expected record", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
