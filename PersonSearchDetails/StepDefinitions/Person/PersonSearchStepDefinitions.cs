@@ -66,7 +66,6 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"the returned record will show the correct name, id, dob & address")]
         public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
         {
-            //Actions act = new Actions(driver);
             ////Double CLick the Returned Patient
             Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
