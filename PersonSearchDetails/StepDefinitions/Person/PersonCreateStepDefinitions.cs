@@ -54,7 +54,7 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
-
+            Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, xrmBrowser, "1/Salford Medical Practice");
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
@@ -62,6 +62,8 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+            // Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, xrmBrowser, "1/Salford Medical Practice");
 
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
