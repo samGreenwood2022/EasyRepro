@@ -55,6 +55,8 @@ namespace WCCIS.specs.StepDefinitions
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
             Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
+            Page_PersonGeneralPractitioner.EnterGPStartDate(driver, "01/01/2000");
+            Page_PersonGeneralPractitioner.SelectGPName(driver, "Jazin Salim");
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);

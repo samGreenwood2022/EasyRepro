@@ -50,6 +50,30 @@ namespace WCCIS.Specs.PageObjects
             }
         }
 
+        //Method to enter text into the GP Name field
+
+        public static void SelectGPName(IWebDriver driver, string name, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our GP Name 
+                LocateLabelGPName(driver);
+                ClickLabelGPName(driver);
+                ClickLookupButtonGPName(driver);
+                ClickGPNameUsingLookup(driver, name);
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelGPName(driver);
+                EnterTextIntoGPNameField(driver, name);
+            }
+        }
+
 
         //Private methods
 
@@ -135,6 +159,56 @@ namespace WCCIS.Specs.PageObjects
         {
             IWebElement textBoxGPStartDate = LocateTextBoxGPStartDate(driver);
             textBoxGPStartDate.SendKeys(startDate);
+        }
+
+        //Method to locate the GP Name label
+
+        private static IWebElement LocateLabelGPName(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpid_cl\"]"));
+            IWebElement labelGPName = driver.FindElement(By.XPath("//*[@id=\"cw_gpid_cl\"]"));
+            return labelGPName;
+        }
+
+        //Method to click the GP Name label
+
+        private static void ClickLabelGPName(IWebDriver driver)
+        {
+            IWebElement labelGPName = LocateLabelGPName(driver);
+            labelGPName.Click();
+        }
+
+        //Method to click the lookup button next to the GP Name field
+
+        private static void ClickLookupButtonGPName(IWebDriver driver)
+        {
+            IWebElement lookupGPName = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_i\"]"));
+            lookupGPName.Click();
+        }
+
+        //Method to select a Surgery/Practice from the lookup menu
+
+        private static void ClickGPNameUsingLookup(IWebDriver driver, string name)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + name + "')]]")).Click();
+        }
+
+        //Method to enter text into the GP Name field
+
+        private static void EnterTextIntoGPName(IWebDriver driver, string name)
+        {
+            IWebElement textBoxSurgeryPractice = LocateTextBoxGPNameField(driver);
+            textBoxSurgeryPractice.SendKeys(name);
+        }
+
+        //Method to locate GP Name text box
+
+        private static IWebElement LocateTextBoxGPNameField(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpid_ledit\"]"));
+            IWebElement textBoxGPName = driver.FindElement(By.XPath("//*[@id=\"cw_gpid_ledit\"]"));
+            return textBoxGPName;
         }
 
 
