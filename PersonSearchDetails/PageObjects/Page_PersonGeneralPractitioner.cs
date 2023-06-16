@@ -1,6 +1,7 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Api;
-using Microsoft.Dynamics365.UIAutomation.Browser;
+﻿using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using System;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace WCCIS.Specs.PageObjects
 {
@@ -9,7 +10,7 @@ namespace WCCIS.Specs.PageObjects
         //Public methods
 
         //Method for entering text into Surgery/Practice field 
-        public static void SelectSurgeryPractice(IWebDriver driver, Browser xrmBrowser, string surgeryPractice, bool isUsingLookup = true)
+        public static void SelectSurgeryPractice(IWebDriver driver, string surgeryPractice, bool isUsingLookup = true)
         {
             if (isUsingLookup)
             {
@@ -31,10 +32,28 @@ namespace WCCIS.Specs.PageObjects
             }
         }
 
+        //Method to enter a date into the GP Start Date field
+
+        public static void EnterGPStartDate(IWebDriver driver, string startDate, bool isUsingDatePicker = false)
+        {
+            if (isUsingDatePicker)
+            {
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
+            }
+
+            if (!isUsingDatePicker)
+            {
+                ClickLabelGPStartDate(driver);
+                EnterTextIntoTextBoxGPStartDate(driver, startDate);
+            }
+        }
+
 
         //Private methods
 
-        //Method to locale the Surgery/Practice label
+        //Method to locate the Surgery/Practice label
 
         private static IWebElement LocateLabelSurgeryPractice(IWebDriver driver)
         {
@@ -49,6 +68,15 @@ namespace WCCIS.Specs.PageObjects
         {
             IWebElement labelSurgeryPractice = LocateLabelSurgeryPractice(driver);
             labelSurgeryPractice.Click();
+        }
+
+        //Method to locate the Surgery/Practice text box
+
+        private static IWebElement LocateTextBoxSurgeryPractice(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
+            IWebElement textBoxSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
+            return textBoxSurgeryPractice;
         }
 
         //Method to click the lookup button next to the Surgery/Practice field
@@ -71,10 +99,42 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoSurgeryPracticeField(IWebDriver driver, string surgeryPractice)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
-            IWebElement textBoxSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
-            textBoxSurgeryPractice.SendKeys(surgeryPractice = Keys.Enter);
+            IWebElement textBoxSurgeryPractice = LocateTextBoxSurgeryPractice(driver);
+            textBoxSurgeryPractice.SendKeys(surgeryPractice);
+        }
 
+        //Method to locate the GP Start Date label
+
+        private static IWebElement LocateLabelGPStartDate(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate_cl\"]"));
+            IWebElement labelGPStartDate = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_cl\"]"));
+            return labelGPStartDate;
+        }
+
+        //Method to click the GP Start Date label
+
+        private static void ClickLabelGPStartDate(IWebDriver driver)
+        {
+            IWebElement labelGPStartDate = LocateLabelGPStartDate(driver);
+            labelGPStartDate.Click();
+        }
+
+        //Method to locate GP Start Date
+
+        private static IWebElement LocateTextBoxGPStartDate(IWebDriver driver)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate_iDateInput\"]"));
+            IWebElement textBoxPreferredLanguage = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_iDateInput\"]"));
+            return textBoxPreferredLanguage;
+        }
+
+        //Method to enter text into the GP Start Date field
+
+        private static void EnterTextIntoTextBoxGPStartDate(IWebDriver driver, string startDate)
+        {
+            IWebElement textBoxGPStartDate = LocateTextBoxGPStartDate(driver);
+            textBoxGPStartDate.SendKeys(startDate);
         }
 
 
