@@ -1,4 +1,5 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Browser;
+﻿using Microsoft.Dynamics365.UIAutomation.Api;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using System;
 using System.Runtime.InteropServices.ComTypes;
@@ -45,7 +46,7 @@ namespace WCCIS.Specs.PageObjects
 
             if (!isUsingDatePicker)
             {
-                ClickLabelGPStartDate(driver);
+                //ClickLabelGPStartDate(driver);
                 EnterTextIntoTextBoxGPStartDate(driver, startDate);
             }
         }
@@ -107,7 +108,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void ClickLookupButtonSurgeryPractice(IWebDriver driver)
         {
-            IWebElement lookupSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_i\"]"));
+            IWebElement lookupSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_lookupSearch\"]"));
             lookupSurgeryPractice.Click();
         }
 
@@ -131,8 +132,8 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelGPStartDate(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate_cl\"]"));
-            IWebElement labelGPStartDate = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_cl\"]"));
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate\"]/div[1]"));
+            IWebElement labelGPStartDate = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate\"]/div[1]"));
             return labelGPStartDate;
         }
 
@@ -182,7 +183,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void ClickLookupButtonGPName(IWebDriver driver)
         {
-            IWebElement lookupGPName = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_i\"]"));
+            IWebElement lookupGPName = driver.FindElement(By.XPath("//*[@id=\"cw_gpid_i\"]"));
             lookupGPName.Click();
         }
 
@@ -196,7 +197,7 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to enter text into the GP Name field
 
-        private static void EnterTextIntoGPName(IWebDriver driver, string name)
+        private static void EnterTextIntoGPNameField(IWebDriver driver, string name)
         {
             IWebElement textBoxSurgeryPractice = LocateTextBoxGPNameField(driver);
             textBoxSurgeryPractice.SendKeys(name);

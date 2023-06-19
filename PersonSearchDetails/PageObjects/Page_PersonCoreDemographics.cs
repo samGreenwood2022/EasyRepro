@@ -491,7 +491,6 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateEthnicityLookupButton(IWebDriver driver)
         {
-            //
             driver.WaitUntilVisible(By.Id("cw_ethnicityid_lookupSearch"));
             IWebElement ethnicityLookupButton = driver.FindElement(By.Id("cw_ethnicityid_lookupSearch"));
             return ethnicityLookupButton;

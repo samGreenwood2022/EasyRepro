@@ -54,21 +54,20 @@ namespace WCCIS.specs.StepDefinitions
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
-            Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
-            Page_PersonGeneralPractitioner.EnterGPStartDate(driver, "01/01/2000");
-            Page_PersonGeneralPractitioner.SelectGPName(driver, "Jazin Salim");
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+            //Page_PersonGeneralPractitioner.EnterGPStartDate(driver, "02/08/2014");
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
             Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
-            Page_PersonCoreDemographics.EnterGender(driver, gender);
+            Page_PersonCoreDemographics.EnterGender(driver, gender);           
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
-
-
+            Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
+            Page_PersonGeneralPractitioner.SelectGPName(driver, "Jazin Salim");
+            Page_PersonGeneralPractitioner.EnterGPStartDate(driver, "02/08/2014");
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
-            xrmBrowser.ThinkTime(3000);
+            xrmBrowser.ThinkTime(1000);
 
 
         }
