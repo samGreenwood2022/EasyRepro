@@ -108,6 +108,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void ClickLookupButtonSurgeryPractice(IWebDriver driver)
         {
+            LocateLabelSurgeryPractice(driver).Click();
             IWebElement lookupSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_lookupSearch\"]"));
             lookupSurgeryPractice.Click();
         }
