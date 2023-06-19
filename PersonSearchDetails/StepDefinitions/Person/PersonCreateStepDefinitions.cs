@@ -48,7 +48,6 @@ namespace WCCIS.specs.StepDefinitions
             SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
 
-
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
@@ -61,10 +60,9 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);           
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
-            Page_PersonGeneralPractitioner.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
-            Page_PersonGeneralPractitioner.SelectGPName(driver, "Jazin Salim");
-            Page_PersonGeneralPractitioner.EnterGPStartDate(driver, "02/08/2014");
-
+            Page_PersonCoreDemographics.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
+            Page_PersonCoreDemographics.SelectGPName(driver, "Jazin Salim");
+            Page_PersonCoreDemographics.EnterGPStartDate(driver, "02/08/2014");
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);
