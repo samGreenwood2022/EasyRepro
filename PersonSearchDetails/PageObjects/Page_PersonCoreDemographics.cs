@@ -243,30 +243,19 @@ namespace WCCIS.Specs.PageObjects
         //Note: this field must be completed after the GP Name field has been completed
 
         public static void EnterGPStartDate(IWebDriver driver, string startDate, bool isUsingDatePicker = false)
-        {
-            try
+        {            
+            if (isUsingDatePicker)
             {
-                if (isUsingDatePicker)
-                {
-                    throw new NotImplementedException();
-                    //LocateDMIPickerButton
-                    //SelectUsingDMIPicker
-                }
-
-                if (!isUsingDatePicker)
-                {
-                    ClickLabelGPStartDate(driver);
-                    EnterTextIntoTextBoxGPStartDate(driver, startDate);
-                }
-
-            }
-            catch
-            {
-                throw new Exception("You must enter a GP Name prior to entering a GP Start Date");
-
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
             }
 
-            
+            if (!isUsingDatePicker)
+            {
+                //Note: If we enter a value into the GP Name field, the GP Start date will automatically become active, so no need to click the label
+                EnterTextIntoTextBoxGPStartDate(driver, startDate);
+            }
         }
 
         //---------------------------------------------------------------------------------------------------------

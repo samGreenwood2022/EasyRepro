@@ -1,12 +1,7 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
-using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WCCIS.Specs.PageObjects
 {
@@ -20,6 +15,8 @@ namespace WCCIS.Specs.PageObjects
         {
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             WaitUntilSaveCompletes(driver);
+            isGPStartDateValidationIconDisplayed(driver);
+
         }
 
         //Select Person Search
@@ -61,6 +58,21 @@ namespace WCCIS.Specs.PageObjects
             double maxWait = 30;
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(maxWait));
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("CWHeaderTitle")));
+        }
+
+        //Check to see if the GP Start Date validation icon is displayed when attempting to Save
+
+        private static void isGPStartDateValidationIconDisplayed(IWebDriver driver)
+        {
+            //Switch to correct iFrame
+            driver.SwitchTo().Frame("contentIFrame1");
+            IWebElement gpStartDateValidation = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
+            if (gpStartDateValidation.Displayed)
+            {
+                //If the GP Validatio icon has bee found, throw this exception
+                throw new Exception("Check the order of entry for the GP details, GP Start Date should be entered after the GP Name field");
+
+            }
         }
 
         //Select New Person
