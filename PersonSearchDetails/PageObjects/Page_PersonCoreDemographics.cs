@@ -98,9 +98,10 @@ namespace WCCIS.Specs.PageObjects
             }
         }
 
+        //Method to enter a enter a value into the NHS Number field
+
         public static void EnterNHSNumber(IWebDriver driver, string nhsNumber)
         {
-            // add NHS number
             ClickLabelNHSNumber(driver);
             EnterTextIntoNHSNumberField(driver, nhsNumber);
         }
@@ -118,25 +119,31 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoNHSNumberField(driver, nhsNumber);
         }
 
+        //This method will click the Label and then type into the First Name Text Box
+
         public static void EnterFirstName(IWebDriver driver, string firstName)
         {
-            //This method will click the Label and then type into the First Name Text Box
             ClickLabelFirstName(driver);
             EnterTextIntoFirstNameField(driver, firstName);
         }
 
+        //This method will click the Label and then type into the Last Name Text Box
+
         public static void EnterLastName(IWebDriver driver, string lastName)
         {
-            //This method will click the Label and then type into the Last Name Text Box
             ClickLabelLastName(driver);
             EnterTextIntoLastNameField(driver, lastName);
         }
+
+        //Method to enter values into the Property Number field
 
         public static void EnterPropertyNumber(IWebDriver driver, string propertyNumber)
         {
             ClickLabelPropertyNumber(driver);
             EnterTextIntoTextBoxPropertyNumber(driver, propertyNumber);
         }
+
+        //Method for entering text into the First Line of Address field
 
         public static void EnterFirstLineOfAddress(IWebDriver driver, string firstLineOfAddress)
         {
@@ -145,6 +152,8 @@ namespace WCCIS.Specs.PageObjects
 
         }
 
+        //Method for entering text into Town/City field
+
         public static void EnterTownCity(IWebDriver driver, string townCity)
         {
 
@@ -152,11 +161,15 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoTownCity(driver, townCity);
         }
 
+        //Method for entering text into the County field
+
         public static void EnterCounty(IWebDriver driver, string county)
         {
             ClickLabelCounty(driver);
             EnterTextIntoTextBoxCounty(driver, county);
         }
+
+        //A method for entering text into the Post Code field
 
         public static void EnterPostCode(IWebDriver driver, string postCode)
         {
@@ -164,12 +177,20 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoTextBoxPostCode(driver, postCode);
         }
 
+        //Method for clearing Date MOved In field
+
         public static void ClearDateMovedIn(IWebDriver driver)
         {
             ClickLabelDateMovedIn(driver);
             ClearTextBoxDateMovedIn(driver);
         }
 
+        //General Practitioner Details
+        //Note: there is a sequence that must be followed when completing fields in the General Practitioner details section
+        //Surgery/Practice must be entered first
+        //GP Name must be entered second
+        //GP Start Date
+        //GP Name
         //Method for entering text into Surgery/Practice field 
         public static void SelectSurgeryPractice(IWebDriver driver, string surgeryPractice, bool isUsingLookup = true)
         {
@@ -192,26 +213,9 @@ namespace WCCIS.Specs.PageObjects
                 EnterTextIntoSurgeryPracticeField(driver, surgeryPractice);
             }
         }
-
-        //Method to enter a date into the GP Start Date field
-
-        public static void EnterGPStartDate(IWebDriver driver, string startDate, bool isUsingDatePicker = false)
-        {
-            if (isUsingDatePicker)
-            {
-                throw new NotImplementedException();
-                //LocateDMIPickerButton
-                //SelectUsingDMIPicker
-            }
-
-            if (!isUsingDatePicker)
-            {
-                //ClickLabelGPStartDate(driver);
-                EnterTextIntoTextBoxGPStartDate(driver, startDate);
-            }
-        }
-
+ 
         //Method to enter text into the GP Name field
+        //Note: this field must be completed after the Surgery/Practice field has been completed
 
         public static void SelectGPName(IWebDriver driver, string name, bool isUsingLookup = true)
         {
@@ -235,13 +239,33 @@ namespace WCCIS.Specs.PageObjects
             }
         }
 
+        //Method to enter a date into the GP Start Date field
+        //Note: this field must be completed after the GP Name field has been completed
 
+        public static void EnterGPStartDate(IWebDriver driver, string startDate, bool isUsingDatePicker = false)
+        {
+            if (isUsingDatePicker)
+            {
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
+            }
+
+            if (!isUsingDatePicker)
+            {
+                ClickLabelGPStartDate(driver);
+                EnterTextIntoTextBoxGPStartDate(driver, startDate);
+            }
+        }
 
         //---------------------------------------------------------------------------------------------------------
 
         ///Private methods below - not to be called directly in tests
 
         //---------------------------------------------------------------------------------------------------------
+
+        //Method to locate the County label
+
         private static IWebElement LocateLabelCounty(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]"));
@@ -249,11 +273,15 @@ namespace WCCIS.Specs.PageObjects
             return countyLabel;
         }
 
+        //Method to click the County label
+
         private static void ClickLabelCounty(IWebDriver driver)
         {
             IWebElement countyLabel = LocateLabelCounty(driver);
             countyLabel.Click();
         }
+
+        //Method to locate the County text box
 
         private static IWebElement LocateTextBoxCounty(IWebDriver driver)
         {
@@ -262,11 +290,15 @@ namespace WCCIS.Specs.PageObjects
             return countyTextBox;
         }
 
+        //Method to enter text into the County text box
+
         private static void EnterTextIntoTextBoxCounty(IWebDriver driver, string county)
         {
             IWebElement countyTextBox = LocateTextBoxCounty(driver);
             countyTextBox.SendKeys(county = Keys.Enter);
         }
+
+        //Method to locate the Post Code label
 
         private static IWebElement LocateLabelPostCode(IWebDriver driver)
         {
@@ -275,11 +307,15 @@ namespace WCCIS.Specs.PageObjects
             return postCodeLabel;
         }
 
+        //Method to click the Post Code label
+
         private static void ClickLabelPostCode(IWebDriver driver)
         {
             IWebElement postCodeLabel = LocateLabelPostCode(driver);
             postCodeLabel.Click();
         }
+
+        //Method to locate the Post Code text box
 
         private static IWebElement LocateTextBoxPostCode(IWebDriver driver)
         {
@@ -287,11 +323,16 @@ namespace WCCIS.Specs.PageObjects
             IWebElement postCodeTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]"));
             return postCodeTextBox;
         }
+
+        //Method to enter text into the Post Code field
+
         private static void EnterTextIntoTextBoxPostCode(IWebDriver driver, string postCode)
         {
             IWebElement postCodeTextBox = LocateTextBoxPostCode(driver);
             postCodeTextBox.SendKeys(postCode + Keys.Return);
         }
+
+        //Method to locate Town City label
 
         private static IWebElement LocateLabelTownCity(IWebDriver driver)
         {
@@ -300,11 +341,15 @@ namespace WCCIS.Specs.PageObjects
             return townCityLabel;
         }
 
+        //Method to click the Town City label
+
         private static void ClickLabelTownCity(IWebDriver driver)
         {
             IWebElement townCityLabel = LocateLabelTownCity(driver);
             townCityLabel.Click();
         }
+
+        //Method to locate the Town City field
 
         private static IWebElement LocateTextBoxTownCity(IWebDriver driver)
         {
@@ -313,12 +358,15 @@ namespace WCCIS.Specs.PageObjects
             return townCityTextBox;
         }
 
+        //Method to enter text into the Town City field
+
         private static void EnterTextIntoTownCity(IWebDriver driver, string townCity)
         {
             IWebElement townCityTextBox = LocateTextBoxTownCity(driver);
             townCityTextBox.SendKeys(townCity + Keys.Enter);
         }
 
+        //Method to locate label First Line of Address field
 
         private static IWebElement LocateLabelFirstLineOfAddress(IWebDriver driver)
         {
@@ -327,11 +375,15 @@ namespace WCCIS.Specs.PageObjects
             return firstLineOfAddressLabel;
         }
 
+        //Method to click the First Line of Address label
+
         private static void ClickLabelFirstLineOfAddress(IWebDriver driver)
         {
             IWebElement firstLineOfAddressLabel = LocateLabelFirstLineOfAddress(driver);
             firstLineOfAddressLabel.Click();
         }
+
+        //Method to locate the First Line of Address checkbox
 
         private static IWebElement LocateTextBoxFirstLineOfAddress(IWebDriver driver)
         {
@@ -340,11 +392,15 @@ namespace WCCIS.Specs.PageObjects
             return firstLineOfAddressTextBox;
         }
 
+        //Method to enter text into the First Lie of Address field
+
         private static void EnterTextintoTextBoxFirstLineOfAddress(IWebDriver driver, string firstLineOfAddress)
         {
             IWebElement firstLineOfAddressTextBox = LocateTextBoxFirstLineOfAddress(driver);
             firstLineOfAddressTextBox.SendKeys(firstLineOfAddress + Keys.Enter);
         }
+
+        //Method to locate Property Number label
 
         private static IWebElement LocateLabelPropertyNumber(IWebDriver driver)
         {
@@ -353,11 +409,15 @@ namespace WCCIS.Specs.PageObjects
             return propertyNumberLabel;
         }
 
+        //Method to click the Property Number label
+
         private static void ClickLabelPropertyNumber(IWebDriver driver)
         {
             IWebElement propertyNumberLabel = LocateLabelPropertyNumber(driver);
             propertyNumberLabel.Click();
         }
+
+        //Method to locate the Property Number text box
 
         private static IWebElement LocateTextBoxPropertyNumber(IWebDriver driver)
         {
@@ -366,16 +426,23 @@ namespace WCCIS.Specs.PageObjects
             return propertyNumberTextBox;
         }
 
+        //Method to enter text into the property number text box
+
         private static void EnterTextIntoTextBoxPropertyNumber(IWebDriver driver, string propertyNumber)
         {
             IWebElement propertyNumberTextBox = LocateTextBoxPropertyNumber(driver);
             propertyNumberTextBox.SendKeys(propertyNumber + Keys.Enter);
         }
+
+        //Method to click the Ethnicity label
+
         private static void ClickLabelEthnicity(IWebDriver driver)
         {
             IWebElement ethnicityLabel = LocateEthnicityLabel(driver);
             ethnicityLabel.Click();
         }
+
+        //Method to select a value from the Ethnicity lookup
 
         private static void SelectEthnicityUsingLookup(IWebDriver driver, string ethnicity)
         {
@@ -385,11 +452,15 @@ namespace WCCIS.Specs.PageObjects
             ethnicityFromMenu.Click();
         }
 
+        //Method for entering text into the Date Moved In field
+
         private static void EnterTextIntoTextBoxDateMovedIn(IWebDriver driver, string dateMovedIn)
         {
             IWebElement textBoxDateMovedIn = LocateTextBoxDateMovedIn(driver);
             textBoxDateMovedIn.SendKeys(dateMovedIn);
         }
+
+        //Method for locating the Date Moved In text box
 
         private static IWebElement LocateTextBoxDateMovedIn(IWebDriver driver)
         {
@@ -398,19 +469,24 @@ namespace WCCIS.Specs.PageObjects
             return textBoxDateMovedIn;
         }
 
+        //Method for clicking the Date Moved In label
+
         private static void ClickLabelDateMovedIn(IWebDriver driver)
         {
             IWebElement dateMovedInLabel = LocateDivDateMovedIn(driver);
             dateMovedInLabel.Click();
         }
 
+        //Method to locate Date Moved In Div
+
         private static IWebElement LocateDivDateMovedIn(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.Id("cw_datepersonmovedin"));
-            //IWebElement dateMovedInLabel = driver.FindElement(By.XPath("//*[@id=\"Date Person moved in_label\"]"));
             IWebElement dateMovedInLabel = driver.FindElement(By.Id("cw_datepersonmovedin"));
             return dateMovedInLabel;
         }
+
+        //Method to click the Gender label
 
         private static void ClickLabelGender(IWebDriver driver)
         {
@@ -418,12 +494,16 @@ namespace WCCIS.Specs.PageObjects
             genderLabel.Click();
         }
 
+        //Method to select a Gender fron the dropdown
+
         private static void SelectGenderFromDropDown(IWebDriver driver, string gender)
         {
             IWebElement genderDropDown = LocateDropDownGender(driver);
             var selectElementGender = new SelectElement(genderDropDown);
             selectElementGender.SelectByText(gender);
         }
+
+        //Method to locate Gender dropdown menu
 
         private static IWebElement LocateDropDownGender(IWebDriver driver)
         {
@@ -434,6 +514,8 @@ namespace WCCIS.Specs.PageObjects
             return genderDropDown;
         }
 
+        //Method to locate Gender label
+
         private static IWebElement LocateLabelGender(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.Id("gendercode"));
@@ -441,6 +523,7 @@ namespace WCCIS.Specs.PageObjects
             return genderLabel;
         }
 
+        //Method to click Peferred Language from lookup
 
         private static void ClickPreferredLanguageUsingLookup(IWebDriver driver, string preferredLanguage)
         {
@@ -448,20 +531,25 @@ namespace WCCIS.Specs.PageObjects
             preferredLanguageFromLookup.Click();
         }
 
+        //Method to locate Preferred Language from lookup
+
         private static IWebElement LocatePreferredLanguageFromLookup(IWebDriver driver, string preferredLanguage)
         {
             //Note that if the ethnicity button is clicked more than once you will generate a new ID each time
             driver.WaitUntilVisible(By.XPath("//a[@title='" + preferredLanguage + "']"));
             IWebElement preferredLanguageFromMenu = driver.FindElement(By.XPath("//a[@title='" + preferredLanguage + "']"));
             return preferredLanguageFromMenu;
-
         }
+
+        //Method to click Preferred Language lookup button
 
         private static void ClickLookupButtonPreferredLanguage(IWebDriver driver)
         {
             IWebElement lookupButtonPreferredLanguage = LocateLookupButtonPreferredLanguage(driver);
             lookupButtonPreferredLanguage.Click();
         }
+
+        //Method to locate the Preferred Language lookup
 
         private static IWebElement LocateLookupButtonPreferredLanguage(IWebDriver driver)
         {
@@ -470,11 +558,15 @@ namespace WCCIS.Specs.PageObjects
             return lookupButtonPreferredLanguage;
         }
 
+        //Method to enter text into the Preferred Language field
+
         private static void EnterTextIntoPreferredLanguageField(IWebDriver driver, string preferredLanguage)
         {
             IWebElement textBoxPreferredLanguage = LocateTextBoxPreferredLanguage(driver);
             textBoxPreferredLanguage.SendKeys(preferredLanguage);
         }
+
+        //Method to locate the Preferred Language checkbox
 
         private static IWebElement LocateTextBoxPreferredLanguage(IWebDriver driver)
         {
@@ -483,11 +575,15 @@ namespace WCCIS.Specs.PageObjects
             return textBoxPreferredLanguage;
         }
 
+        //Method to click the Preferred Language label
+
         private static void ClickLabelPreferredLanguage(IWebDriver driver)
         {
             IWebElement label = LocateLabelPreferredLanguage(driver);
             label.Click();
         }
+
+        //Method to locate the Preferred Language label
 
         private static IWebElement LocateLabelPreferredLanguage(IWebDriver driver)
         {
@@ -496,6 +592,8 @@ namespace WCCIS.Specs.PageObjects
             return prefLanguageLabel;
         }
 
+        //Method to enter text into the Date of Birth field
+
         private static void EnterTextIntoDOBField(IWebDriver driver, string dateOfBirth)
         {
             //Send keys to the text box
@@ -503,6 +601,8 @@ namespace WCCIS.Specs.PageObjects
             IWebElement dobField = LocateTextBoxDOB(driver);
             dobField.SendKeys(dateOfBirth);
         }
+
+        //Method to locate the text box Date of Birth
 
         private static IWebElement LocateTextBoxDOB(IWebDriver driver)
         {
@@ -513,12 +613,16 @@ namespace WCCIS.Specs.PageObjects
             return textBoxDOB;
         }
 
+        //Method to click the DOB label
+
         private static void ClickLabelDOB(IWebDriver driver)
         {
             //Just to click the element
             IWebElement label = LocateLabelDOB(driver);
             label.Click();
         }
+
+        //Method to locate the DOB label
 
         private static IWebElement LocateLabelDOB(IWebDriver driver)
         {
@@ -529,6 +633,8 @@ namespace WCCIS.Specs.PageObjects
 
         }
 
+        //Method to enter text into the Ethnicity field
+
         private static void EnterTextIntoEthnicityField(IWebDriver driver, string ethnicity)
         {
             //Locate the box and send text to it
@@ -538,6 +644,8 @@ namespace WCCIS.Specs.PageObjects
             ethnicityTextbox.SendKeys(ethnicity);
         }
 
+        //Method to locate the Ethnicity label
+
         private static IWebElement LocateEthnicityLabel(IWebDriver driver)
         {
             //Note that the clicked element here is different to those used for last name etc. 
@@ -545,6 +653,8 @@ namespace WCCIS.Specs.PageObjects
             IWebElement ethnicityLabel = driver.FindElement(By.Id("cw_ethnicityid_cl_span"));
             return ethnicityLabel;
         }
+
+        //Method to locate the Ethnicity text box
 
         private static IWebElement LocateEthnicityBox(IWebDriver driver)
         {
@@ -554,12 +664,16 @@ namespace WCCIS.Specs.PageObjects
             return ethnicityBox;
         }
 
+        //Method to locate the Ethnicity lookup button
+
         private static IWebElement LocateEthnicityLookupButton(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.Id("cw_ethnicityid_lookupSearch"));
             IWebElement ethnicityLookupButton = driver.FindElement(By.Id("cw_ethnicityid_lookupSearch"));
             return ethnicityLookupButton;
         }
+
+        //Method to locate Ethnicity from the menu
 
         private static IWebElement LocateEthnicityFromMenu(IWebDriver driver, string ethnicity)
         {
@@ -569,14 +683,17 @@ namespace WCCIS.Specs.PageObjects
             return ethnicityFromMenu;
         }
 
+        //Method to enter text into the Last Name field
+
         private static void EnterTextIntoLastNameField(IWebDriver driver, string lastName) 
         {
             //Locate the text box, then send a string into it
             //private method to protect this from being used as a step step, as you need to click into the field first
             IWebElement textBoxLastName = LocateTextBoxLastName(driver);
             textBoxLastName.SendKeys(lastName);
-            
         }
+
+        //Method to locate the Last Name text box
 
         private static IWebElement LocateTextBoxLastName(IWebDriver driver)
         {
@@ -588,12 +705,15 @@ namespace WCCIS.Specs.PageObjects
             return textBoxLastName;
         }
 
+        //Method to click the Last Name label
+
         private static void ClickLabelLastName(IWebDriver driver)
         {
-            //Locate the label and actually click it
             IWebElement labelLastName = LocateLabelLastName(driver);
             labelLastName.Click();
         }
+
+        //Method to locate the LastName label
 
         private static IWebElement LocateLabelLastName(IWebDriver driver)
         {
@@ -604,6 +724,8 @@ namespace WCCIS.Specs.PageObjects
             return labelLastName;
         }
 
+        //Method to enter text into FirstName field
+
         private static void EnterTextIntoFirstNameField(IWebDriver driver, string firstName)
         {
             //Locate the text box, then send a string into it
@@ -612,6 +734,8 @@ namespace WCCIS.Specs.PageObjects
             textBoxFirstName.SendKeys(firstName);
         }
 
+        //Method to click the FirstName label
+
         private static void ClickLabelFirstName(IWebDriver driver)
         {
             //Changed from div to be label
@@ -619,6 +743,8 @@ namespace WCCIS.Specs.PageObjects
             divFirstName.Click();
         
         }
+
+        //Method to locate the FirstName text box
 
         private static IWebElement LocateTextBoxFirstName(IWebDriver driver) 
         {
@@ -630,6 +756,8 @@ namespace WCCIS.Specs.PageObjects
             return textBoxFirstName;
         }
 
+        //Method to locate FirstName label
+
         private static IWebElement LocateLabelFirstName(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.Id("firstname_cl"));
@@ -640,40 +768,46 @@ namespace WCCIS.Specs.PageObjects
             return divFirstName;
         }
 
+        //Method to locate NHS Number label
+
         private static IWebElement LocateLabelNHSNumber(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_nhsno_cl\"]"));
-            //Locates label field of NHS Number
             //Call this method to interact with it (e.g. assert text, click)
             IWebElement nhsNumberLabel = driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]"));
             return nhsNumberLabel; 
         }
 
+        //Method to click NHS Number label
+
         private static void ClickLabelNHSNumber(IWebDriver driver)
         {
-            //Clicks label to enter text box 
             //Call this before the TextBox is used
             IWebElement nhsNumberLabel = LocateLabelNHSNumber(driver);
             nhsNumberLabel.Click();
         }
 
+        //Method to locate the NHS Number text box
+
         private static IWebElement LocateTextBoxNHSNumber(IWebDriver driver)
         {
             driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_nhsno_i\"]"));
-            //Locates the text box
             //Call click on label prior to use
             IWebElement nhsNumberTextBox = driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]"));
             return nhsNumberTextBox;
         }
 
+        //Method to enter text into the NHS Number field
+
         private static void EnterTextIntoNHSNumberField(IWebDriver driver, string nhsNumber)
         {
-            //Locate the text box and send a string into it
             //Will fail unless a click into the field via label occurs
             //private method - not to be called in main script
             IWebElement nhsNumberTextBox = LocateTextBoxNHSNumber(driver);
             nhsNumberTextBox.SendKeys(nhsNumber + Keys.Enter);
         }
+
+        //Method to clear any values from the Date Moved In field
 
         private static void ClearTextBoxDateMovedIn(IWebDriver driver)
         {
