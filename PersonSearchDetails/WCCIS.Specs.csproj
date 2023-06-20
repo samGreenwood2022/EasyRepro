@@ -125,6 +125,7 @@
     <None Include="Features\Person\PER0002.feature" />
     <None Include="Features\Person\PER0001.feature" />
     <None Include="Features\Person\PER0006.feature" />
+    <None Include="Features\Person\PER0009.feature" />
     <None Include="NonRegressionScripts\Person\CreatePersonWithNHSNumber.feature" />
     <None Include="packages.config" />
   </ItemGroup>

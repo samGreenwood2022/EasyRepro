@@ -1,5 +1,6 @@
 using Microsoft.Dynamics365.UIAutomation.Api;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Microsoft.Dynamics365.UIAutomation.Sample.Extentions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -7,6 +8,9 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.StepDefinitions;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -62,7 +66,6 @@ namespace WCCIS.specs.StepDefinitions
         [Then(@"the returned record will show the correct name, id, dob & address")]
         public void ThenTheReturnedRecordWillShowTheCorrectNameIdDobAddress()
         {
-            //Actions act = new Actions(driver);
             ////Double CLick the Returned Patient
             Page_PersonSearchResults.DoubleClickSearchResult(driver, "4074401");
             xrmBrowser.ThinkTime(3000);
@@ -134,5 +137,25 @@ namespace WCCIS.specs.StepDefinitions
             //To check if this can be used with other fields (e.g. name, DOB)
             Page_PersonSearchResults.DoubleClickSearchResult(driver, personId);
         }
+
+        [Given(@"a user has navigated to Person Search")]
+        public void GivenAUserHasNavigatedToPersonSearch()
+        {
+            UserLogin.AdultSupportWorkerLogin(xrmBrowser, driver);
+            SharedNavigation.ClickPeople(xrmBrowser);
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
+        }
+
+        [When(@"a search is performed using an NHS Number '([^']*)'")]
+        public void WhenASearchIsPerformedUsingAnNHSNumber(string nhsNumber)
+        {
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterNHSNumber(driver, nhsNumber);
+            Page_PersonSearch.ClickSearch(driver);
+        }
+
+
+
     }
 }
