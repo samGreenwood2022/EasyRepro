@@ -244,18 +244,29 @@ namespace WCCIS.Specs.PageObjects
 
         public static void EnterGPStartDate(IWebDriver driver, string startDate, bool isUsingDatePicker = false)
         {
-            if (isUsingDatePicker)
+            try
             {
-                throw new NotImplementedException();
-                //LocateDMIPickerButton
-                //SelectUsingDMIPicker
+                if (isUsingDatePicker)
+                {
+                    throw new NotImplementedException();
+                    //LocateDMIPickerButton
+                    //SelectUsingDMIPicker
+                }
+
+                if (!isUsingDatePicker)
+                {
+                    ClickLabelGPStartDate(driver);
+                    EnterTextIntoTextBoxGPStartDate(driver, startDate);
+                }
+
+            }
+            catch
+            {
+                throw new Exception("You must enter a GP Name prior to entering a GP Start Date");
+
             }
 
-            if (!isUsingDatePicker)
-            {
-                ClickLabelGPStartDate(driver);
-                EnterTextIntoTextBoxGPStartDate(driver, startDate);
-            }
+            
         }
 
         //---------------------------------------------------------------------------------------------------------
