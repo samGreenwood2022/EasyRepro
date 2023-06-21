@@ -60,7 +60,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
-            Page_PersonCoreDemographics.EnterCounty(driver, "Tyne & Wear");
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);

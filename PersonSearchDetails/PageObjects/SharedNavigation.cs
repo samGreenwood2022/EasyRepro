@@ -1,4 +1,5 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -65,9 +66,9 @@ namespace WCCIS.Specs.PageObjects
         private static void isGPStartDateValidationIconDisplayed(IWebDriver driver)
         {
             //Switch to correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            IWebElement gpStartDateValidation = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
-            if (gpStartDateValidation.Displayed)
+            driver.SwitchTo().Frame("contentIFrame0");
+            bool gpStartDateValidation = driver.IsVisible(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
+            if (gpStartDateValidation)
             {
                 //If the GP Validatio icon has bee found, throw this exception
                 throw new Exception("Check the order of entry for the GP details, GP Start Date should be entered after the GP Name field");
