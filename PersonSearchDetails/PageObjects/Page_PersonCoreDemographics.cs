@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Reflection.Emit;
 using WCCIS.Specs.Extentions;
 
 namespace WCCIS.Specs.PageObjects
@@ -268,8 +269,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelCounty(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]"));
-            IWebElement countyLabel = driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_cl\"]"));
+
+            string labelCountyLocation = "//*[@id=\"address1_stateorprovince_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelCountyLocation));
+            IWebElement countyLabel = driver.FindElement(By.XPath(labelCountyLocation));
             return countyLabel;
         }
 
@@ -285,8 +288,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxCounty(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_stateorprovince_i\"]"));
-            IWebElement countyTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_stateorprovince_i\"]"));
+            string textBoxCountyLocation = "//*[@id=\"address1_stateorprovince_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxCountyLocation));
+            IWebElement countyTextBox = driver.FindElement(By.XPath(textBoxCountyLocation));
             return countyTextBox;
         }
 
@@ -294,16 +298,18 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoTextBoxCounty(IWebDriver driver, string county)
         {
+            LocateLabelCounty(driver).Click();
             IWebElement countyTextBox = LocateTextBoxCounty(driver);
-            countyTextBox.SendKeys(county = Keys.Enter);
+            countyTextBox.SendKeys(county);
         }
 
         //Method to locate the Post Code label
 
         private static IWebElement LocateLabelPostCode(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_postalcode_cl\"]"));
-            IWebElement postCodeLabel = driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_cl\"]"));
+            string labelPostCodeLocation = "//*[@id=\"address1_postalcode_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelPostCodeLocation));
+            IWebElement postCodeLabel = driver.FindElement(By.XPath(labelPostCodeLocation));
             return postCodeLabel;
         }
 
@@ -319,8 +325,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxPostCode(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_postalcode_i\"]"));
-            IWebElement postCodeTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_postalcode_i\"]"));
+            string textBoxPostCodeLocation = "//*[@id=\"address1_postalcode_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxPostCodeLocation));
+            IWebElement postCodeTextBox = driver.FindElement(By.XPath(textBoxPostCodeLocation));
             return postCodeTextBox;
         }
 
@@ -336,8 +343,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelTownCity(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_city_cl\"]"));
-            IWebElement townCityLabel = driver.FindElement(By.XPath("//*[@id=\"address1_city_cl\"]"));
+            string labelTownCityLocation = "//*[@id=\"address1_city_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelTownCityLocation));
+            IWebElement townCityLabel = driver.FindElement(By.XPath(labelTownCityLocation));
             return townCityLabel;
         }
 
@@ -353,8 +361,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxTownCity(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_city_i\"]"));
-            IWebElement townCityTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_city_i\"]"));
+            string textBoxTownCityLocation = "//*[@id=\"address1_city_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxTownCityLocation));
+            IWebElement townCityTextBox = driver.FindElement(By.XPath(textBoxTownCityLocation));
             return townCityTextBox;
         }
 
@@ -370,8 +379,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelFirstLineOfAddress(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_line1_cl_span\"]"));
-            IWebElement firstLineOfAddressLabel = driver.FindElement(By.XPath("//*[@id=\"address1_line1_cl_span\"]"));
+            string labelFirstLineOfAddressLocation = "//*[@id=\"address1_line1_cl_span\"]";
+            driver.WaitUntilVisible(By.XPath(labelFirstLineOfAddressLocation));
+            IWebElement firstLineOfAddressLabel = driver.FindElement(By.XPath(labelFirstLineOfAddressLocation));
             return firstLineOfAddressLabel;
         }
 
@@ -387,8 +397,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxFirstLineOfAddress(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"address1_line1_i\"]"));
-            IWebElement firstLineOfAddressTextBox = driver.FindElement(By.XPath("//*[@id=\"address1_line1_i\"]"));
+            string textBoxFirstLineOfAddressLocation = "//*[@id=\"address1_line1_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxFirstLineOfAddressLocation));
+            IWebElement firstLineOfAddressTextBox = driver.FindElement(By.XPath(textBoxFirstLineOfAddressLocation));
             return firstLineOfAddressTextBox;
         }
 
@@ -404,8 +415,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelPropertyNumber(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_propertyno_cl\"]"));
-            IWebElement propertyNumberLabel = driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_cl\"]"));
+            string labelPropertyNumberLocation = "//*[@id=\"cw_propertyno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelPropertyNumberLocation));
+            IWebElement propertyNumberLabel = driver.FindElement(By.XPath(labelPropertyNumberLocation));
             return propertyNumberLabel;
         }
 
@@ -421,8 +433,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxPropertyNumber(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_propertyno_i\"]"));
-            IWebElement propertyNumberTextBox = driver.FindElement(By.XPath("//*[@id=\"cw_propertyno_i\"]"));
+            string textBoxPropertyNumberLocation = "//*[@id=\"cw_propertyno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxPropertyNumberLocation));
+            IWebElement propertyNumberTextBox = driver.FindElement(By.XPath(textBoxPropertyNumberLocation));
             return propertyNumberTextBox;
         }
 
@@ -464,8 +477,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxDateMovedIn(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_datepersonmovedin_iDateInput"));
-            IWebElement textBoxDateMovedIn = driver.FindElement(By.Id("cw_datepersonmovedin_iDateInput"));
+            string textBoxDateMovedInLocation = "cw_datepersonmovedin_iDateInput";
+            driver.WaitUntilVisible(By.Id(textBoxDateMovedInLocation));
+            IWebElement textBoxDateMovedIn = driver.FindElement(By.Id(textBoxDateMovedInLocation));
             return textBoxDateMovedIn;
         }
 
@@ -481,8 +495,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateDivDateMovedIn(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_datepersonmovedin"));
-            IWebElement dateMovedInLabel = driver.FindElement(By.Id("cw_datepersonmovedin"));
+            string divDateMovedInLocation = "cw_datepersonmovedin";
+            driver.WaitUntilVisible(By.Id(divDateMovedInLocation));
+            IWebElement dateMovedInLabel = driver.FindElement(By.Id(divDateMovedInLocation));
             return dateMovedInLabel;
         }
 
@@ -507,10 +522,11 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateDropDownGender(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("gendercode_i"));
+            string dropDownGenderLocation = "gendercode_i";
+            driver.WaitUntilVisible(By.Id(dropDownGenderLocation));
             //Find the drop down only
             // act on the returned value to select items or check current value 
-            IWebElement genderDropDown = driver.FindElement(By.Id("gendercode_i"));
+            IWebElement genderDropDown = driver.FindElement(By.Id(dropDownGenderLocation));
             return genderDropDown;
         }
 
@@ -518,8 +534,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelGender(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("gendercode"));
-            IWebElement genderLabel = driver.FindElement(By.Id("gendercode"));
+            string labelGenderLocation = "gendercode";
+            driver.WaitUntilVisible(By.Id(labelGenderLocation));
+            IWebElement genderLabel = driver.FindElement(By.Id(labelGenderLocation));
             return genderLabel;
         }
 
@@ -535,9 +552,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocatePreferredLanguageFromLookup(IWebDriver driver, string preferredLanguage)
         {
+            string preferredLanguageFromLookupLocation = "//a[@title='" + preferredLanguage + "']";
             //Note that if the ethnicity button is clicked more than once you will generate a new ID each time
-            driver.WaitUntilVisible(By.XPath("//a[@title='" + preferredLanguage + "']"));
-            IWebElement preferredLanguageFromMenu = driver.FindElement(By.XPath("//a[@title='" + preferredLanguage + "']"));
+            driver.WaitUntilVisible(By.XPath(preferredLanguageFromLookupLocation));
+            IWebElement preferredLanguageFromMenu = driver.FindElement(By.XPath(preferredLanguageFromLookupLocation));
             return preferredLanguageFromMenu;
         }
 
@@ -553,8 +571,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLookupButtonPreferredLanguage(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_languageid_lookupSearch"));
-            IWebElement lookupButtonPreferredLanguage = driver.FindElement(By.Id("cw_languageid_lookupSearch"));
+            string lookupButtonPreferredLanguageLocation = "cw_languageid_lookupSearch";
+            driver.WaitUntilVisible(By.Id(lookupButtonPreferredLanguageLocation));
+            IWebElement lookupButtonPreferredLanguage = driver.FindElement(By.Id(lookupButtonPreferredLanguageLocation));
             return lookupButtonPreferredLanguage;
         }
 
@@ -570,8 +589,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxPreferredLanguage(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_languageid_ledit"));
-            IWebElement textBoxPreferredLanguage = driver.FindElement(By.Id("cw_languageid_ledit"));
+            string textBoxPreferredLanguageLocation = "cw_languageid_ledit";
+            driver.WaitUntilVisible(By.Id(textBoxPreferredLanguageLocation));
+            IWebElement textBoxPreferredLanguage = driver.FindElement(By.Id(textBoxPreferredLanguageLocation));
             return textBoxPreferredLanguage;
         }
 
@@ -587,8 +607,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelPreferredLanguage(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_languageid_cl"));
-            IWebElement prefLanguageLabel = driver.FindElement(By.Id("cw_languageid_cl"));
+            string labelPreferredLanguageLocation = "cw_languageid_cl";
+            driver.WaitUntilVisible(By.Id(labelPreferredLanguageLocation));
+            IWebElement prefLanguageLabel = driver.FindElement(By.Id(labelPreferredLanguageLocation));
             return prefLanguageLabel;
         }
 
@@ -606,10 +627,11 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxDOB(IWebDriver driver)
         {
+            string textBoxDOBLocation = "//*[@id=\"birthdate_iDateInput\"]";
             //locate the date of birth field only
             //use this field to act on the field e.g. send text or assert content.
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"birthdate_iDateInput\"]"));
-            IWebElement textBoxDOB = driver.FindElement(By.XPath("//*[@id=\"birthdate_iDateInput\"]"));
+            driver.WaitUntilVisible(By.XPath(textBoxDOBLocation));
+            IWebElement textBoxDOB = driver.FindElement(By.XPath(textBoxDOBLocation));
             return textBoxDOB;
         }
 
@@ -626,9 +648,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelDOB(IWebDriver driver)
         {
+            string labelDOBLocation = "//*[@id=\"Date of Birth_label\"]";
             //Find label by ID and return it
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"Date of Birth_label\"]"));
-            IWebElement label = driver.FindElement(By.XPath("//*[@id=\"Date of Birth_label\"]"));
+            driver.WaitUntilVisible(By.XPath(labelDOBLocation));
+            IWebElement label = driver.FindElement(By.XPath(labelDOBLocation));
             return label;
 
         }
@@ -648,9 +671,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateEthnicityLabel(IWebDriver driver)
         {
+            string labelEthnicityLocation = "cw_ethnicityid_cl_span";
             //Note that the clicked element here is different to those used for last name etc. 
-            driver.WaitUntilVisible(By.Id("cw_ethnicityid_cl_span"));
-            IWebElement ethnicityLabel = driver.FindElement(By.Id("cw_ethnicityid_cl_span"));
+            driver.WaitUntilVisible(By.Id(labelEthnicityLocation));
+            IWebElement ethnicityLabel = driver.FindElement(By.Id(labelEthnicityLocation));
             return ethnicityLabel;
         }
 
@@ -658,9 +682,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateEthnicityBox(IWebDriver driver)
         {
+            string textBoxEthnicityLocation = "cw_ethnicityid_ledit";
             //Locate the ethnicity text box - this method does nothing with it
-            driver.WaitUntilVisible(By.Id("cw_ethnicityid_ledit"));
-            IWebElement ethnicityBox = driver.FindElement(By.Id("cw_ethnicityid_ledit"));
+            driver.WaitUntilVisible(By.Id(textBoxEthnicityLocation));
+            IWebElement ethnicityBox = driver.FindElement(By.Id(textBoxEthnicityLocation));
             return ethnicityBox;
         }
 
@@ -668,8 +693,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateEthnicityLookupButton(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("cw_ethnicityid_lookupSearch"));
-            IWebElement ethnicityLookupButton = driver.FindElement(By.Id("cw_ethnicityid_lookupSearch"));
+            string lookupButtonEthnicityLocation = "cw_ethnicityid_lookupSearch";
+            driver.WaitUntilVisible(By.Id(lookupButtonEthnicityLocation));
+            IWebElement ethnicityLookupButton = driver.FindElement(By.Id(lookupButtonEthnicityLocation));
             return ethnicityLookupButton;
         }
 
@@ -677,9 +703,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateEthnicityFromMenu(IWebDriver driver, string ethnicity)
         {
+            string ethnicityFromMenuLocation = "//a[@title='" + ethnicity + "']";
             //Note that if the ethnicity button is clicked more than once you will generate a new ID each time
-            driver.WaitUntilVisible(By.XPath("//a[@title='" + ethnicity + "']"));
-            IWebElement ethnicityFromMenu = driver.FindElement(By.XPath("//a[@title='" + ethnicity + "']"));
+            driver.WaitUntilVisible(By.XPath(ethnicityFromMenuLocation));
+            IWebElement ethnicityFromMenu = driver.FindElement(By.XPath(ethnicityFromMenuLocation));
             return ethnicityFromMenu;
         }
 
@@ -697,11 +724,12 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxLastName(IWebDriver driver)
         {
+            string textBoxLastNameLocation = "lastname_i";
             //Find the box only, do not do anything with it
             //Use this method if you are doing an action or check against the firstname input box
             //E.g. typing into it, asserting text inside it, etc.
-            IWebElement textBoxLastName = driver.FindElement(By.Id("lastname_i"));
-            driver.WaitUntilVisible(By.Id("lastname_i"));
+            driver.WaitUntilVisible(By.Id(textBoxLastNameLocation));
+            IWebElement textBoxLastName = driver.FindElement(By.Id(textBoxLastNameLocation));
             return textBoxLastName;
         }
 
@@ -717,10 +745,11 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelLastName(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("lastname_cl"));
+            string labelLastNameLocation = "lastname_cl";
+            driver.WaitUntilVisible(By.Id(labelLastNameLocation));
             //Enter field by clicking on the label
             // Use this locate method also if you wish to, for example, check the text of the label. 
-            IWebElement labelLastName = driver.FindElement(By.Id("lastname_cl"));
+            IWebElement labelLastName = driver.FindElement(By.Id(labelLastNameLocation));
             return labelLastName;
         }
 
@@ -748,11 +777,12 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxFirstName(IWebDriver driver) 
         {
-            driver.WaitUntilVisible(By.Id("firstname_i"));
+            string textBoxFirstNameLocation = "firstname_i";
+            driver.WaitUntilVisible(By.Id(textBoxFirstNameLocation));
             //Find the box only, do not do anything with it
             //Use this method if you are doing an action or check against the firstname input box
             //E.g. typing into it, asserting text inside it, etc.
-            IWebElement textBoxFirstName = driver.FindElement(By.Id("firstname_i"));
+            IWebElement textBoxFirstName = driver.FindElement(By.Id(textBoxFirstNameLocation));
             return textBoxFirstName;
         }
 
@@ -760,11 +790,11 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelFirstName(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.Id("firstname_cl"));
+            string labelFirstNameLocation = "firstname_cl";
+            driver.WaitUntilVisible(By.Id(labelFirstNameLocation));
             //Enter field by clicking on the label
             // Use this locate method also if you wish to, for example, check the text of the label. 
-
-            IWebElement divFirstName = driver.FindElement(By.Id("firstname_cl"));
+            IWebElement divFirstName = driver.FindElement(By.Id(labelFirstNameLocation));
             return divFirstName;
         }
 
@@ -772,9 +802,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelNHSNumber(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_nhsno_cl\"]"));
+            string labelNHSNumberLocation = "//*[@id=\"cw_nhsno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNHSNumberLocation));
             //Call this method to interact with it (e.g. assert text, click)
-            IWebElement nhsNumberLabel = driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_cl\"]"));
+            IWebElement nhsNumberLabel = driver.FindElement(By.XPath(labelNHSNumberLocation));
             return nhsNumberLabel; 
         }
 
@@ -791,9 +822,10 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxNHSNumber(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_nhsno_i\"]"));
+            string textBoxNHSNumberLocation = "//*[@id=\"cw_nhsno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxNHSNumberLocation));
             //Call click on label prior to use
-            IWebElement nhsNumberTextBox = driver.FindElement(By.XPath("//*[@id=\"cw_nhsno_i\"]"));
+            IWebElement nhsNumberTextBox = driver.FindElement(By.XPath(textBoxNHSNumberLocation));
             return nhsNumberTextBox;
         }
 
@@ -819,8 +851,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelSurgeryPractice(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_surgerypracticeid_cl\"]"));
-            IWebElement labelSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_cl\"]"));
+            string labelSurgeryPracticeLocation = "//*[@id=\"cw_surgerypracticeid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSurgeryPracticeLocation));
+            IWebElement labelSurgeryPractice = driver.FindElement(By.XPath(labelSurgeryPracticeLocation));
             return labelSurgeryPractice;
         }
 
@@ -836,8 +869,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxSurgeryPractice(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
-            IWebElement textBoxSurgeryPractice = driver.FindElement(By.XPath("//*[@id=\"cw_surgerypracticeid_ledit\"]"));
+            string textBoxSurgeryPracticeLocation = "//*[@id=\"cw_surgerypracticeid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxSurgeryPracticeLocation));
+            IWebElement textBoxSurgeryPractice = driver.FindElement(By.XPath(textBoxSurgeryPracticeLocation));
             return textBoxSurgeryPractice;
         }
 
@@ -870,8 +904,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelGPStartDate(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate\"]/div[1]"));
-            IWebElement labelGPStartDate = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate\"]/div[1]"));
+            string labelGPStartDateLocation = "//*[@id=\"cw_gpstartdate\"]/div[1]";
+            driver.WaitUntilVisible(By.XPath(labelGPStartDateLocation));
+            IWebElement labelGPStartDate = driver.FindElement(By.XPath(labelGPStartDateLocation));
             return labelGPStartDate;
         }
 
@@ -887,8 +922,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxGPStartDate(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpstartdate_iDateInput\"]"));
-            IWebElement textBoxPreferredLanguage = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_iDateInput\"]"));
+            string textBoxGPStartDateLocation = "//*[@id=\"cw_gpstartdate_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textBoxGPStartDateLocation));
+            IWebElement textBoxPreferredLanguage = driver.FindElement(By.XPath(textBoxGPStartDateLocation));
             return textBoxPreferredLanguage;
         }
 
@@ -904,8 +940,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateLabelGPName(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpid_cl\"]"));
-            IWebElement labelGPName = driver.FindElement(By.XPath("//*[@id=\"cw_gpid_cl\"]"));
+            string labelGPNameLocation = "//*[@id=\"cw_gpid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelGPNameLocation));
+            IWebElement labelGPName = driver.FindElement(By.XPath(labelGPNameLocation));
             return labelGPName;
         }
 
@@ -945,8 +982,9 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateTextBoxGPNameField(IWebDriver driver)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"cw_gpid_ledit\"]"));
-            IWebElement textBoxGPName = driver.FindElement(By.XPath("//*[@id=\"cw_gpid_ledit\"]"));
+            string labelGPNameLocation = "//*[@id=\"cw_gpid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(labelGPNameLocation));
+            IWebElement textBoxGPName = driver.FindElement(By.XPath(labelGPNameLocation));
             return textBoxGPName;
         }
 

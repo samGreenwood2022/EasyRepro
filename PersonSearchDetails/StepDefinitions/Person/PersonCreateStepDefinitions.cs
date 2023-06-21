@@ -57,9 +57,10 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
             Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
-            Page_PersonCoreDemographics.EnterGender(driver, gender);           
+            Page_PersonCoreDemographics.EnterGender(driver, gender);
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+            Page_PersonCoreDemographics.EnterCounty(driver, "Tyne & Wear");
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);
