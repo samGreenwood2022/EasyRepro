@@ -1,8 +1,7 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
-using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -32,6 +31,35 @@ namespace WCCIS.Specs.Extentions
             // xrmBrowser.ThinkTime(2000);
         }
 
+        //This method will close the Person Search Results window if its open
+        //NOTE: THIS METHOD IS UNFINISHED AT THE MOMENT
+
+        public static void ClosePersonSearchResultsWindowIfOpen(IWebDriver driver, string title)
+        {
+            var currentWindow = driver.CurrentWindowHandle;
+            var availableWindows = new List<string>(driver.WindowHandles);
+
+            foreach (string w in availableWindows)
+            {
+                if (w != currentWindow)
+                {
+                    driver.SwitchTo().Window(w);
+                    if (driver.Title == title)
+                    {
+                        driver.Close();
+                    }
+                        
+                    else
+                    {
+                        driver.SwitchTo().Window(currentWindow);
+                    }
+
+                }
+            }
+            
+        }
+
+        
         // Generate a random string with a given size
         public static string RandomString(int size, bool lowerCase)
         {
@@ -50,6 +78,7 @@ namespace WCCIS.Specs.Extentions
 
         public static void selectFormSectionsMenu(IWebDriver driver, Browser xrmBrowser, string option)
         {
+
             // here we click on the navigation control icon to open the form sections menu
             // selecting the correct frame first
             driver.SwitchTo().Frame("contentIFrame1");

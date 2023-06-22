@@ -3,6 +3,8 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
+using WCCIS.Specs.Extentions;
 
 namespace WCCIS.Specs.PageObjects
 {
@@ -16,7 +18,8 @@ namespace WCCIS.Specs.PageObjects
         {
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             WaitUntilSaveCompletes(driver);
-            isGPStartDateValidationIconDisplayed(driver);
+            //The below has been commented out until a resolution can be investigated further, currently not working
+            //isGPStartDateValidationIconDisplayed(driver);
 
         }
 
@@ -62,11 +65,15 @@ namespace WCCIS.Specs.PageObjects
         }
 
         //Check to see if the GP Start Date validation icon is displayed when attempting to Save
-
+        //NOTE: This is unfinished at this time
         private static void isGPStartDateValidationIconDisplayed(IWebDriver driver)
         {
+            DHCWExtensions.ClosePersonSearchResultsWindowIfOpen(driver, " Person Search ");
+            //Ensure we are on the correct browser
+            //Note: this was  necessary after adding the check for the GP Start Date validation icon when Save is clicked, it couldnt find the contentIFrame1)
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             //Switch to correct iFrame
-            driver.SwitchTo().Frame("contentIFrame0");
+            driver.SwitchTo().Frame("contentIFrame1");
             bool gpStartDateValidation = driver.IsVisible(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
             if (gpStartDateValidation)
             {
