@@ -64,8 +64,8 @@ namespace WCCIS.Specs.PageObjects
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("CWHeaderTitle")));
         }
 
-        //Check to see if the GP Start Date validation icon is displayed when attempting to Save
-        //NOTE: This is unfinished at this time
+        //Check to see if the GP Start Date validation icon is displayed when attempting to Save, give a meaningful exception if it is
+
         private static void isGPStartDateValidationIconDisplayed(IWebDriver driver)
         {
             //Ensure we are on the correct browser
@@ -76,7 +76,7 @@ namespace WCCIS.Specs.PageObjects
             bool gpStartDateValidation = driver.IsVisible(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
             if (gpStartDateValidation)
             {
-                //If the GP Validatio icon has bee found, throw this exception
+                //If the GP Validation icon has bee found, throw this exception
                 throw new Exception("Check the order of entry for the GP details, GP Start Date should be entered after the GP Name field");
 
             }
