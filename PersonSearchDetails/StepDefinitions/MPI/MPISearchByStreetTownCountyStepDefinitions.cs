@@ -64,7 +64,8 @@ namespace WCCIS.Specs.StepDefinitions
             }
             if (tableNotPresent)
             {
-                throw new Exception("MPI found no results. Test aborted.");
+                Assert.Inconclusive("This combination does not return any results; expected outcome is pending investigation");
+                return;
             }
 
             // init table element

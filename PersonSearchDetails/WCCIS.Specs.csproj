@@ -105,7 +105,9 @@
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="PageObjects\Person\PersonMethods.cs" />
     <Compile Include="Extensions\LoginCredentials.cs" />
-    <Compile Include="StepDefinitions\MPI\MPINewPatientInvalidNameStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPISearchLoadPatientGenderUnknownStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchLoadPatientGenderFemaleStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchRetryAfterCriteriaMessageStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByTooLongNameStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByStreetDesTownCountyStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchByDesTownCountyStepDefinitions.cs" />
@@ -181,7 +183,9 @@
     <None Include="Features\MPI\MPI0015.feature" />
     <None Include="Features\MPI\MPI0019.feature" />
     <None Include="Features\MPI\MPI0020.feature" />
-    <None Include="Features\MPI\MPISearchForValidNameAndDOB.feature" />
+    <None Include="Features\MPI\MPISearchLoadPatientGenderFemale.feature" />
+    <None Include="Features\MPI\MPISearchLoadPatientGenderUnknown.feature" />
+    <None Include="Features\MPI\MPISearchRetryAfterCriteriaMessage.feature" />
     <None Include="Features\Person\PER0008.feature" />
     <None Include="Features\Person\PER0005.feature" />
     <None Include="Features\Person\PER0007.feature" />

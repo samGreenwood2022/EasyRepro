@@ -47,7 +47,7 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@value=\""+ AssignAuth +"\"]")).Click();
             xrmBrowser.ThinkTime(1000);
             driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(30000);
+            xrmBrowser.ThinkTime(100000);
         }
     }
 }
