@@ -12,7 +12,7 @@ namespace WCCIS.Specs.StepDefinitions
         private readonly IWebDriver driver;
         private readonly Browser xrmBrowser;
 
-        public LoginStepDefinitions(IWebDriver webDriver, Browser browser)//constructor
+        public LoginStepDefinitions( Browser browser, IWebDriver webDriver)//constructor
         {
             // Create an instance of our webbrowser (defined in the Hooks) to be used by all methods in this class
             // also create an instance of a dynamics365 library (xrmBrowser) containing commands we can use
@@ -24,7 +24,7 @@ namespace WCCIS.Specs.StepDefinitions
         public void GivenThatIveLoggedInAsAnAdministrator()
         {
             // call our AdministratorLogin method
-            LoginCredentials.AdministratorLogin(xrmBrowser, driver);
+            UserLogin.AdministratorLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
@@ -43,11 +43,11 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [Given(@"that i've logged in as a social worker")]
-        public void GivenThatIveLoggedInAsSocialWorker()
+        [Given(@"that an adult support worker has logged in")]
+        public void GivenThatAnAdultSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.SocialWorkerLogin(xrmBrowser, driver);
+            UserLogin.AdultSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try
@@ -66,11 +66,11 @@ namespace WCCIS.Specs.StepDefinitions
             driver.FindElement(By.XPath("//*[@id=\"navTabLogoTextId\"]/img"));
         }
 
-        [Given(@"that i've logged in as a social worker")]
-        public void GivenThatIveLoggedInAsCareWorker()
+        [Given(@"that a childrens support worker has logged in")]
+        public void GivenAChildrensSupportWorkerHasLoggedIn()
         {
             // call our AdministratorLogin method
-            LoginCredentials.CareWorkerLogin(xrmBrowser, driver);
+            UserLogin.ChildrensSupportWorkerLogin(xrmBrowser, driver);
             // removes any popups displayed when we 1st log in
             xrmBrowser.ThinkTime(2000);
             try

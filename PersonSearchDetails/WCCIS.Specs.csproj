@@ -101,10 +101,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
-    <Compile Include="PageObjects\Person\PersonMethods.cs" />
-    <Compile Include="Extensions\LoginCredentials.cs" />
     <Compile Include="StepDefinitions\MPISearchLoadPatientGenderUnknownStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchLoadPatientGenderFemaleStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchRetryAfterCriteriaMessageStepDefinitions.cs" />
@@ -139,6 +138,14 @@
     <Compile Include="StepDefinitions\MPI\MPI0004_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPI0003_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPI0002_MPIStepDefinitions.cs" />
+    <Compile Include="PageObjects\Page_PersonSearchResults.cs" />
+    <Compile Include="PageObjects\Page_CommClinicReferral.cs" />
+    <Compile Include="PageObjects\Page_MPISearch.cs" />
+    <Compile Include="PageObjects\Page_PersonCoreDemographics.cs" />
+    <Compile Include="Extensions\PersonMethods.cs" />
+    <Compile Include="Extensions\UserLogins.cs" />
+    <Compile Include="PageObjects\Page_PersonSearch.cs" />
+    <Compile Include="PageObjects\SharedNavigation.cs" />
     <Compile Include="StepDefinitions\Login\LoginStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPI0001_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonAmendStepDefinitions.cs" />
@@ -194,6 +201,7 @@
     <None Include="Features\Person\PER0002.feature" />
     <None Include="Features\Person\PER0001.feature" />
     <None Include="Features\Person\PER0006.feature" />
+    <None Include="Features\Person\PER0009.feature" />
     <None Include="NonRegressionScripts\Person\CreatePersonWithNHSNumber.feature" />
     <None Include="packages.config" />
   </ItemGroup>
