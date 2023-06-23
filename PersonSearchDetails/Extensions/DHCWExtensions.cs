@@ -30,35 +30,6 @@ namespace WCCIS.Specs.Extentions
             driver.FindElement(By.Id("submitButton")).Click();
             // xrmBrowser.ThinkTime(2000);
         }
-
-        //This method will close the Person Search Results window if its open
-        //NOTE: THIS METHOD IS UNFINISHED AT THE MOMENT
-
-        public static void ClosePersonSearchResultsWindowIfOpen(IWebDriver driver, string title)
-        {
-            var currentWindow = driver.CurrentWindowHandle;
-            var availableWindows = new List<string>(driver.WindowHandles);
-
-            foreach (string w in availableWindows)
-            {
-                if (w != currentWindow)
-                {
-                    driver.SwitchTo().Window(w);
-                    if (driver.Title == title)
-                    {
-                        driver.Close();
-                    }
-                        
-                    else
-                    {
-                        driver.SwitchTo().Window(currentWindow);
-                    }
-
-                }
-            }
-            
-        }
-
         
         // Generate a random string with a given size
         public static string RandomString(int size, bool lowerCase)
@@ -80,6 +51,7 @@ namespace WCCIS.Specs.Extentions
         {
 
             // here we click on the navigation control icon to open the form sections menu
+            driver.SwitchTo().Window(driver.WindowHandles.First());
             // selecting the correct frame first
             driver.SwitchTo().Frame("contentIFrame1");
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
