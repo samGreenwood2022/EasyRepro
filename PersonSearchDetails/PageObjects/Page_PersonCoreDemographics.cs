@@ -222,6 +222,13 @@ namespace WCCIS.Specs.PageObjects
         {
             if (isUsingLookup)
             {
+                //Perform a check to see if the GP Start Date field has been populated, if it has then the order of field entry may be wrong, print a meaningful message to console
+                bool isGPStartDatePopulated = IsGPStartDatePopulated(driver);
+
+                if (isGPStartDatePopulated)
+                {
+                    Console.WriteLine("GP Start date was populated when you filled in the GP on the client, if your test is failing check that you are entering GP details before entering the start date.");
+                }
                 //Default pathway
                 //Selects the lookup button
                 //Then clicks the item from lookup menu that contains our GP Name 
@@ -233,6 +240,13 @@ namespace WCCIS.Specs.PageObjects
 
             if (!isUsingLookup)
             {
+                //Perform a check to see if the GP Start Date field has been populated, if it has then the order of field entry may be wrong, print a meaningful message to console
+                bool isGPStartDatePopulated = IsGPStartDatePopulated(driver);
+
+                if (isGPStartDatePopulated)
+                {
+                    Console.WriteLine("GP Start date was populated when you filled in the GP on the client, if your test is failing check that you are entering GP details before entering the start date.");
+                }
                 //The old method
                 //still valid, but enters text only
                 ClickLabelGPName(driver);
@@ -974,6 +988,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoGPNameField(IWebDriver driver, string name)
         {
+            
             IWebElement textBoxSurgeryPractice = LocateTextBoxGPNameField(driver);
             textBoxSurgeryPractice.SendKeys(name);
         }
@@ -986,6 +1001,27 @@ namespace WCCIS.Specs.PageObjects
             driver.WaitUntilVisible(By.XPath(labelGPNameLocation));
             IWebElement textBoxGPName = driver.FindElement(By.XPath(labelGPNameLocation));
             return textBoxGPName;
+        }
+
+        //Method to locate GP Name text box
+
+        private static bool IsGPStartDatePopulated(IWebDriver driver)
+        {
+            LocateLabelGPStartDate(driver);
+            ClickLabelGPStartDate(driver);
+
+            IWebElement inputBox = driver.FindElement(By.XPath("//*[@id=\"cw_gpstartdate_iDateInput\"]"));
+            string textInsideInputBox = inputBox.GetAttribute("value");
+
+            // Check whether input field is blank
+            if (textInsideInputBox == "")
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+
         }
 
 

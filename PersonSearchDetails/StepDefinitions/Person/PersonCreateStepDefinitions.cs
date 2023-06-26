@@ -60,6 +60,9 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+            Page_PersonCoreDemographics.SelectSurgeryPractice(driver, "1/Salford Medical Practice");
+            Page_PersonCoreDemographics.SelectGPName(driver, "Jazin Salim");
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);

@@ -18,8 +18,6 @@ namespace WCCIS.Specs.PageObjects
         {
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             WaitUntilSaveCompletes(driver);
-            //The below has been commented out until a resolution can be investigated further, currently not working
-            isGPStartDateValidationIconDisplayed(driver);
 
         }
 
@@ -62,24 +60,6 @@ namespace WCCIS.Specs.PageObjects
             double maxWait = 30;
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(maxWait));
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("CWHeaderTitle")));
-        }
-
-        //Check to see if the GP Start Date validation icon is displayed when attempting to Save, give a meaningful exception if it is
-
-        private static void isGPStartDateValidationIconDisplayed(IWebDriver driver)
-        {
-            //Ensure we are on the correct browser
-            //Note: this was  necessary after adding the check for the GP Start Date validation icon when Save is clicked, it couldnt find the contentIFrame1)
-            driver.SwitchTo().Window(driver.WindowHandles.First());
-            //Switch to correct iFrame
-            driver.SwitchTo().Frame("contentIFrame1");
-            bool gpStartDateValidation = driver.IsVisible(By.XPath("//*[@id=\"cw_gpstartdate_warn\"]"));
-            if (gpStartDateValidation)
-            {
-                //If the GP Validation icon has bee found, throw this exception
-                throw new Exception("Check the order of entry for the GP details, GP Start Date should be entered after the GP Name field");
-
-            }
         }
 
         //Select New Person
