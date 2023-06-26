@@ -26,8 +26,8 @@ namespace WCCIS.Specs.StepDefinitions
         [Given(@"\[An administrator has logged in]")]
         public void GivenAnAdministratorHasLoggedIn()
         {
-                // call our AdministratorLogin method
-                LoginCredentials.AdministratorLogin(xrmBrowser, driver);
+            // call our AdministratorLogin method
+            UserLogin.AdministratorLogin(xrmBrowser, driver);
                 // removes any popups displayed when we 1st log in
                 xrmBrowser.ThinkTime(2000);
                 try
