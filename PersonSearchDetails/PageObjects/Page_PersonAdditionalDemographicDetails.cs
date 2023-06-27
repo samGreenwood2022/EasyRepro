@@ -28,8 +28,6 @@ namespace WCCIS.Specs.PageObjects
             {
                 Console.WriteLine("The Alert has not been displayed");
             }
-
-
         }
 
         //Method to enter text into the Target Group field
@@ -81,6 +79,54 @@ namespace WCCIS.Specs.PageObjects
                 EnterTextIntoLeavingCareField(driver, leavingCare);
             }
         }
+
+        //Method to enter a enter a value into the Maiden Name field
+
+        public static void EnterMaidenName(IWebDriver driver, string maidenName)
+        {
+            ClickLabelMaidenName(driver);
+            EnterTextIntoMaidenNameField(driver, maidenName);
+        }
+
+        //Method to select a County of Origin from dropdown
+
+        public static void EnterCountyOfOrigin(IWebDriver driver, string countryOfOrigin)
+        {
+            //This is the public method - as in other fields you must select it first
+            //You do this by clicking into the field ClickCountryOfOrigin Label
+            //This activates the field, so you can set the dropdown
+            ClickLabelCountryOfOrigin(driver);
+            SelectCountryOfOriginFromDropDown(driver, countryOfOrigin);
+        }
+
+        //Method to enter text into the Last Menstrual Period (LMP)
+
+        public static void EnterLastMenstrualPeriod(IWebDriver driver, string lastMenstrualPeriodDate, bool isUsingDatePicker = false)
+        {
+            if (isUsingDatePicker)
+            {
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
+            }
+
+            if (!isUsingDatePicker)
+            {
+                ClickLabelLastMenstrualPeriod(driver);
+                EnterTextIntoFieldLastMenstrualPeriod(driver, lastMenstrualPeriodDate);
+            }
+        }
+
+        //Method to enter a enter a value into the Weeks Gestation field
+
+        public static void EnterWeeksGestation(IWebDriver driver, string maidenName)
+        {
+            ClickLabelWeeksGestation(driver);
+            EnterTextIntoFieldWeeksGestation(driver, maidenName);
+        }
+
+
+
 
 
 
@@ -181,6 +227,133 @@ namespace WCCIS.Specs.PageObjects
             driver.WaitUntilVisible(By.XPath(textFieldLeavingCare));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldLeavingCare));
             inputField.SendKeys(leavingCare);
+        }
+
+
+        //Method to click the click the Maiden Name label
+
+        private static void ClickLabelMaidenName(IWebDriver driver)
+        {
+            string labelMaidenName = "//*[@id=\"cw_maidenname_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelMaidenName));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelMaidenName));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Maiden Name field
+
+        private static void EnterTextIntoMaidenNameField(IWebDriver driver, string leavingCare)
+        {
+            string textFieldMaidenName = "//*[@id=\"cw_maidenname_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldMaidenName));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldMaidenName));
+            inputField.SendKeys(leavingCare);
+        }
+
+
+        //Method to click the click the Country of Origin label
+
+        private static void ClickLabelCountryOfOrigin(IWebDriver driver)
+        {
+            string labelCountryOfOrigin = "//*[@id=\"cw_countryoforigin_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelCountryOfOrigin));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelCountryOfOrigin));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a Country of Origin from the dropdown
+
+        private static void SelectCountryOfOriginFromDropDown(IWebDriver driver, string countryOfOrigin)
+        {
+            IWebElement countryOfOriginDropDown = LocateDropDownCountryOfOrigin(driver);
+            var selectElementCountryOfOrigin = new SelectElement(countryOfOriginDropDown);
+            selectElementCountryOfOrigin.SelectByText(countryOfOrigin);
+        }
+
+        //Method to locate Country of Origin from the dropdown
+
+        private static IWebElement LocateDropDownCountryOfOrigin(IWebDriver driver)
+        {
+            string dropDownCountryOfOriginLocation = "cw_countryoforigin_i";
+            driver.WaitUntilVisible(By.Id(dropDownCountryOfOriginLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement countryOfOriginDropDown = driver.FindElement(By.Id(dropDownCountryOfOriginLocation));
+            return countryOfOriginDropDown;
+        }
+
+        //Method to click the click the Religion label
+
+        private static void ClickLabelReligion(IWebDriver driver)
+        {
+            string labelReligion = "//*[@id=\"cw_religion_cl_span\"]";
+            driver.WaitUntilVisible(By.XPath(labelReligion));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelReligion));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a Religion from the dropdown
+
+        private static void SelectReligionFromDropDown(IWebDriver driver, string religion)
+        {
+            IWebElement religionDropDown = LocateDropDownReligion(driver);
+            var selectElementReligion = new SelectElement(religionDropDown);
+            selectElementReligion.SelectByText(religion);
+        }
+
+        //Method to locate Religion from the dropdown
+
+        private static IWebElement LocateDropDownReligion(IWebDriver driver)
+        {
+            string dropDownReligionLocation = "cw_religion_i";
+            driver.WaitUntilVisible(By.Id(dropDownReligionLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement religionDropDown = driver.FindElement(By.Id(dropDownReligionLocation));
+            return religionDropDown;
+        }
+
+        //Method to click the click the Last Menstrual Period label
+
+        private static void ClickLabelLastMenstrualPeriod(IWebDriver driver)
+        {
+            string labelLastMenstrualPeriod = "//*[@id=\"cw_lastmenstrualperiod\"]";
+            driver.WaitUntilVisible(By.XPath(labelLastMenstrualPeriod));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelLastMenstrualPeriod));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Last Menstrual Period field
+
+        private static void EnterTextIntoFieldLastMenstrualPeriod(IWebDriver driver, string lastMenstrualPeriodDate)
+        {
+            string textFieldLastMenstrualPeriod = "//*[@id=\"cw_lastmenstrualperiod_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldLastMenstrualPeriod));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldLastMenstrualPeriod));
+            inputField.SendKeys(lastMenstrualPeriodDate);
+        }
+
+        //Method to click the click the Weeks Gestation label
+
+        private static void ClickLabelWeeksGestation(IWebDriver driver)
+        {
+            string labelWeeksGestation = "//*[@id=\"cw_weeksgestation_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelWeeksGestation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelWeeksGestation));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Weeks Gestation field
+
+        private static void EnterTextIntoFieldWeeksGestation(IWebDriver driver, string weeksGestation)
+        {
+            string textFieldWeeksGestation = "//*[@id=\"cw_weeksgestation_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldWeeksGestation));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldWeeksGestation));
+            inputField.SendKeys(weeksGestation);
         }
 
     }

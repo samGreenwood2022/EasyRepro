@@ -63,6 +63,7 @@ namespace WCCIS.specs.StepDefinitions
 
             Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
             Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
+            Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
 
 
 
