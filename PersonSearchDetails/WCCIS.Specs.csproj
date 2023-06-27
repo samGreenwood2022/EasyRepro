@@ -66,6 +66,9 @@
     <Reference Include="nunit.framework, Version=3.13.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.13.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="SpecFlow.Internal.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Internal.Json.1.0.8\lib\net45\SpecFlow.Internal.Json.dll</HintPath>
     </Reference>
@@ -98,6 +101,7 @@
     <Compile Include="Enums\MandatoryFields.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
+    <Compile Include="PageObjects\Page_PersonAdditionalDemographicDetails.cs" />
     <Compile Include="PageObjects\Page_PersonSearchResults.cs" />
     <Compile Include="PageObjects\Page_CommClinicReferral.cs" />
     <Compile Include="PageObjects\Page_MPISearch.cs" />
