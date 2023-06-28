@@ -119,13 +119,56 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to enter a enter a value into the Weeks Gestation field
 
-        public static void EnterWeeksGestation(IWebDriver driver, string maidenName)
+        public static void EnterWeeksGestation(IWebDriver driver, string weeksGestation)
         {
             ClickLabelWeeksGestation(driver);
-            EnterTextIntoFieldWeeksGestation(driver, maidenName);
+            EnterTextIntoFieldWeeksGestation(driver, weeksGestation);
         }
 
 
+        //Method to select a Nationality from dropdown
+
+        public static void EnterNationality(IWebDriver driver, string nationality)
+        {
+            ClickLabelNationality(driver);
+            SelectNationalityFromDropDown(driver, nationality);
+        }
+
+
+        //Method to select a Sexual Orientation from dropdown
+
+        public static void EnterSexualOrientation(IWebDriver driver, string sexualOrientation)
+        {
+            ClickLabelSexualOrientation(driver);
+            SelectSexualOrientationFromDropDown(driver, sexualOrientation);
+        }
+
+
+        //Method to select an option from the Veteran dropdown
+
+        public static void EnterVeteran(IWebDriver driver, string isVeteran)
+        {
+            ClickLabelVeteran(driver);
+            SelectIsVeteranFromDropDown(driver, isVeteran);
+        }
+
+
+        //Method to select an option from the Veteran dropdown
+
+        public static void EnterInterpreterRequired(IWebDriver driver, string isInterpreterRequired)
+        {
+            ClickLabelInterpreterRequired(driver);
+            SelectIsInterpreterRequiredFromDropDown(driver, isInterpreterRequired);
+        }
+
+
+        //Method to enter a enter a value into the NHS Card Location field
+
+        public static void EnterNHSCardLocation(IWebDriver driver, string nhsCardLocation)
+        {
+            ClickLabelNHSCardLocation(driver);
+            EnterTextIntoFieldNHSCardLocation(driver, nhsCardLocation);
+        }
 
 
 
@@ -354,6 +397,158 @@ namespace WCCIS.Specs.PageObjects
             driver.WaitUntilVisible(By.XPath(textFieldWeeksGestation));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldWeeksGestation));
             inputField.SendKeys(weeksGestation);
+        }
+
+        //Method to click the click the Nationality label
+
+        private static void ClickLabelNationality(IWebDriver driver)
+        {
+            string labelNationality = "//*[@id=\"cw_nationality_cl_span\"]";
+            driver.WaitUntilVisible(By.XPath(labelNationality));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNationality));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a Nationality from the dropdown
+
+        private static void SelectNationalityFromDropDown(IWebDriver driver, string nationality)
+        {
+            IWebElement dropDownNationality = LocateDropDownNationality(driver);
+            var selectNationality = new SelectElement(dropDownNationality);
+            selectNationality.SelectByText(nationality);
+        }
+
+        //Method to locate Nationality from the dropdown
+
+        private static IWebElement LocateDropDownNationality(IWebDriver driver)
+        {
+            string dropDownNationalityLocation = "cw_nationality_i";
+            driver.WaitUntilVisible(By.Id(dropDownNationalityLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement nationalityDropDown = driver.FindElement(By.Id(dropDownNationalityLocation));
+            return nationalityDropDown;
+        }
+
+
+        //Method to click the click the Sexual Orientation label
+
+        private static void ClickLabelSexualOrientation(IWebDriver driver)
+        {
+            string labelSexualOrientation = "//*[@id=\"cw_sexualorientation_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSexualOrientation));
+            IWebElement labeSexualOrientation = driver.FindElement(By.XPath(labelSexualOrientation));
+            labeSexualOrientation.Click();
+        }
+
+
+        //Method to select a Sexual Orientation from the dropdown
+
+        private static void SelectSexualOrientationFromDropDown(IWebDriver driver, string sexualOrientation)
+        {
+            IWebElement dropDownSexualOrientation = LocateDropDownSexualOrientation(driver);
+            var selectSexualOrientation = new SelectElement(dropDownSexualOrientation);
+            selectSexualOrientation.SelectByText(sexualOrientation);
+        }
+
+        //Method to locate Sexual Orientation from the dropdown
+
+        private static IWebElement LocateDropDownSexualOrientation(IWebDriver driver)
+        {
+            string dropDownSexualOrientationLocation = "cw_sexualorientation_i";
+            driver.WaitUntilVisible(By.Id(dropDownSexualOrientationLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement sexualOrientationDropDown = driver.FindElement(By.Id(dropDownSexualOrientationLocation));
+            return sexualOrientationDropDown;
+        }
+
+
+        //Method to click the click the Veteran label
+
+        private static void ClickLabelVeteran(IWebDriver driver)
+        {
+            string labelVeteranLocation = "//*[@id=\"cw_veteran_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelVeteranLocation));
+            IWebElement labeVeteran = driver.FindElement(By.XPath(labelVeteranLocation));
+            labeVeteran.Click();
+        }
+
+
+        //Method to select a Veteran from the dropdown
+
+        private static void SelectIsVeteranFromDropDown(IWebDriver driver, string isVeteran)
+        {
+            IWebElement dropDownVeteran = LocateDropDownVeteran(driver);
+            var selectVeteran = new SelectElement(dropDownVeteran);
+            selectVeteran.SelectByValue(isVeteran);
+        }
+
+        //Method to locate Veteran from the dropdown
+
+        private static IWebElement LocateDropDownVeteran(IWebDriver driver)
+        {
+            string dropDownVeteranLocation = "cw_veteran_i";
+            driver.WaitUntilVisible(By.Id(dropDownVeteranLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement veteranDropDown = driver.FindElement(By.Id(dropDownVeteranLocation));
+            return veteranDropDown;
+        }
+
+
+        //Method to click the click the Interpreter Required label
+
+        private static void ClickLabelInterpreterRequired(IWebDriver driver)
+        {
+            string labelInterpreterRequiredLocation = "//*[@id=\"cw_interpreterrequired_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelInterpreterRequiredLocation));
+            IWebElement labeInterpreterRequired = driver.FindElement(By.XPath(labelInterpreterRequiredLocation));
+            labeInterpreterRequired.Click();
+        }
+
+
+        //Method to select an option for Interpreter Required from the dropdown
+
+        private static void SelectIsInterpreterRequiredFromDropDown(IWebDriver driver, string isInterpreterRequired)
+        {
+            IWebElement dropDownInterpreterRequired = LocateDropDownInterpreterRequired(driver);
+            var selectInterpreterRequired = new SelectElement(dropDownInterpreterRequired);
+            selectInterpreterRequired.SelectByValue(isInterpreterRequired);
+        }
+
+        //Method to locate an Interpreter Required option from the dropdown
+
+        private static IWebElement LocateDropDownInterpreterRequired(IWebDriver driver)
+        {
+            string dropDownInterpreterLocation = "cw_interpreterrequired_i";
+            driver.WaitUntilVisible(By.Id(dropDownInterpreterLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement interpreterRequiredDropDown = driver.FindElement(By.Id(dropDownInterpreterLocation));
+            return interpreterRequiredDropDown;
+        }
+
+
+        //Method to click the click the NHS Card Location label
+
+        private static void ClickLabelNHSCardLocation(IWebDriver driver)
+        {
+            string labelNHSCardLocation = "//*[@id=\"cw_nhscardlocation_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNHSCardLocation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNHSCardLocation));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the NHS Card Location field
+
+        private static void EnterTextIntoFieldNHSCardLocation(IWebDriver driver, string nhsCardLocation)
+        {
+            string textFieldNHSCardLocation = "//*[@id=\"cw_nhscardlocation_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldNHSCardLocation));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldNHSCardLocation));
+            inputField.SendKeys(nhsCardLocation);
         }
 
     }
