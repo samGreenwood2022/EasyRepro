@@ -1,6 +1,6 @@
-﻿Feature: PER0004 - Person Create
+﻿Feature: PC0001 - Person Create
 
-Regression Pack Scenario - PER0004
+Regression Pack Scenario - PC0001
 Allows the user to create a new Person using mandatory fields only
 The newly created person can then be returned from a person search
 

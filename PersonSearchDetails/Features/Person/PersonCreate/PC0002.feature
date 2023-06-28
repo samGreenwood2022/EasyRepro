@@ -1,6 +1,6 @@
-﻿Feature: PER0005 - Person create - duplicate detection rules
+﻿Feature: PC0002 - Person create - duplicate detection rules
 
-Regression Pack Scenario - PER0005
+Regression Pack Scenario - PER0002
 To verify that the duplicate detection rules are in place when creating a new Person
 Detection rule tested - matching Surname, Forename & DOB
 

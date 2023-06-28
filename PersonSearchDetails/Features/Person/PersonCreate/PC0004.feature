@@ -1,4 +1,4 @@
-﻿Feature: PER0008 - Person create - validation
+﻿Feature: PC0004 - Person create - validation
 
 To verify that mandatory fields are active when creating a new person
 
