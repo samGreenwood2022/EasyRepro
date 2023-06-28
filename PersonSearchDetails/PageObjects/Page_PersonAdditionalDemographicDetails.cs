@@ -55,6 +55,7 @@ namespace WCCIS.Specs.PageObjects
             }
         }
 
+
         //Method to enter text into the Leaving Care field
 
 
@@ -153,7 +154,7 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
-        //Method to select an option from the Veteran dropdown
+        //Method to select an option from the Interpreter Required dropdown
 
         public static void EnterInterpreterRequired(IWebDriver driver, string isInterpreterRequired)
         {
@@ -168,6 +169,49 @@ namespace WCCIS.Specs.PageObjects
         {
             ClickLabelNHSCardLocation(driver);
             EnterTextIntoFieldNHSCardLocation(driver, nhsCardLocation);
+        }
+
+
+        //Method to enter text into the Immigration Status field
+
+        public static void EnterImmigrationStatus(IWebDriver driver, string immigrationStatus, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelImmigrationStatus(driver);
+                ClickLookupImmigrationStatus(driver);
+                SelectImmigrationStatusUsingLookup(driver, immigrationStatus);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelImmigrationStatus(driver);
+                EnterImmigrationStatus(driver, immigrationStatus);
+            }
+        }
+
+
+        //Method a enter a value into the Place of Birth field
+
+        public static void EnterPlaceOfBirth(IWebDriver driver, string placeOfBirth)
+        {
+            ClickLabelPlaceOfBirth(driver);
+            EnterTextIntoFieldPlaceOfBirth(driver, placeOfBirth);
+        }
+
+
+        //Method to select an option from the Lives Alone dropdown
+
+        public static void EnterLivesAlone(IWebDriver driver, string livesAlone)
+        {
+            ClickLabelLivesAlone(driver);
+            SelectLivesAloneOptionFromDropDown(driver, livesAlone);
         }
 
 
@@ -244,20 +288,20 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
-        //Method to click the lookup button next to the Target Group field
+        //Method to click the lookup button next to the Leaving Care field
 
         private static void ClickLookupLeavingCare(IWebDriver driver)
         {
-            IWebElement lookupTargetGroup = driver.FindElement(By.XPath("//*[@id=\"Dialog_cw_leavingcareeligibilityid_IMenu\"]"));
+            IWebElement lookupTargetGroup = driver.FindElement(By.XPath("//*[@id=\"cw_leavingcareeligibilityid_i\"]"));
             lookupTargetGroup.Click();
         }
 
 
-        //Method to select a Target Group from the lookup menu
+        //Method to select a Leaving Care from the lookup menu
 
         private static void SelectLeavingCareUsingLookup(IWebDriver driver, string leavingCare)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_targetgroupreferenceid_IMenu\"]"));
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_leavingcareeligibilityid_IMenu\"]"));
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + leavingCare + "')]]")).Click();
         }
 
@@ -266,7 +310,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoLeavingCareField(IWebDriver driver, string leavingCare)
         {
-            string textFieldLeavingCare = "//*[@id=\"cw_targetgroupreferenceid_ledit\"]";
+            string textFieldLeavingCare = "//*[@id=\"cw_leavingcareeligibilityid_ledit\"]";
             driver.WaitUntilVisible(By.XPath(textFieldLeavingCare));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldLeavingCare));
             inputField.SendKeys(leavingCare);
@@ -549,6 +593,101 @@ namespace WCCIS.Specs.PageObjects
             driver.WaitUntilVisible(By.XPath(textFieldNHSCardLocation));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldNHSCardLocation));
             inputField.SendKeys(nhsCardLocation);
+        }
+
+
+        //Method to click the click the Immigration Status label
+
+        private static void ClickLabelImmigrationStatus(IWebDriver driver)
+        {
+            string labelImmigrationStatus = "//*[@id=\"cw_immigrationstatusreferenceid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelImmigrationStatus));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelImmigrationStatus));
+            labelLocation.Click();
+        }
+
+
+        //Method to click the lookup button next to the Immigration Status field
+
+        private static void ClickLookupImmigrationStatus(IWebDriver driver)
+        {
+            IWebElement lookupImmigrationStatus = driver.FindElement(By.XPath("//*[@id=\"cw_immigrationstatusreferenceid_i\"]"));
+            lookupImmigrationStatus.Click();
+        }
+
+
+        //Method to select a Immigration Status from the lookup menu
+
+        private static void SelectImmigrationStatusUsingLookup(IWebDriver driver, string immigrationStatus)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_immigrationstatusreferenceid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + immigrationStatus + "')]]")).Click();
+        }
+
+
+        //Method to enter text into the Immigration Status field
+
+        private static void EnterTextIntoImmigrationStatusField(IWebDriver driver, string immigrationStatus)
+        {
+            string textFieldImmigrationStatus = "//*[@id=\"cw_immigrationstatusreferenceid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldImmigrationStatus));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldImmigrationStatus));
+            inputField.SendKeys(immigrationStatus);
+        }
+
+
+        //Method to click the click the Place Of Birth label
+
+        private static void ClickLabelPlaceOfBirth(IWebDriver driver)
+        {
+            string labelPlaceOfBirth = "//*[@id=\"cw_placeofbirth_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelPlaceOfBirth));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelPlaceOfBirth));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Place Of Birth field
+
+        private static void EnterTextIntoFieldPlaceOfBirth(IWebDriver driver, string placeOfBirth)
+        {
+            string textFieldPlaceOfBirth = "//*[@id=\"cw_placeofbirth_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldPlaceOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldPlaceOfBirth));
+            inputField.SendKeys(placeOfBirth);
+        }
+
+
+        //Method to click the click the Lives Alone label
+
+        private static void ClickLabelLivesAlone(IWebDriver driver)
+        {
+            string labelLivesAloneLocation = "//*[@id=\"cw_livesalone_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelLivesAloneLocation));
+            IWebElement labeLivesAlone = driver.FindElement(By.XPath(labelLivesAloneLocation));
+            labeLivesAlone.Click();
+        }
+
+
+        //Method to select an option for Lives Alone from the dropdown
+
+        private static void SelectLivesAloneOptionFromDropDown(IWebDriver driver, string livesAlone)
+        {
+            IWebElement dropDownLivesAlone = LocateDropDownLivesAlone(driver);
+            var selectLivesAlone = new SelectElement(dropDownLivesAlone);
+            selectLivesAlone.SelectByValue(livesAlone);
+        }
+
+        //Method to locate an Lives Alone option from the dropdown
+
+        private static IWebElement LocateDropDownLivesAlone(IWebDriver driver)
+        {
+            string dropDownLivesAloneLocation = "cw_livesalone_i";
+            driver.WaitUntilVisible(By.Id(dropDownLivesAloneLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement livesAloneDropDown = driver.FindElement(By.Id(dropDownLivesAloneLocation));
+            return livesAloneDropDown;
         }
 
     }
