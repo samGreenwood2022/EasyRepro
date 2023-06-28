@@ -215,6 +215,41 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
+        //Method a enter a value into the Date Of Birth (Pre 1900) field
+
+        public static void EnterDOBPre1900(IWebDriver driver, string dob)
+        {
+            ClickLabelDOBPre1900(driver);
+            EnterTextIntoFieldDOBPre1900(driver, dob);
+        }
+
+
+        //Method to enter text into the LMP Confirmed By field
+
+
+        public static void EnterLMPConfirmedBy(IWebDriver driver, string lmpConfirmedBy, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelLMPConfirmedBy(driver);
+                ClickLookupLMPConfirmedBy(driver);
+                SelectLMPConfirmedByUsingLookup(driver, lmpConfirmedBy);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelLMPConfirmedBy(driver);
+                EnterTextIntoLMPConfirmedByField(driver, lmpConfirmedBy);
+            }
+        }
+
+
 
 
         //private
@@ -688,6 +723,68 @@ namespace WCCIS.Specs.PageObjects
             // act on the returned value to select items or check current value 
             IWebElement livesAloneDropDown = driver.FindElement(By.Id(dropDownLivesAloneLocation));
             return livesAloneDropDown;
+        }
+
+
+        //Method to click the click the Date Of Birth (Pre 1900) label
+
+        private static void ClickLabelDOBPre1900(IWebDriver driver)
+        {
+            string labelDateOfBirthPre1900 = "//*[@id=\"cw_placeofbirth_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelDateOfBirthPre1900));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelDateOfBirthPre1900));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Date Of Birth (Pre 1900) field
+
+        private static void EnterTextIntoFieldDOBPre1900(IWebDriver driver, string dateOfBirth)
+        {
+            string textFieldDateOfBirth = "//*[@id=\"cw_placeofbirth_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldDateOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldDateOfBirth));
+            inputField.SendKeys(dateOfBirth);
+        }
+
+
+        //Method to click the click the LMP Confirmed By label
+
+        private static void ClickLabelLMPConfirmedBy(IWebDriver driver)
+        {
+            string labelLMPConfirmedBy = "//*[@id=\"cw_lmpconfirmedby_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelLMPConfirmedBy));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelLMPConfirmedBy));
+            labelLocation.Click();
+        }
+
+
+        //Method to click the lookup button next to the LMP Confirmed By field
+
+        private static void ClickLookupLMPConfirmedBy(IWebDriver driver)
+        {
+            IWebElement lookupLMPConfirmedBy = driver.FindElement(By.XPath("//*[@id=\"cw_lmpconfirmedby_i\"]"));
+            lookupLMPConfirmedBy.Click();
+        }
+
+
+        //Method to select a LMP Confirmed By from the lookup menu
+
+        private static void SelectLMPConfirmedByUsingLookup(IWebDriver driver, string lmpConfirmedBy)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_lmpconfirmedby_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + lmpConfirmedBy + "')]]")).Click();
+        }
+
+
+        //Method to enter text into the LMP Confirmed By field
+
+        private static void EnterTextIntoLMPConfirmedByField(IWebDriver driver, string lmpConfirmedBy)
+        {
+            string textFieldLMGConfirmedBy = "//*[@id=\"cw_immigrationstatusreferenceid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldLMGConfirmedBy));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldLMGConfirmedBy));
+            inputField.SendKeys(lmpConfirmedBy);
         }
 
     }
