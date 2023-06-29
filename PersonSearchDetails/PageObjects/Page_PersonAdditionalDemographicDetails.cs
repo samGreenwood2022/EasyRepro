@@ -295,6 +295,121 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
+        //Method a enter a value into the SSD Number field
+
+        public static void EnterSSDNumber(IWebDriver driver, string SSDNo)
+        {
+            ClickLabelSSDNumber(driver);
+            EnterTextIntoFieldSSDNumber(driver, SSDNo);
+        }
+
+
+        //Method a enter a value into the NI No field
+
+        public static void EnterNINo(IWebDriver driver, string NINo)
+        {
+            ClickLabelNINo(driver);
+            EnterTextIntoFieldNINo(driver, NINo);
+        }
+
+
+        //Method a enter a value into the NHS No (Pre 1995) field
+
+        public static void EnterNHSNoPre1995(IWebDriver driver, string nhsNo)
+        {
+            ClickLabelNHSNoPre1995(driver);
+            EnterTextIntoFieldNHSNoPre1995(driver, nhsNo);
+        }
+
+
+        //Method a enter a value into the Unique Pupil No field
+
+        public static void EnterUniquePupilNo(IWebDriver driver, string uniquePupilNo)
+        {
+            ClickLabelUniquePupilNo(driver);
+            EnterTextIntoFieldUniquePupilNo(driver, uniquePupilNo);
+        }
+
+
+        //Method a enter a value into the Former Unique Pupil No field
+
+        public static void EnterFormerUniquePupilNo(IWebDriver driver, string formerUniquePupilNo)
+        {
+            ClickLabelFormerUniquePupilNo(driver);
+            EnterTextIntoFieldFormerUniquePupilNo(driver, formerUniquePupilNo);
+        }
+
+
+        //Method a enter a value into the Professional Registration No field
+
+        public static void EnterProfessionalRegistrationNo(IWebDriver driver, string professionalRegistrationNo)
+        {
+            ClickLabelProfessionalRegistrationNo(driver);
+            EnterTextIntoFieldProfessionalRegistrationNo(driver, professionalRegistrationNo);
+        }
+
+
+        //Method a enter a value into the Court Case No field
+
+        public static void EnterCourtCaseNo(IWebDriver driver, string courtCaseNo)
+        {
+            ClickLabelCourtCaseNo(driver);
+            EnterTextIntoFieldCourtCaseNo(driver, courtCaseNo);
+        }
+
+
+        //Method a enter a value into the Birth Certificate No field
+
+        public static void EnterBirthCertificateNo(IWebDriver driver, string birthCertificateNo)
+        {
+            ClickLabelBirthCertificateNo(driver);
+            EnterTextIntoFieldBirthCertificateNo(driver, birthCertificateNo);
+        }
+
+
+        //Method to change the value in the Is External Person field
+
+        public static void EnterIsExternalPerson(IWebDriver driver, string isExternalPerson)
+        {
+            SelectValueForIsExternalPersonField(driver, isExternalPerson);
+        }
+
+
+        //Method a enter a value into the Home Office Registration No field
+
+        public static void EnterHomeOfficeRegistrationNo(IWebDriver driver, string homeOfficeRegistrationNo)
+        {
+            ClickLabelHomeOfficeRegistrationNo(driver);
+            EnterTextIntoFieldHomeOfficeRegistrationNo(driver, homeOfficeRegistrationNo);
+        }
+
+
+        //Method to enter text into the UPN Unknown Reason field
+
+
+        public static void EnterUPNUnknownReason(IWebDriver driver, string upnUnknownReason, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelUPNUnknownReason(driver);
+                ClickLookupUPNUnknownReason(driver);
+                SelectUPNUnknownReasonUsingLookup(driver, upnUnknownReason);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelUPNUnknownReason(driver);
+                EnterUPNUnknownReason(driver, upnUnknownReason);
+            }
+        }
+
+
 
 
         //private
@@ -931,6 +1046,265 @@ namespace WCCIS.Specs.PageObjects
             // act on the returned value to select items or check current value 
             IWebElement signingRequiredDropDown = driver.FindElement(By.Id(dropDownSigningRequiredLocation));
             return signingRequiredDropDown;
+        }
+
+
+        //Method to click the click the SSD Number label
+
+        private static void ClickLabelSSDNumber(IWebDriver driver)
+        {
+            string labelSSDNumber = "//*[@id=\"cw_ssdnumber_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSSDNumber));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelSSDNumber));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the SSD Number field
+
+        private static void EnterTextIntoFieldSSDNumber(IWebDriver driver, string ssdNumber)
+        {
+            string textFieldSSDNumber = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldSSDNumber));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldSSDNumber));
+            inputField.SendKeys(ssdNumber);
+        }
+
+
+        //Method to click the click the NI No label
+
+        private static void ClickLabelNINo(IWebDriver driver)
+        {
+            string labelNINo = "//*[@id=\"cw_nationalinsuranceno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNINo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNINo));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the NI No field
+
+        private static void EnterTextIntoFieldNINo(IWebDriver driver, string niNo)
+        {
+            string textFieldNINo = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldNINo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldNINo));
+            inputField.SendKeys(niNo);
+        }
+
+
+        //Method to click the click the NHS No (Pre 1995) label
+
+        private static void ClickLabelNHSNoPre1995(IWebDriver driver)
+        {
+            string labelNHSNoPre1995 = "//*[@id=\"cw_nhsnopre1995_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNHSNoPre1995));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNHSNoPre1995));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the NHS No (Pre 1995) field
+
+        private static void EnterTextIntoFieldNHSNoPre1995(IWebDriver driver, string nhsNoPre1995)
+        {
+            string textFieldNHSNoPre1995 = "//*[@id=\"cw_nhsnopre1995_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldNHSNoPre1995));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldNHSNoPre1995));
+            inputField.SendKeys(nhsNoPre1995);
+        }
+
+
+        //Method to click the click the Unique Pupil No label
+
+        private static void ClickLabelUniquePupilNo(IWebDriver driver)
+        {
+            string labelUniquePupilNo = "//*[@id=\"cw_uniquepupilno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelUniquePupilNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelUniquePupilNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Unique Pupil No field
+
+        private static void EnterTextIntoFieldUniquePupilNo(IWebDriver driver, string uniquePupilNo)
+        {
+            string textFieldUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldUniquePupilNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldUniquePupilNo));
+            inputField.SendKeys(uniquePupilNo);
+        }
+
+
+        //Method to click the click the Former Unique Pupil No label
+
+        private static void ClickLabelFormerUniquePupilNo(IWebDriver driver)
+        {
+            string labelFormerUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelFormerUniquePupilNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelFormerUniquePupilNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Former Unique Pupil No field
+
+        private static void EnterTextIntoFieldFormerUniquePupilNo(IWebDriver driver, string formerUniquePupilNo)
+        {
+            string textFieldFormerUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldFormerUniquePupilNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldFormerUniquePupilNo));
+            inputField.SendKeys(formerUniquePupilNo);
+        }
+
+
+        //Method to click the click the Professional Registration No label
+
+        private static void ClickLabelProfessionalRegistrationNo(IWebDriver driver)
+        {
+            string labelProfessionalRegistrationNo = "//*[@id=\"cw_professionalregistrationnumber_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelProfessionalRegistrationNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelProfessionalRegistrationNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Professional Registration No field
+
+        private static void EnterTextIntoFieldProfessionalRegistrationNo(IWebDriver driver, string professionalRegistrationNo)
+        {
+            string textFieldProfessionalRegistrationNo = "//*[@id=\"cw_professionalregistrationnumber_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldProfessionalRegistrationNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldProfessionalRegistrationNo));
+            inputField.SendKeys(professionalRegistrationNo);
+        }
+
+        //Method to click the click the Court Case No label
+
+        private static void ClickLabelCourtCaseNo(IWebDriver driver)
+        {
+            string labelCourtCaseNo = "//*[@id=\"cw_courtcaseno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelCourtCaseNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelCourtCaseNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Court Case No field
+
+        private static void EnterTextIntoFieldCourtCaseNo(IWebDriver driver, string courtCaseNo)
+        {
+            string textFieldCourtCaseNo = "//*[@id=\"cw_professionalregistrationnumber_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldCourtCaseNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldCourtCaseNo));
+            inputField.SendKeys(courtCaseNo);
+        }
+
+
+        //Method to click the click the Birth Certificate No label
+
+        private static void ClickLabelBirthCertificateNo(IWebDriver driver)
+        {
+            string labelBirthCertificateNo = "//*[@id=\"cw_birthcertificateno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelBirthCertificateNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelBirthCertificateNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Birth Certificate No field
+
+        private static void EnterTextIntoFieldBirthCertificateNo(IWebDriver driver, string birthCertificateNo)
+        {
+            string textFieldBirthCertificateNo = "//*[@id=\"cw_birthcertificateno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldBirthCertificateNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldBirthCertificateNo));
+            inputField.SendKeys(birthCertificateNo);
+        }
+
+
+        //Method to select an option from the Is External Person field
+
+        private static void SelectValueForIsExternalPersonField(IWebDriver driver, string isExternalPerson)
+        {
+            string textFieldIsExternalPersonLabel = "//*[@id=\"cw_isexternalclient_cl\"]";
+            string textFieldLocation = "//*[@id=\"cw_isexternalclient\"]";
+            string textFieldValue = driver.FindElement(By.XPath(textFieldLocation)).Text;
+
+            if (isExternalPerson == "No")
+            {
+                if (textFieldValue == "Yes")
+                {
+                    driver.FindElement(By.XPath(textFieldIsExternalPersonLabel)).Click();
+                }
+            }
+            else
+            {
+                if (isExternalPerson == "No")
+                {
+                    driver.FindElement(By.XPath(textFieldIsExternalPersonLabel)).Click();
+                }
+            }
+        }
+
+
+        //Method to click the click the Home Office Registration No label
+
+        private static void ClickLabelHomeOfficeRegistrationNo(IWebDriver driver)
+        {
+            string labelHomeOfficeRegistrationNo = "//*[@id=\"cw_homeofficeregistrationno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelHomeOfficeRegistrationNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelHomeOfficeRegistrationNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Home Office Registration No field
+
+        private static void EnterTextIntoFieldHomeOfficeRegistrationNo(IWebDriver driver, string homeOfficeRegistrationNo)
+        {
+            string textFieldHomeOfficeRegistrationNo = "//*[@id=\"cw_homeofficeregistrationno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldHomeOfficeRegistrationNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldHomeOfficeRegistrationNo));
+            inputField.SendKeys(homeOfficeRegistrationNo);
+        }
+
+
+        //Method to click the click the UPN Unknown Reason label
+
+        private static void ClickLabelUPNUnknownReason(IWebDriver driver)
+        {
+            string labelUPNUnknownReason = "//*[@id=\"cw_upnunknownreasonid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelUPNUnknownReason));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelUPNUnknownReason));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the UPN Unknown Reason field
+
+        private static void EnterTextIntoFieldUPNUnknownReason(IWebDriver driver, string upnUnknownReason)
+        {
+            string textFieldUPNUnknownReason = "//*[@id=\"cw_upnunknownreasonid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldUPNUnknownReason));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldUPNUnknownReason));
+            inputField.SendKeys(upnUnknownReason);
+        }
+
+
+        //Method to click the lookup button next to the UPN Unknown Reason field
+
+        private static void ClickLookupUPNUnknownReason(IWebDriver driver)
+        {
+            IWebElement lookupUPNUnknownReason = driver.FindElement(By.XPath("//*[@id=\"cw_upnunknownreasonid_lookupSearch\"]"));
+            lookupUPNUnknownReason.Click();
+        }
+
+
+        //Method to select a UPN Unknown Reason from the lookup menu
+
+        private static void SelectUPNUnknownReasonUsingLookup(IWebDriver driver, string upnUnknowReason)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_upnunknownreasonid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + upnUnknowReason + "')]]")).Click();
         }
 
     }
