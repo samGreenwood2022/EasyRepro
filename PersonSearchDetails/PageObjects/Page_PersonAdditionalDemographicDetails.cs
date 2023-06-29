@@ -192,7 +192,7 @@ namespace WCCIS.Specs.PageObjects
                 //The old method
                 //still valid, but enters text only
                 ClickLabelImmigrationStatus(driver);
-                EnterImmigrationStatus(driver, immigrationStatus);
+                EnterTextIntoImmigrationStatusField(driver, immigrationStatus);
             }
         }
 
@@ -245,8 +245,53 @@ namespace WCCIS.Specs.PageObjects
                 //The old method
                 //still valid, but enters text only
                 ClickLabelLMPConfirmedBy(driver);
-                EnterTextIntoLMPConfirmedByField(driver, lmpConfirmedBy);
+                EnterTextIntoFieldLMPConfirmedBy(driver, lmpConfirmedBy);
             }
+        }
+
+
+        //Method to change the value in the Has Teenage Parent field
+
+        public static void EnterTeenageParent(IWebDriver driver, string hasTeenageParent)
+        {
+            SelectValueForTeenageParentField(driver, hasTeenageParent);
+        }
+
+
+        //Method a enter a value into the Days Gestation field
+
+        public static void EnterDaysGestation(IWebDriver driver, string dob)
+        {
+            ClickLabelDaysGestation(driver);
+            EnterTextIntoFieldDaysGestation(driver, dob);
+        }
+
+
+        //Method to enter text into the Expected Date Of Birth field
+
+        public static void EnterExpectedDateOfBirth(IWebDriver driver, string expectedDateOfBirth, bool isUsingDatePicker = false)
+        {
+            if (isUsingDatePicker)
+            {
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
+            }
+
+            if (!isUsingDatePicker)
+            {
+                ClickLabelExpectedDateOfBirth(driver);
+                EnterTextIntoFieldExpectedDateOfBirth(driver, expectedDateOfBirth);
+            }
+        }
+
+
+        //Method to select an option from the Signing Required dropdown
+
+        public static void EnterSigningRequired(IWebDriver driver, string isSigningRequired)
+        {
+            ClickLabelSigningRequired(driver);
+            SelectSigningRequiredFromDropDown(driver, isSigningRequired);
         }
 
 
@@ -779,12 +824,113 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to enter text into the LMP Confirmed By field
 
-        private static void EnterTextIntoLMPConfirmedByField(IWebDriver driver, string lmpConfirmedBy)
+        private static void EnterTextIntoFieldLMPConfirmedBy(IWebDriver driver, string dateOfBirth)
         {
-            string textFieldLMGConfirmedBy = "//*[@id=\"cw_immigrationstatusreferenceid_ledit\"]";
-            driver.WaitUntilVisible(By.XPath(textFieldLMGConfirmedBy));
-            IWebElement inputField = driver.FindElement(By.XPath(textFieldLMGConfirmedBy));
-            inputField.SendKeys(lmpConfirmedBy);
+            string textFieldDateOfBirth = "//*[@id=\"cw_placeofbirth_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldDateOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldDateOfBirth));
+            inputField.SendKeys(dateOfBirth);
+        }
+
+
+        //Method to select an option from the Has Teenage Parent field
+
+        private static void SelectValueForTeenageParentField(IWebDriver driver, string hasTeenageParent)
+        {
+            string textFieldHasTeenageParentLabel = "//*[@id=\"cw_teenagemother_cl\"]";
+            string textFieldLocation = "//*[@id=\"cw_teenagemother\"]";
+            string textFieldValue = driver.FindElement(By.XPath(textFieldLocation)).Text;
+
+            if (hasTeenageParent == "No")
+            {
+                if (textFieldValue == "Yes")
+                {
+                    driver.FindElement(By.XPath(textFieldHasTeenageParentLabel)).Click();
+                }
+            } else
+            {
+                if (textFieldValue == "No")
+                {
+                    driver.FindElement(By.XPath(textFieldHasTeenageParentLabel)).Click();
+                }
+            }
+        }
+
+
+        //Method to click the click the Days Gestation label
+
+        private static void ClickLabelDaysGestation(IWebDriver driver)
+        {
+            string labelDaysGestation = "//*[@id=\"cw_daysgestation_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelDaysGestation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelDaysGestation));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Days Gestation field
+
+        private static void EnterTextIntoFieldDaysGestation(IWebDriver driver, string daysGestation)
+        {
+            string textFieldDaysGestationh = "//*[@id=\"cw_daysgestation_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldDaysGestationh));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldDaysGestationh));
+            inputField.SendKeys(daysGestation);
+        }
+
+
+        //Method to click the click the Expected Date Of Birth label
+
+        private static void ClickLabelExpectedDateOfBirth(IWebDriver driver)
+        {
+            string labelExpectedDateOfBirth = "//*[@id=\"cw_expecteddateofbirth\"]";
+            driver.WaitUntilVisible(By.XPath(labelExpectedDateOfBirth));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelExpectedDateOfBirth));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Expected Date Of Birth field
+
+        private static void EnterTextIntoFieldExpectedDateOfBirth(IWebDriver driver, string expectedDateOfBirth)
+        {
+            string textFieldExpectedDateOfBirth = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldExpectedDateOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldExpectedDateOfBirth));
+            inputField.SendKeys(expectedDateOfBirth);
+        }
+
+
+        //Method to click the click the Signing Required label
+
+        private static void ClickLabelSigningRequired(IWebDriver driver)
+        {
+            string labelSigningRequiredLocation = "//*[@id=\"cw_signingrequired_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSigningRequiredLocation));
+            IWebElement labeSigningRequired = driver.FindElement(By.XPath(labelSigningRequiredLocation));
+            labeSigningRequired.Click();
+        }
+
+
+        //Method to select a value from the Signing Required dropdown
+
+        private static void SelectSigningRequiredFromDropDown(IWebDriver driver, string isSigningRequired)
+        {
+            IWebElement dropDownSigningRequired = LocateDropDownSigningRequired(driver);
+            var selectSigningRequired = new SelectElement(dropDownSigningRequired);
+            selectSigningRequired.SelectByValue(isSigningRequired);
+        }
+
+
+        //Method to locate Signing Required Value from the dropdown
+
+        private static IWebElement LocateDropDownSigningRequired(IWebDriver driver)
+        {
+            string dropDownSigningRequiredLocation = "cw_signingrequired_i";
+            driver.WaitUntilVisible(By.Id(dropDownSigningRequiredLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement signingRequiredDropDown = driver.FindElement(By.Id(dropDownSigningRequiredLocation));
+            return signingRequiredDropDown;
         }
 
     }
