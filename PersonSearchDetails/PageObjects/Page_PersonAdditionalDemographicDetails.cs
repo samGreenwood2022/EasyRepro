@@ -100,6 +100,18 @@ namespace WCCIS.Specs.PageObjects
             SelectCountryOfOriginFromDropDown(driver, countryOfOrigin);
         }
 
+
+        //Method to select a Religion from dropdown
+
+        public static void EnterReligion(IWebDriver driver, string religion)
+        {
+            //This is the public method - as in other fields you must select it first
+            //You do this by clicking into the field ClickReligion Label
+            //This activates the field, so you can set the dropdown
+            ClickLabelReligion(driver);
+            SelectReligionFromDropDown(driver, religion);
+        }
+
         //Method to enter text into the Last Menstrual Period (LMP)
 
         public static void EnterLastMenstrualPeriod(IWebDriver driver, string lastMenstrualPeriodDate, bool isUsingDatePicker = false)
@@ -208,7 +220,7 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to select an option from the Lives Alone dropdown
 
-        public static void EnterLivesAlone(IWebDriver driver, string livesAlone)
+        public static void EnterLivesAlone(IWebDriver driver, int livesAlone)
         {
             ClickLabelLivesAlone(driver);
             SelectLivesAloneOptionFromDropDown(driver, livesAlone);
@@ -586,7 +598,7 @@ namespace WCCIS.Specs.PageObjects
             selectElementReligion.SelectByText(religion);
         }
 
-        //Method to locate Religion from the dropdown
+        //Method to locate the Religion dropdown
 
         private static IWebElement LocateDropDownReligion(IWebDriver driver)
         {
@@ -719,20 +731,32 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectIsVeteranFromDropDown(IWebDriver driver, string isVeteran)
         {
+         
+            int index;
+
+            if (isVeteran == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
             IWebElement dropDownVeteran = LocateDropDownVeteran(driver);
             var selectVeteran = new SelectElement(dropDownVeteran);
-            selectVeteran.SelectByValue(isVeteran);
+            selectVeteran.SelectByIndex(index);
         }
 
         //Method to locate Veteran from the dropdown
 
         private static IWebElement LocateDropDownVeteran(IWebDriver driver)
         {
-            string dropDownVeteranLocation = "cw_veteran_i";
-            driver.WaitUntilVisible(By.Id(dropDownVeteranLocation));
+            string dropDownVeteranLocation = "//*[@id=\"cw_veteran_i\"]";
+            driver.WaitUntilVisible(By.XPath(dropDownVeteranLocation));
             //Find the drop down only
             // act on the returned value to select items or check current value 
-            IWebElement veteranDropDown = driver.FindElement(By.Id(dropDownVeteranLocation));
+            IWebElement veteranDropDown = driver.FindElement(By.XPath(dropDownVeteranLocation));
             return veteranDropDown;
         }
 
@@ -752,9 +776,20 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectIsInterpreterRequiredFromDropDown(IWebDriver driver, string isInterpreterRequired)
         {
+            int index;
+
+            if (isInterpreterRequired == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
             IWebElement dropDownInterpreterRequired = LocateDropDownInterpreterRequired(driver);
             var selectInterpreterRequired = new SelectElement(dropDownInterpreterRequired);
-            selectInterpreterRequired.SelectByValue(isInterpreterRequired);
+            selectInterpreterRequired.SelectByIndex(index);
         }
 
         //Method to locate an Interpreter Required option from the dropdown
@@ -866,11 +901,11 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to select an option for Lives Alone from the dropdown
 
-        private static void SelectLivesAloneOptionFromDropDown(IWebDriver driver, string livesAlone)
+        private static void SelectLivesAloneOptionFromDropDown(IWebDriver driver, int livesAlone)
         {
             IWebElement dropDownLivesAlone = LocateDropDownLivesAlone(driver);
             var selectLivesAlone = new SelectElement(dropDownLivesAlone);
-            selectLivesAlone.SelectByValue(livesAlone);
+            selectLivesAlone.SelectByIndex(livesAlone);
         }
 
         //Method to locate an Lives Alone option from the dropdown
@@ -1030,9 +1065,20 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectSigningRequiredFromDropDown(IWebDriver driver, string isSigningRequired)
         {
+            int index;
+
+            if (isSigningRequired == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
             IWebElement dropDownSigningRequired = LocateDropDownSigningRequired(driver);
             var selectSigningRequired = new SelectElement(dropDownSigningRequired);
-            selectSigningRequired.SelectByValue(isSigningRequired);
+            selectSigningRequired.SelectByIndex(index);
         }
 
 

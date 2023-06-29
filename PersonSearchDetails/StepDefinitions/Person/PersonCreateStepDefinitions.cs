@@ -12,6 +12,7 @@ using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 using static WCCIS.Specs.Enums.MandatoryFields;
+using static WCCIS.Specs.Enums.CoreDemographicsDropdownValues;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -62,9 +63,22 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
             Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
-            Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
-            Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
+            Page_PersonAdditionalDemographicDetails.EnterNHSCardLocation(driver, "Home");
+            Page_PersonAdditionalDemographicDetails.EnterImmigrationStatus(driver, "Not Known");
+            Page_PersonAdditionalDemographicDetails.EnterPlaceOfBirth(driver, "Hospital");
+
+            //Get the integer (or index) of our 
+            int valueWeWant = (int) LivesAloneValues.yes;
+
+            Page_PersonAdditionalDemographicDetails.EnterLivesAlone(driver, valueWeWant);
+            Page_PersonAdditionalDemographicDetails.EnterDOBPre1900(driver, "18/04/1900");
+            Page_PersonAdditionalDemographicDetails.EnterLMPConfirmedBy(driver, "Last Menstrual Period (LMP) date as stated by the mother");
             Page_PersonAdditionalDemographicDetails.EnterTeenageParent(driver, "No");
+            Page_PersonAdditionalDemographicDetails.EnterDaysGestation(driver, "burger");
+            Page_PersonAdditionalDemographicDetails.EnterExpectedDateOfBirth(driver, "01/01/1976");
+            Page_PersonAdditionalDemographicDetails.EnterSigningRequired(driver, "Yes");
+
+            
 
 
 
