@@ -57,6 +57,9 @@
     <Reference Include="LivingDoc.SpecFlowPlugin, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Plus.LivingDocPlugin.3.9.57\lib\net461\LivingDoc.SpecFlowPlugin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.2.7\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -75,6 +78,9 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -101,6 +107,40 @@
     <Compile Include="Enums\MandatoryFields.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
+    <Compile Include="StepDefinitions\MPISearchLoadPatientGenderUnknownStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchLoadPatientGenderFemaleStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchRetryAfterCriteriaMessageStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByTooLongNameStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByStreetDesTownCountyStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByDesTownCountyStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByStreetTownCountyStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByStreetDesCountyStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByStreetDesTownStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchBy5LineAddressStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchBySurnameAndPostcodeStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchForValidHospNoAndAssigningAuthorityStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchForValidNameAndDOBStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByDOBAndNameStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPISearchByValidNHSNo_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0020_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0019_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0018_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0017_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0016_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0015_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0014_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0013_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0012_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0010_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0011_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0009_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0008_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0007_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0006_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0005_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0004_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0003_MPIStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0002_MPIStepDefinitions.cs" />
     <Compile Include="PageObjects\Page_PersonAdditionalDemographicDetails.cs" />
     <Compile Include="PageObjects\Page_PersonSearchResults.cs" />
     <Compile Include="PageObjects\Page_CommClinicReferral.cs" />
@@ -111,6 +151,7 @@
     <Compile Include="PageObjects\Page_PersonSearch.cs" />
     <Compile Include="PageObjects\SharedNavigation.cs" />
     <Compile Include="StepDefinitions\Login\LoginStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\MPI\MPI0001_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonAmendStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonCreateStepDefinitions.cs" />
     <Compile Include="StepDefinitions\Person\PersonSearchStepDefinitions.cs" />
@@ -121,6 +162,50 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Features\MPI\MPINewPatientInvalidName.feature" />
+    <None Include="Features\MPI\MPISearchBy5LineAddress.feature" />
+    <None Include="Features\MPI\MPISearchByDesTownCounty.feature" />
+    <None Include="Features\MPI\MPISearchByNameAndDOB.feature" />
+    <None Include="Features\MPI\MPISearchByStreetDesCounty.feature" />
+    <None Include="Features\MPI\MPISearchByStreetDesTownCounty.feature" />
+    <None Include="Features\MPI\MPISearchByStreetTownCounty.feature" />
+    <None Include="Features\MPI\MPISearchByStreetDesTown.feature" />
+    <None Include="Features\MPI\MPISearchBySurnameAndPostcode.feature" />
+    <None Include="Features\MPI\MPISearchByTooLongName.feature" />
+    <None Include="Features\MPI\MPISearchByValidHospNoAndAssigningAuthority.feature" />
+    <None Include="Features\MPI\MPISearchByValidNHSNo.feature" />
+    <None Include="Features\MPI\MPI0018.feature" />
+    <None Include="Features\MPI\MPI0017.feature" />
+    <None Include="Features\MPI\MPI0016.feature" />
+    <None Include="Features\MPI\MPI0011.feature" />
+    <None Include="Features\MPI\MPI0008.feature" />
+    <None Include="Features\MPI\MPI0007.feature" />
+    <None Include="Features\MPI\MPI0003.feature" />
+    <None Include="Features\MPI\MPI0002.feature" />
+    <None Include="Features\MPI\MPI0001.feature" />
+    <None Include="Features\MPI\MPI0004.feature" />
+    <None Include="Features\MPI\MPI0005.feature" />
+    <None Include="Features\MPI\MPI0006.feature" />
+    <None Include="Features\MPI\MPI0009.feature" />
+    <None Include="Features\MPI\MPI0010.feature" />
+    <None Include="Features\MPI\MPI0012.feature" />
+    <None Include="Features\MPI\MPI0013.feature" />
+    <None Include="Features\MPI\MPI0014.feature" />
+    <None Include="Features\MPI\MPI0015.feature" />
+    <None Include="Features\MPI\MPI0019.feature" />
+    <None Include="Features\MPI\MPI0020.feature" />
+    <None Include="Features\MPI\MPISearchLoadPatientGenderFemale.feature" />
+    <None Include="Features\MPI\MPISearchLoadPatientGenderUnknown.feature" />
+    <None Include="Features\MPI\MPISearchRetryAfterCriteriaMessage.feature" />
+    <None Include="Features\Person\PER0008.feature" />
+    <None Include="Features\Person\PER0005.feature" />
+    <None Include="Features\Person\PER0007.feature" />
+    <None Include="Features\Person\PER0004.feature" />
+    <None Include="Features\Person\PER0003.feature" />
+    <None Include="Features\Person\PER0002.feature" />
+    <None Include="Features\Person\PER0001.feature" />
+    <None Include="Features\Person\PER0006.feature" />
+    <None Include="Features\Person\PER0009.feature" />
     <None Include="Features\Person\PersonCreate\PC0004.feature" />
     <None Include="Features\Person\PersonCreate\PC0002.feature" />
     <None Include="Features\Person\PersonCreate\PC0003.feature" />
