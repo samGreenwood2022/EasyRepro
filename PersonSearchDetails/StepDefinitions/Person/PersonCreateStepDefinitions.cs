@@ -89,7 +89,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonAdditionalDemographicDetails.EnterBirthCertificateNo(driver, "500");
             Page_PersonAdditionalDemographicDetails.EnterIsExternalPerson(driver, "Yes");
             Page_PersonAdditionalDemographicDetails.EnterHomeOfficeRegistrationNo(driver, "600");
-            Page_PersonAdditionalDemographicDetails.EnterUPNUnknownReason(driver, "UPN Unknown Reason Child is aged under 6 years old and is not yet assigned a UPN");
+            Page_PersonAdditionalDemographicDetails.EnterUPNUnknownReason(driver, "Child is not looked after and the authority is unable to obtain the UPN");
 
 
 
