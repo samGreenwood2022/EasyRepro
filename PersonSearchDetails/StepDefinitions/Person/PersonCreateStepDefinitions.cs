@@ -62,37 +62,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
-            Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
-            Page_PersonAdditionalDemographicDetails.EnterNHSCardLocation(driver, "Home");
-            Page_PersonAdditionalDemographicDetails.EnterImmigrationStatus(driver, "Not Known");
-            Page_PersonAdditionalDemographicDetails.EnterPlaceOfBirth(driver, "Hospital");
-
-            //Get the integer (or index) of our 
-            int valueWeWant = (int) LivesAloneValues.yes;
-
-            Page_PersonAdditionalDemographicDetails.EnterLivesAlone(driver, valueWeWant);
-            Page_PersonAdditionalDemographicDetails.EnterDOBPre1900(driver, "18/04/1900");
-            Page_PersonAdditionalDemographicDetails.EnterLMPConfirmedBy(driver, "Last Menstrual Period (LMP) date as stated by the mother");
-            Page_PersonAdditionalDemographicDetails.EnterTeenageParent(driver, "No");
-            Page_PersonAdditionalDemographicDetails.EnterDaysGestation(driver, "burger");
-            Page_PersonAdditionalDemographicDetails.EnterExpectedDateOfBirth(driver, "01/01/1976");
-            Page_PersonAdditionalDemographicDetails.EnterSigningRequired(driver, "Yes");
-
-            Page_PersonAdditionalDemographicDetails.EnterSSDNumber(driver, "100");
-            Page_PersonAdditionalDemographicDetails.EnterNINo(driver, "100");
-            Page_PersonAdditionalDemographicDetails.EnterNHSNoPre1995(driver, "100");
-            Page_PersonAdditionalDemographicDetails.EnterUniquePupilNo(driver, "100");
-            Page_PersonAdditionalDemographicDetails.EnterFormerUniquePupilNo(driver, "200");
-            Page_PersonAdditionalDemographicDetails.EnterProfessionalRegistrationNo(driver, "300");
-
-            Page_PersonAdditionalDemographicDetails.EnterCourtCaseNo(driver, "400");
-            Page_PersonAdditionalDemographicDetails.EnterBirthCertificateNo(driver, "500");
-            Page_PersonAdditionalDemographicDetails.EnterIsExternalPerson(driver, "Yes");
-            Page_PersonAdditionalDemographicDetails.EnterHomeOfficeRegistrationNo(driver, "600");
-            Page_PersonAdditionalDemographicDetails.EnterUPNUnknownReason(driver, "Child is not looked after and the authority is unable to obtain the UPN");
-
-
-
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);

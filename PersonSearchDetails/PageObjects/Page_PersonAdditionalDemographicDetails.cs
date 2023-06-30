@@ -1,5 +1,6 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
@@ -7,27 +8,31 @@ using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 namespace WCCIS.Specs.PageObjects
 {
     internal class Page_PersonAdditionalDemographicDetails
-    {        
+    {
         //public
+
+
+        //Method which waits for a web element to become clickable
+
+        public static IWebElement WaitForClickablility(IWebElement element, IWebDriver driver, TimeSpan timeout)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
+            return wait.Until(ExpectedConditions.ElementToBeClickable(element));
+        }
+
 
         //Method to open the Additional Demographic Details section
 
         public static void OpenAdditionalDemographicDetails(IWebDriver driver)
         {
+            //Wait for the element to become clickable
             IWebElement additionalDemographicDetails = LocateButtonAdditionalDemographicDetails(driver);
-            additionalDemographicDetails.Click();//Deal with this better
+            WaitForClickablility(additionalDemographicDetails, driver, TimeSpan.FromSeconds(10));
             additionalDemographicDetails.Click();
+            additionalDemographicDetails.Click();//Open to suggestions on how to deal with this better
             //Accept the alert when displayed
-            try
-            {
-                WebDriverWait Wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(10));
-                Wait.Until(ExpectedConditions.AlertIsPresent());
-                AcceptAlert(driver);
-            }
-            catch (NoAlertPresentException)
-            {
-                Console.WriteLine("The Alert has not been displayed");
-            }
+            AcceptAlert(driver);
+
         }
 
         //Method to enter text into the Target Group field
