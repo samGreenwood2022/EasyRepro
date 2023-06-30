@@ -197,15 +197,6 @@
     <None Include="Features\MPI\MPISearchLoadPatientGenderFemale.feature" />
     <None Include="Features\MPI\MPISearchLoadPatientGenderUnknown.feature" />
     <None Include="Features\MPI\MPISearchRetryAfterCriteriaMessage.feature" />
-    <None Include="Features\Person\PER0008.feature" />
-    <None Include="Features\Person\PER0005.feature" />
-    <None Include="Features\Person\PER0007.feature" />
-    <None Include="Features\Person\PER0004.feature" />
-    <None Include="Features\Person\PER0003.feature" />
-    <None Include="Features\Person\PER0002.feature" />
-    <None Include="Features\Person\PER0001.feature" />
-    <None Include="Features\Person\PER0006.feature" />
-    <None Include="Features\Person\PER0009.feature" />
     <None Include="Features\Person\PersonCreate\PC0004.feature" />
     <None Include="Features\Person\PersonCreate\PC0002.feature" />
     <None Include="Features\Person\PersonCreate\PC0003.feature" />
