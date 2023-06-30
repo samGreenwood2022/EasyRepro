@@ -201,6 +201,7 @@
     <None Include="Features\Person\PersonCreate\PC0002.feature" />
     <None Include="Features\Person\PersonCreate\PC0003.feature" />
     <None Include="Features\Person\PersonCreate\PC0001.feature" />
+    <None Include="Features\Person\PersonSearch\PS0005.feature" />
     <None Include="Features\Person\PersonSearch\PS0003.feature" />
     <None Include="Features\Person\PersonSearch\PS0002.feature" />
     <None Include="Features\Person\PersonSearch\PS0001.feature" />
