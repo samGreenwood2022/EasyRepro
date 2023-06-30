@@ -61,12 +61,6 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
-            Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
-            Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
-            Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
-
-
-
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
             xrmBrowser.ThinkTime(1000);
