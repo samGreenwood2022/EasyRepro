@@ -78,7 +78,18 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonAdditionalDemographicDetails.EnterExpectedDateOfBirth(driver, "01/01/1976");
             Page_PersonAdditionalDemographicDetails.EnterSigningRequired(driver, "Yes");
 
-            
+            Page_PersonAdditionalDemographicDetails.EnterSSDNumber(driver, "100");
+            Page_PersonAdditionalDemographicDetails.EnterNINo(driver, "100");
+            Page_PersonAdditionalDemographicDetails.EnterNHSNoPre1995(driver, "100");
+            Page_PersonAdditionalDemographicDetails.EnterUniquePupilNo(driver, "100");
+            Page_PersonAdditionalDemographicDetails.EnterFormerUniquePupilNo(driver, "200");
+            Page_PersonAdditionalDemographicDetails.EnterProfessionalRegistrationNo(driver, "300");
+
+            Page_PersonAdditionalDemographicDetails.EnterCourtCaseNo(driver, "400");
+            Page_PersonAdditionalDemographicDetails.EnterBirthCertificateNo(driver, "500");
+            Page_PersonAdditionalDemographicDetails.EnterIsExternalPerson(driver, "Yes");
+            Page_PersonAdditionalDemographicDetails.EnterHomeOfficeRegistrationNo(driver, "600");
+            Page_PersonAdditionalDemographicDetails.EnterUPNUnknownReason(driver, "UPN Unknown Reason Child is aged under 6 years old and is not yet assigned a UPN");
 
 
 

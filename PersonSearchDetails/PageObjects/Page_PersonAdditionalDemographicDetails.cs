@@ -1109,7 +1109,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoFieldSSDNumber(IWebDriver driver, string ssdNumber)
         {
-            string textFieldSSDNumber = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            string textFieldSSDNumber = "//*[@id=\"cw_ssdnumber_i\"]";
             driver.WaitUntilVisible(By.XPath(textFieldSSDNumber));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldSSDNumber));
             inputField.SendKeys(ssdNumber);
@@ -1130,7 +1130,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoFieldNINo(IWebDriver driver, string niNo)
         {
-            string textFieldNINo = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            string textFieldNINo = "//*[@id=\"cw_nationalinsuranceno_i\"]";
             driver.WaitUntilVisible(By.XPath(textFieldNINo));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldNINo));
             inputField.SendKeys(niNo);
@@ -1173,7 +1173,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoFieldUniquePupilNo(IWebDriver driver, string uniquePupilNo)
         {
-            string textFieldUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_i\"]";
+            string textFieldUniquePupilNo = "//*[@id=\"cw_uniquepupilno_i\"]";
             driver.WaitUntilVisible(By.XPath(textFieldUniquePupilNo));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldUniquePupilNo));
             inputField.SendKeys(uniquePupilNo);
@@ -1238,7 +1238,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void EnterTextIntoFieldCourtCaseNo(IWebDriver driver, string courtCaseNo)
         {
-            string textFieldCourtCaseNo = "//*[@id=\"cw_professionalregistrationnumber_i\"]";
+            string textFieldCourtCaseNo = "//*[@id=\"cw_courtcaseno_i\"]";
             driver.WaitUntilVisible(By.XPath(textFieldCourtCaseNo));
             IWebElement inputField = driver.FindElement(By.XPath(textFieldCourtCaseNo));
             inputField.SendKeys(courtCaseNo);
