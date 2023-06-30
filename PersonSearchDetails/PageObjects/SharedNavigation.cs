@@ -1,7 +1,10 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
+using WCCIS.Specs.Extentions;
 
 namespace WCCIS.Specs.PageObjects
 {
@@ -15,6 +18,7 @@ namespace WCCIS.Specs.PageObjects
         {
             xrmBrowser.CommandBar.ClickCommand("SAVE");
             WaitUntilSaveCompletes(driver);
+
         }
 
         //Select Person Search

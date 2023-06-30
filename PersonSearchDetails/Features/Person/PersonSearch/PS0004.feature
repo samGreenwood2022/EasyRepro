@@ -1,4 +1,4 @@
-﻿Feature: PER0009 - Person Search - Using NHS Number
+﻿Feature: PS0004 - Person Search - Using NHS Number
 
 As a user with sufficient permissions, when i perform a Person Search using an NHS Number, 
 the expected persons details will be returned

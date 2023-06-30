@@ -69,6 +69,9 @@
     <Reference Include="nunit.framework, Version=3.13.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.13.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="SpecFlow.Internal.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Internal.Json.1.0.8\lib\net45\SpecFlow.Internal.Json.dll</HintPath>
     </Reference>
@@ -101,7 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\MandatoryFields.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
     <Compile Include="StepDefinitions\MPISearchLoadPatientGenderUnknownStepDefinitions.cs" />
@@ -138,6 +141,7 @@
     <Compile Include="StepDefinitions\MPI\MPI0004_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPI0003_MPIStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPI0002_MPIStepDefinitions.cs" />
+    <Compile Include="PageObjects\Page_PersonAdditionalDemographicDetails.cs" />
     <Compile Include="PageObjects\Page_PersonSearchResults.cs" />
     <Compile Include="PageObjects\Page_CommClinicReferral.cs" />
     <Compile Include="PageObjects\Page_MPISearch.cs" />
@@ -193,15 +197,15 @@
     <None Include="Features\MPI\MPISearchLoadPatientGenderFemale.feature" />
     <None Include="Features\MPI\MPISearchLoadPatientGenderUnknown.feature" />
     <None Include="Features\MPI\MPISearchRetryAfterCriteriaMessage.feature" />
-    <None Include="Features\Person\PER0008.feature" />
-    <None Include="Features\Person\PER0005.feature" />
-    <None Include="Features\Person\PER0007.feature" />
-    <None Include="Features\Person\PER0004.feature" />
-    <None Include="Features\Person\PER0003.feature" />
-    <None Include="Features\Person\PER0002.feature" />
-    <None Include="Features\Person\PER0001.feature" />
-    <None Include="Features\Person\PER0006.feature" />
-    <None Include="Features\Person\PER0009.feature" />
+    <None Include="Features\Person\PersonCreate\PC0004.feature" />
+    <None Include="Features\Person\PersonCreate\PC0002.feature" />
+    <None Include="Features\Person\PersonCreate\PC0003.feature" />
+    <None Include="Features\Person\PersonCreate\PC0001.feature" />
+    <None Include="Features\Person\PersonSearch\PS0003.feature" />
+    <None Include="Features\Person\PersonSearch\PS0002.feature" />
+    <None Include="Features\Person\PersonSearch\PS0001.feature" />
+    <None Include="Features\Person\PersonAmend\PA0001.feature" />
+    <None Include="Features\Person\PersonSearch\PS0004.feature" />
     <None Include="NonRegressionScripts\Person\CreatePersonWithNHSNumber.feature" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -224,6 +228,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\Person\PersonActivities\" />
+    <Folder Include="Features\Person\PersonAttachments\" />
+    <Folder Include="Features\Person\PersonDisabilitiesImpairments\" />
     <Folder Include="Features\Referral\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

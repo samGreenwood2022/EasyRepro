@@ -1,8 +1,7 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Api;
-using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -31,7 +30,7 @@ namespace WCCIS.Specs.Extentions
             driver.FindElement(By.Id("submitButton")).Click();
             // xrmBrowser.ThinkTime(2000);
         }
-
+        
         // Generate a random string with a given size
         public static string RandomString(int size, bool lowerCase)
         {
@@ -50,7 +49,9 @@ namespace WCCIS.Specs.Extentions
 
         public static void selectFormSectionsMenu(IWebDriver driver, Browser xrmBrowser, string option)
         {
+
             // here we click on the navigation control icon to open the form sections menu
+            driver.SwitchTo().Window(driver.WindowHandles.First());
             // selecting the correct frame first
             driver.SwitchTo().Frame("contentIFrame1");
             driver.FindElement(By.Id("FormSecNavigationControl-Icon")).Click();
