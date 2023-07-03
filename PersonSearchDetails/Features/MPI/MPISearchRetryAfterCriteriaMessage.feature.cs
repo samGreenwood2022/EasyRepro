@@ -76,10 +76,12 @@ namespace WCCIS.Specs.Features.MPI
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("MPISearchRetryAfterCriteriaMessage")]
         [NUnit.Framework.CategoryAttribute("RegressionTest")]
+        [NUnit.Framework.CategoryAttribute("MpiPdq")]
         public void MPISearchRetryAfterCriteriaMessage()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest"};
+                    "RegressionTest",
+                    "MpiPdq"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchRetryAfterCriteriaMessage", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
@@ -93,11 +95,11 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("[An administrator has logged in]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.When("[an MPI search is attempted with NHS Number = No and user presses search without " +
-                        "entering any fields]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("an MPI search is attempted with NHS Number = No and user presses search without e" +
+                        "ntering any fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
  testRunner.And("an error message contains text \'Fields do not meet search criteria:\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
