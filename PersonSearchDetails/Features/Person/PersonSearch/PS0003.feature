@@ -1,6 +1,6 @@
-﻿Feature: PER0003 - Person Search - personId
+﻿Feature: PS0003 - Person Search - personId
 
-Regression Pack Scenario - PER0001
+Regression Pack Scenario - PER0003
 To ensure a person search can be performed using a personId
 ensure the returned record is correct
 

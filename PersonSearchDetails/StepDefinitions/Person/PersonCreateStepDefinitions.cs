@@ -48,13 +48,11 @@ namespace WCCIS.specs.StepDefinitions
             SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
 
-
             xrmBrowser.ThinkTime(1000);
             // select the correct iFrame
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
-
             Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
             Page_PersonCoreDemographics.EnterLastName(driver, lastName);
             Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
@@ -63,9 +61,15 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
+            Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
+            Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
+            Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
+
+
+
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);
-            xrmBrowser.ThinkTime(3000);
+            xrmBrowser.ThinkTime(1000);
 
 
         }

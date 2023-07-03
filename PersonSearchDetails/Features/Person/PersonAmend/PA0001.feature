@@ -1,6 +1,6 @@
-﻿Feature: PER0006 - Person amend
+﻿Feature: PA0001 - Person amend
 
-Regression Pack Scenario - PER0006
+Regression Pack Scenario - PA0001
 Ensure that a persons core demographic details can be amended by 
 using the post code lookup to amend the primary address
 

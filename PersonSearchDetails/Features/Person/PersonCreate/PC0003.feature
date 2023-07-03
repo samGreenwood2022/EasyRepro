@@ -1,6 +1,6 @@
-﻿Feature: PER0007 - Person create - audit events
+﻿Feature: PC0003 - Person create - audit events
 
-Regression Pack Scenario - PER0007
+Regression Pack Scenario - PC0003
 This test will ensure that the correct audit events have 
 been created when a new person is created
 
