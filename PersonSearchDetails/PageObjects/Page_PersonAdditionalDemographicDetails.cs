@@ -432,7 +432,7 @@ namespace WCCIS.Specs.PageObjects
         public static void EnterMHMeasure(IWebDriver driver, string mhMeasure)
         {
             ClickLabelMHMeasure(driver);
-            SelectMHMEasureFromDropDown(driver, mhMeasure);
+            SelectMHMeasureFromDropDown(driver, mhMeasure);
         }
 
 
@@ -1370,7 +1370,7 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to click the click the MH Measure label
 
-        private static void ClickLabelMHMEasure(IWebDriver driver)
+        private static void ClickLabelMHMeasure(IWebDriver driver)
         {
             string labelMHMEasure = "//*[@id=\"cw_mentalhealthmeasure_cl\"]";
             driver.WaitUntilVisible(By.XPath(labelMHMEasure));
@@ -1392,12 +1392,12 @@ namespace WCCIS.Specs.PageObjects
 
         private static IWebElement LocateDropDownMHMeasure(IWebDriver driver)
         {
-            string dropDownNationalityLocation = "cw_nationality_i";
-            driver.WaitUntilVisible(By.Id(dropDownNationalityLocation));
+            string dropDownMHMeasureLocation = "cw_mentalhealthmeasure_i";
+            driver.WaitUntilVisible(By.Id(dropDownMHMeasureLocation));
             //Find the drop down only
             // act on the returned value to select items or check current value 
-            IWebElement nationalityDropDown = driver.FindElement(By.Id(dropDownNationalityLocation));
-            return nationalityDropDown;
+            IWebElement mhMeasureDropDown = driver.FindElement(By.Id(dropDownMHMeasureLocation));
+            return mhMeasureDropDown;
         }
 
     }
