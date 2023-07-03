@@ -2,10 +2,10 @@
 
 A short summary of the feature
 
-@RegressionTest
+@RegressionTest @MpiPdq
 Scenario: MPISearchRetryAfterCriteriaMessage
-	Given [An administrator has logged in]
-	When [an MPI search is attempted with NHS Number = No and user presses search without entering any fields]
+	Given An administrator has logged in
+	When an MPI search is attempted with NHS Number = No and user presses search without entering any fields
 	And an error message contains text 'Fields do not meet search criteria:'
 	And an error message contains text '- Hospital Number + Assigning Authority'
 	And an error message contains text '- Surname + Postcode'

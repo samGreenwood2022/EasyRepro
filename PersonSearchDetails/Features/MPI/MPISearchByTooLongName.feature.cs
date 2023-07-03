@@ -76,10 +76,12 @@ namespace WCCIS.Specs.Features.MPI
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("MPISearchByTooLongName")]
         [NUnit.Framework.CategoryAttribute("RegressionTest")]
+        [NUnit.Framework.CategoryAttribute("MpiPdq")]
         public void MPISearchByTooLongName()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest"};
+                    "RegressionTest",
+                    "MpiPdq"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchByTooLongName", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
@@ -93,7 +95,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("[An administrator has logged in]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
  testRunner.When("an MPI search is conducted using the first name \'Shirly-Bassett-Ḧeidi-florencê-Jo" +
