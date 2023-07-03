@@ -78,11 +78,11 @@ namespace WCCIS.Specs.Features.Person.PersonSearch
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Perform a person search using house number & postcode and ensure returned record " +
             "is correct")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
+        [NUnit.Framework.CategoryAttribute("Regression")]
         public void PerformAPersonSearchUsingHouseNumberPostcodeAndEnsureReturnedRecordIsCorrect()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "Regression"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Perform a person search using house number & postcode and ensure returned record " +
                     "is correct", null, tagsOfScenario, argumentsOfScenario, featureTags);
