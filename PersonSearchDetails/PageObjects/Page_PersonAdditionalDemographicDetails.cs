@@ -427,6 +427,15 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
+        //Method to select a value from the MH Measure dropdown menu
+
+        public static void EnterMHMeasure(IWebDriver driver, string mhMeasure)
+        {
+            ClickLabelMHMeasure(driver);
+            SelectMHMEasureFromDropDown(driver, mhMeasure);
+        }
+
+
 
 
         //private
@@ -1356,6 +1365,39 @@ namespace WCCIS.Specs.PageObjects
         {
             driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_upnunknownreasonid_IMenu\"]"));
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + upnUnknowReason + "')]]")).Click();
+        }
+
+
+        //Method to click the click the MH Measure label
+
+        private static void ClickLabelMHMEasure(IWebDriver driver)
+        {
+            string labelMHMEasure = "//*[@id=\"cw_mentalhealthmeasure_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelMHMEasure));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelMHMEasure));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a MH Measure from the dropdown
+
+        private static void SelectMHMeasureFromDropDown(IWebDriver driver, string mhMeasure)
+        {
+            IWebElement dropDownMHMeasure = LocateDropDownMHMeasure(driver);
+            var selectMHMeasure = new SelectElement(dropDownMHMeasure);
+            selectMHMeasure.SelectByText(mhMeasure);
+        }
+
+        //Method to locate MH Measure from the dropdown
+
+        private static IWebElement LocateDropDownMHMeasure(IWebDriver driver)
+        {
+            string dropDownNationalityLocation = "cw_nationality_i";
+            driver.WaitUntilVisible(By.Id(dropDownNationalityLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement nationalityDropDown = driver.FindElement(By.Id(dropDownNationalityLocation));
+            return nationalityDropDown;
         }
 
     }
