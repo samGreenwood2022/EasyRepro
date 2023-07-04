@@ -157,6 +157,96 @@ namespace WCCIS.Specs.PageObjects
             ClickLabelReferralOrigin(driver);
             SelectReferralOriginFromDropDown(driver, referralOrigin);
         }
+        
+        
+        
+        //Method to enter a value into the Source Organization field
+
+
+        public static void EnterSourceOrganization(IWebDriver driver, string sourceOrganization, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelSourceOrganization(driver);
+                ClickLookupSourceOrganization(driver);
+                SelectSourceOrganizationLookup(driver, sourceOrganization);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelSourceOrganization(driver);
+                EnterTextIntoSourceOrganizationField(driver, sourceOrganization);
+            }
+        }
+
+
+        //Method to enter a value into the Referal Reason field
+
+
+        public static void EnterReferralSource(IWebDriver driver, string referralSource, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelReferralSource(driver);
+                ClickLookupReferralSource(driver);
+                SelectReferralSourceUsingLookup(driver, referralSource);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelReferralSource(driver);
+                EnterTextIntoReferralSourceField(driver, referralSource);
+            }
+
+        }
+
+
+        //Method to enter a value into the Freetext Source Name field
+
+        public static void EnterFreetextSourceName(IWebDriver driver, string freetextSourceName)
+        {
+            ClickLabelFreetextSourceName(driver);
+            EnterTextIntoFieldFreetextSourceName(driver, freetextSourceName);
+        }
+
+
+        //Method to enter a value into the Source Name field
+
+
+        public static void EnterSourceName(IWebDriver driver, string sourceName, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelSourceName(driver);
+                ClickLookupSourceName(driver);
+                SelectSourceNameUsingLookup(driver, sourceName);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelSourceName(driver);
+                EnterTextIntoSourceNameField(driver, sourceName);
+            }
+        }
+
 
 
 
@@ -245,13 +335,14 @@ namespace WCCIS.Specs.PageObjects
             IWebElement date = driver.FindElement(By.XPath(textFieldReferralDate));
             date.SendKeys(referralDate);
 
-            string labelReferralDateTime = "//*[@id=\"cw_contactdatetime\"]/div[1]";
-            driver.WaitUntilVisible(By.XPath(labelReferralDateTime));
-            IWebElement labelLocation = driver.FindElement(By.XPath(labelReferralDateTime));
-            labelLocation.Click();
+            //string labelReferralDateTime = "//*[@id=\"cw_contactdatetime\"]/div[1]";
+            //driver.WaitUntilVisible(By.XPath(labelReferralDateTime));
+            //IWebElement labelLocation = driver.FindElement(By.XPath(labelReferralDateTime));
+            //labelLocation.Click();
 
             string textFieldReferralTime = "//*[@id=\"cw_contactdatetime_iTimeInput\"]";
             driver.WaitUntilVisible(By.XPath(textFieldReferralTime));
+            driver.FindElement(By.XPath(textFieldReferralTime)).Click();
             driver.FindElement(By.XPath(textFieldReferralTime)).Clear();
             IWebElement time = driver.FindElement(By.XPath(textFieldReferralTime));
             time.SendKeys(referralTime);
@@ -313,7 +404,7 @@ namespace WCCIS.Specs.PageObjects
         private static void SelectIsPersonCarerAwareOfReferralFromDropDown(IWebDriver driver, string isPersonCarerAwareOfReferral)
         {
             int index;
-
+            //Convert the incoming parameter value to the index location of that value in the dropdown menu
             if(isPersonCarerAwareOfReferral == "Yes")
             {
                 index = 1;
@@ -458,6 +549,141 @@ namespace WCCIS.Specs.PageObjects
         }
 
 
+        //Method to click the click the Source Organization label
+
+        private static void ClickLabelSourceOrganization(IWebDriver driver)
+        {
+            string labelSourceOrganization = "//*[@id=\"cw_referralreasonid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSourceOrganization));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelSourceOrganization));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Source Organization field
+
+        private static void EnterTextIntoSourceOrganizationField(IWebDriver driver, string sourceOrganization)
+        {
+            string textFieldSourceOrganization = "//*[@id=\"cw_referralreasonid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldSourceOrganization));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldSourceOrganization));
+            inputField.SendKeys(sourceOrganization);
+        }
+
+
+        //Method to click the lookup button next to the Source Organization field
+
+        private static void ClickLookupSourceOrganization(IWebDriver driver)
+        {
+            IWebElement lookupSourceOrganization = driver.FindElement(By.XPath("//*[@id=\"cw_sourceorganizationid_lookupSearchIconDiv\"]"));
+            lookupSourceOrganization.Click();
+        }
+
+
+        //Method to select a Source Organization from the lookup menu
+
+        private static void SelectSourceOrganizationLookup(IWebDriver driver, string sourceOrganization)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_sourceorganizationid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + sourceOrganization + "')]]")).Click();
+        }
+
+
+        //Method to click the click the Referral Source label
+
+        private static void ClickLabelReferralSource(IWebDriver driver)
+        {
+            string labelReferralSource = "//*[@id=\"cw_referralsourceid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelReferralSource));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelReferralSource));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Referral Source field
+
+        private static void EnterTextIntoReferralSourceField(IWebDriver driver, string referralSource)
+        {
+            string textFieldReferralSource = "//*[@id=\"cw_referralsourceid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldReferralSource));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldReferralSource));
+            inputField.SendKeys(referralSource);
+        }
+
+        //Method to click the lookup button next to the Referral Source field
+
+        private static void ClickLookupReferralSource(IWebDriver driver)
+        {
+            IWebElement lookupReferralSource = driver.FindElement(By.XPath("//*[@id=\"cw_referralsourceid_lookupSearch\"]"));
+            lookupReferralSource.Click();
+        }
+
+
+        //Method to select a Referral Source from the lookup menu
+
+        private static void SelectReferralSourceUsingLookup(IWebDriver driver, string referralSource)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_referralsourceid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + referralSource + "')]]")).Click();
+        }
+
+
+        //Method to click the Freetext Source Name label
+
+        private static void ClickLabelFreetextSourceName(IWebDriver driver)
+        {
+            string labelFreetextSourceName = "//*[@id=\"cw_reasontext_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelFreetextSourceName));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelFreetextSourceName));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Freetext Source Name field
+
+        private static void EnterTextIntoFieldFreetextSourceName(IWebDriver driver, string freetextSourceName)
+        {
+            string textFieldFreetextSourceName = "//*[@id=\"cw_freetextsourcename_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldFreetextSourceName));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldFreetextSourceName));
+            inputField.SendKeys(freetextSourceName);
+        }
+
+
+        //Method to click the click the Source Name label
+
+        private static void ClickLabelSourceName(IWebDriver driver)
+        {
+            string labelSourceName = "//*[@id=\"cw_sourcenameid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSourceName));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelSourceName));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Source Name field
+
+        private static void EnterTextIntoSourceNameField(IWebDriver driver, string sourceName)
+        {
+            string textFieldSourceName = "//*[@id=\"cw_sourcenameid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldSourceName));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldSourceName));
+            inputField.SendKeys(sourceName);
+        }
+
+        //Method to click the lookup button next to the Source Name field
+
+        private static void ClickLookupSourceName(IWebDriver driver)
+        {
+            IWebElement lookupSourceName = driver.FindElement(By.XPath("//*[@id=\"cw_sourcenameid_lookupSearch\"]"));
+            lookupSourceName.Click();
+        }
+
+
+        //Method to select a Source Name from the lookup menu
+
+        private static void SelectSourceNameUsingLookup(IWebDriver driver, string sourceName)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_referralreasonid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + sourceName + "')]]")).Click();
+        }
 
     }
 }

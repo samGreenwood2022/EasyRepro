@@ -6,7 +6,7 @@ The newly created person can then be returned from a person search
 
 @tag1
 Scenario Outline: Ensure a new person can be created by completing mandatory fields only
-	Given that an adult support worker has logged in
+	Given that i've logged in as an administrator
 	When a person is created by completing mandatory fields only <firstname> and <dob> and <dateMovedIn> and <Ethnicity> and <Gender> and <preferredLanguage>
 	Then new person can be returned in a search <firstname> and <dob>
 	Examples: 
