@@ -41,30 +41,38 @@ namespace WCCIS.specs.StepDefinitions
         public void WhenAPersonIsCreatedByCompletingMandatoryFieldsOnly(string firstName, string dob, string dateMovedIn, string ethnicity, string gender, string preferredLanguage)
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
-            lastName = DHCWExtensions.RandomString(6, false);
-            
+            //lastName = DHCWExtensions.RandomString(6, false);
+
             //Open New Person Window
-            SharedNavigation.ClickPeople(xrmBrowser);
-            SharedNavigation.ClickNewPerson(xrmBrowser);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //SharedNavigation.ClickPeople(xrmBrowser);
+            //SharedNavigation.ClickNewPerson(xrmBrowser);
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
 
-            xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
+            //xrmBrowser.ThinkTime(1000);
+            //// select the correct iFrame
+            //driver.SwitchTo().Frame("contentIFrame1");
+            //xrmBrowser.ThinkTime(1000);
+            //driver.WaitForPageToLoad();
+            //Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+            //Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+            //Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+            //Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+            //Page_PersonCoreDemographics.EnterGender(driver, gender);
+            //Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+            //Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
+            //Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
+            //Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
+            //Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
+
             driver.SwitchTo().Frame("contentIFrame1");
-            xrmBrowser.ThinkTime(1000);
-            driver.WaitForPageToLoad();
-            Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
-            Page_PersonCoreDemographics.EnterLastName(driver, lastName);
-            Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
-            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
-            Page_PersonCoreDemographics.EnterGender(driver, gender);
-            Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
-            Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
 
-            Page_PersonAdditionalDemographicDetails.OpenAdditionalDemographicDetails(driver);
-            Page_PersonAdditionalDemographicDetails.EnterTargetGroup(driver, "Islander");
-            Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
-
+            Page_SocialCareReferral.EnterReferralReason(driver, "Adoption Letterbox");
+            Page_SocialCareReferral.EnterReasonText(driver, "some sample text");
+            // Page_SocialCareReferral.EnterLastReferralDateTime(driver, "01/01/2000", "08:00");
+            Page_SocialCareReferral.EnterIsPersonCarerAwareOfReferral(driver, "Yes");
+            Page_SocialCareReferral.EnterPriority(driver, "2 Urgent");
+            Page_SocialCareReferral.EnterCINCode(driver, "Educational Placement");
 
 
             // save the record

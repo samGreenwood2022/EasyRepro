@@ -57,7 +57,7 @@ namespace WCCIS.Specs.PageObjects
 
             if (!isUsingDatePicker)
             {
-                ClickLabelReferralReason(driver);
+                ClickLabelReferralDateTime(driver);
                 EnterTextIntoFieldReferralDateTime(driver, referralDate, referralTime);
             }
         }
@@ -96,6 +96,69 @@ namespace WCCIS.Specs.PageObjects
             ClickLabelIsPersonCarerAwareOfReferral(driver);
             SelectIsPersonCarerAwareOfReferralFromDropDown(driver, isPersonCarerAwareOfReferral);
         }
+
+
+        //Method to enter a value into the CINCode field
+
+
+        public static void EnterCINCode(IWebDriver driver, string cinCode, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelCINCode(driver);
+                ClickLookupCINCode(driver);
+                SelectCINCodeLookup(driver, cinCode);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelCINCode(driver);
+                EnterTextIntoCINCodeField(driver, cinCode);
+            }
+        }
+
+
+        //Method to enter a value into the Source Organisation field
+
+
+        public static void EnterSourceOrganisation(IWebDriver driver, string sourceOrganisation, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelSourceOrganisation(driver);
+                SelectLookupSourceOrganisation(driver);
+                SelectLookupUsingSourceOrganisation(driver, sourceOrganisation);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelSourceOrganisation(driver);
+                EnterTextIntoSourceOrganisationField(driver, sourceOrganisation);
+            }
+        }
+
+
+        //Method to select an option from the Referral Origin dropdown
+
+        public static void EnterReferralOrigin(IWebDriver driver, string referralOrigin)
+        {
+            ClickLabelReferralOrigin(driver);
+            SelectReferralOriginFromDropDown(driver, referralOrigin);
+        }
+
+
 
 
 
@@ -178,11 +241,18 @@ namespace WCCIS.Specs.PageObjects
         {
             string textFieldReferralDate = "//*[@id=\"cw_contactdatetime_iDateInput\"]";
             driver.WaitUntilVisible(By.XPath(textFieldReferralDate));
+            driver.FindElement(By.XPath(textFieldReferralDate)).Clear();
             IWebElement date = driver.FindElement(By.XPath(textFieldReferralDate));
             date.SendKeys(referralDate);
 
+            string labelReferralDateTime = "//*[@id=\"cw_contactdatetime\"]/div[1]";
+            driver.WaitUntilVisible(By.XPath(labelReferralDateTime));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelReferralDateTime));
+            labelLocation.Click();
+
             string textFieldReferralTime = "//*[@id=\"cw_contactdatetime_iTimeInput\"]";
             driver.WaitUntilVisible(By.XPath(textFieldReferralTime));
+            driver.FindElement(By.XPath(textFieldReferralTime)).Clear();
             IWebElement time = driver.FindElement(By.XPath(textFieldReferralTime));
             time.SendKeys(referralTime);
 
@@ -242,22 +312,151 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectIsPersonCarerAwareOfReferralFromDropDown(IWebDriver driver, string isPersonCarerAwareOfReferral)
         {
-            IWebElement dropDownisPersonCarerAwareOfReferral = LocateDropDownVeteran(driver);
+            int index;
+
+            if(isPersonCarerAwareOfReferral == "Yes")
+            {
+                index = 1;
+            }
+            else
+            {
+                index = 0;
+            }
+
+            IWebElement dropDownisPersonCarerAwareOfReferral = LocateDropDownIsPersonCarerAwareOfReferral(driver);
             var selectIsPersonCarerAwareOfReferral = new SelectElement(dropDownisPersonCarerAwareOfReferral);
-            selectIsPersonCarerAwareOfReferral.SelectByValue(isPersonCarerAwareOfReferral);
+            selectIsPersonCarerAwareOfReferral.SelectByIndex(index);
         }
 
         //Method to locate a value from the Is Person or carer aware of the referral dropdown
 
         private static IWebElement LocateDropDownIsPersonCarerAwareOfReferral(IWebDriver driver)
         {
-            string dropDownIsPersonCarerAwareOfReferralLocation = "cw_veteran_i";
+            string dropDownIsPersonCarerAwareOfReferralLocation = "cw_isthepersoncarerawareofthereferral_i";
             driver.WaitUntilVisible(By.Id(dropDownIsPersonCarerAwareOfReferralLocation));
             //Find the drop down only
             // act on the returned value to select items or check current value 
             IWebElement isPersonCarerAwareOfReferralDropDown = driver.FindElement(By.Id(dropDownIsPersonCarerAwareOfReferralLocation));
             return isPersonCarerAwareOfReferralDropDown;
         }
+
+
+        //Method to click the click the CINCode label
+
+        private static void ClickLabelCINCode(IWebDriver driver)
+        {
+            string labelCINCode = "//*[@id=\"cw_cinrefid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelCINCode));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelCINCode));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the CIN Code field
+
+        private static void EnterTextIntoCINCodeField(IWebDriver driver, string cinCode)
+        {
+            string textFieldCINCode = "//*[@id=\"cw_cinrefid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldCINCode));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldCINCode));
+            inputField.SendKeys(cinCode);
+        }
+
+        //Method to click the lookup button next to the CIN Code field
+
+        private static void ClickLookupCINCode(IWebDriver driver)
+        {
+            IWebElement lookupCINCode = driver.FindElement(By.XPath("//*[@id=\"cw_cinrefid_lookupSearch\"]"));
+            lookupCINCode.Click();
+        }
+
+        //Method to select a CIN Code from the lookup menu
+
+        private static void SelectCINCodeLookup(IWebDriver driver, string cinCode)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_cinrefid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + cinCode + "')]]")).Click();
+        }
+
+
+        //Method to select a Source Organisation from the lookup menu
+
+        private static void SelectLookupSourceOrganisation(IWebDriver driver, string sourceOrganisation )
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_sourceorganizationid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + sourceOrganisation + "')]]")).Click();
+        }
+
+
+        //Method to click the click the Source Organisation label
+
+        private static void ClickLabelSourceOrganisation(IWebDriver driver)
+        {
+            string labelSourceOrganisation = "//*[@id=\"cw_sourceorganizationid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSourceOrganisation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelSourceOrganisation));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Source Organisation field
+
+        private static void EnterTextIntoSourceOrganisationField(IWebDriver driver, string sourceOrganisation)
+        {
+            string textFieldSourceOrganisation = "//*[@id=\"cw_sourceorganizationid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldSourceOrganisation));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldSourceOrganisation));
+            inputField.SendKeys(sourceOrganisation);
+        }
+
+        //Method to click the lookup button next to the Source Organisation field
+
+        private static void SelectLookupSourceOrganisation(IWebDriver driver)
+        {
+            IWebElement lookupSourceOrganisation = driver.FindElement(By.XPath("//*[@id=\"cw_sourceorganizationid_lookupSearch\"]"));
+            lookupSourceOrganisation.Click();
+        }
+
+
+        //Method to select a Source Organisation from the lookup menu
+
+        private static void SelectLookupUsingSourceOrganisation(IWebDriver driver, string sourceOrganisation)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_sourceorganizationid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + sourceOrganisation + "')]]")).Click();
+        }
+
+
+        //Method to click the click the Referral Origin label
+
+        private static void ClickLabelReferralOrigin(IWebDriver driver)
+        {
+            string labelReferralOriginLocation = "//*[@id=\"cw_isthepersoncarerawareofthereferral_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelReferralOriginLocation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelReferralOriginLocation));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a value from the Referral Origin dropdown
+
+        private static void SelectReferralOriginFromDropDown(IWebDriver driver, string referralOrigin)
+        {
+            IWebElement dropDownReferralOrigin = LocateDropDownReferralOrigin(driver);
+            var selectReferralOrigin = new SelectElement(dropDownReferralOrigin);
+            selectReferralOrigin.SelectByValue(referralOrigin);
+        }
+
+        //Method to locate a value from the Referral Origin dropdown
+
+        private static IWebElement LocateDropDownReferralOrigin(IWebDriver driver)
+        {
+            string dropDownReferralOriginLocation = "caseorigincode_i";
+            driver.WaitUntilVisible(By.Id(dropDownReferralOriginLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement referralOriginDropDown = driver.FindElement(By.Id(dropDownReferralOriginLocation));
+            return referralOriginDropDown;
+        }
+
 
 
     }
