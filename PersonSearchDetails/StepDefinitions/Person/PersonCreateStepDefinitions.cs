@@ -69,7 +69,7 @@ namespace WCCIS.specs.StepDefinitions
 
             Page_SocialCareReferral.EnterReferralReason(driver, "Adoption Letterbox");
             Page_SocialCareReferral.EnterReasonText(driver, "some sample text");
-            // Page_SocialCareReferral.EnterLastReferralDateTime(driver, "01/01/2000", "08:00");
+            Page_SocialCareReferral.EnterLastReferralDateTime(driver, "01/01/2000", "08:00");
             Page_SocialCareReferral.EnterIsPersonCarerAwareOfReferral(driver, "Yes");
             Page_SocialCareReferral.EnterPriority(driver, "2 Urgent");
             Page_SocialCareReferral.EnterCINCode(driver, "Educational Placement");
