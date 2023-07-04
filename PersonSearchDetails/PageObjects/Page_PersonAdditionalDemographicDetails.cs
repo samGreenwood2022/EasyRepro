@@ -1,5 +1,6 @@
 ﻿using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
@@ -7,27 +8,31 @@ using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 namespace WCCIS.Specs.PageObjects
 {
     internal class Page_PersonAdditionalDemographicDetails
-    {        
+    {
         //public
+
+
+        //Method which waits for a web element to become clickable
+
+        public static IWebElement WaitForClickablility(IWebElement element, IWebDriver driver, TimeSpan timeout)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
+            return wait.Until(ExpectedConditions.ElementToBeClickable(element));
+        }
+
 
         //Method to open the Additional Demographic Details section
 
         public static void OpenAdditionalDemographicDetails(IWebDriver driver)
         {
+            //Wait for the element to become clickable
             IWebElement additionalDemographicDetails = LocateButtonAdditionalDemographicDetails(driver);
-            additionalDemographicDetails.Click();//Deal with this better
+            WaitForClickablility(additionalDemographicDetails, driver, TimeSpan.FromSeconds(10));
             additionalDemographicDetails.Click();
+            additionalDemographicDetails.Click();//Open to suggestions on how to deal with this better
             //Accept the alert when displayed
-            try
-            {
-                WebDriverWait Wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(10));
-                Wait.Until(ExpectedConditions.AlertIsPresent());
-                AcceptAlert(driver);
-            }
-            catch (NoAlertPresentException)
-            {
-                Console.WriteLine("The Alert has not been displayed");
-            }
+            AcceptAlert(driver);
+
         }
 
         //Method to enter text into the Target Group field
@@ -98,6 +103,18 @@ namespace WCCIS.Specs.PageObjects
             //This activates the field, so you can set the dropdown
             ClickLabelCountryOfOrigin(driver);
             SelectCountryOfOriginFromDropDown(driver, countryOfOrigin);
+        }
+
+
+        //Method to select a Religion from dropdown
+
+        public static void EnterReligion(IWebDriver driver, string religion)
+        {
+            //This is the public method - as in other fields you must select it first
+            //You do this by clicking into the field ClickReligion Label
+            //This activates the field, so you can set the dropdown
+            ClickLabelReligion(driver);
+            SelectReligionFromDropDown(driver, religion);
         }
 
         //Method to enter text into the Last Menstrual Period (LMP)
@@ -192,7 +209,7 @@ namespace WCCIS.Specs.PageObjects
                 //The old method
                 //still valid, but enters text only
                 ClickLabelImmigrationStatus(driver);
-                EnterImmigrationStatus(driver, immigrationStatus);
+                EnterTextIntoImmigrationStatusField(driver, immigrationStatus);
             }
         }
 
@@ -208,7 +225,7 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to select an option from the Lives Alone dropdown
 
-        public static void EnterLivesAlone(IWebDriver driver, string livesAlone)
+        public static void EnterLivesAlone(IWebDriver driver, int livesAlone)
         {
             ClickLabelLivesAlone(driver);
             SelectLivesAloneOptionFromDropDown(driver, livesAlone);
@@ -245,8 +262,177 @@ namespace WCCIS.Specs.PageObjects
                 //The old method
                 //still valid, but enters text only
                 ClickLabelLMPConfirmedBy(driver);
-                EnterTextIntoLMPConfirmedByField(driver, lmpConfirmedBy);
+                EnterTextIntoFieldLMPConfirmedBy(driver, lmpConfirmedBy);
             }
+        }
+
+
+        //Method to change the value in the Has Teenage Parent field
+
+        public static void EnterTeenageParent(IWebDriver driver, string hasTeenageParent)
+        {
+            SelectValueForTeenageParentField(driver, hasTeenageParent);
+        }
+
+
+        //Method a enter a value into the Days Gestation field
+
+        public static void EnterDaysGestation(IWebDriver driver, string dob)
+        {
+            ClickLabelDaysGestation(driver);
+            EnterTextIntoFieldDaysGestation(driver, dob);
+        }
+
+
+        //Method to enter text into the Expected Date Of Birth field
+
+        public static void EnterExpectedDateOfBirth(IWebDriver driver, string expectedDateOfBirth, bool isUsingDatePicker = false)
+        {
+            if (isUsingDatePicker)
+            {
+                throw new NotImplementedException();
+                //LocateDMIPickerButton
+                //SelectUsingDMIPicker
+            }
+
+            if (!isUsingDatePicker)
+            {
+                ClickLabelExpectedDateOfBirth(driver);
+                EnterTextIntoFieldExpectedDateOfBirth(driver, expectedDateOfBirth);
+            }
+        }
+
+
+        //Method to select an option from the Signing Required dropdown
+
+        public static void EnterSigningRequired(IWebDriver driver, string isSigningRequired)
+        {
+            ClickLabelSigningRequired(driver);
+            SelectSigningRequiredFromDropDown(driver, isSigningRequired);
+        }
+
+
+        //Method a enter a value into the SSD Number field
+
+        public static void EnterSSDNumber(IWebDriver driver, string SSDNo)
+        {
+            ClickLabelSSDNumber(driver);
+            EnterTextIntoFieldSSDNumber(driver, SSDNo);
+        }
+
+
+        //Method a enter a value into the NI No field
+
+        public static void EnterNINo(IWebDriver driver, string NINo)
+        {
+            ClickLabelNINo(driver);
+            EnterTextIntoFieldNINo(driver, NINo);
+        }
+
+
+        //Method a enter a value into the NHS No (Pre 1995) field
+
+        public static void EnterNHSNoPre1995(IWebDriver driver, string nhsNo)
+        {
+            ClickLabelNHSNoPre1995(driver);
+            EnterTextIntoFieldNHSNoPre1995(driver, nhsNo);
+        }
+
+
+        //Method a enter a value into the Unique Pupil No field
+
+        public static void EnterUniquePupilNo(IWebDriver driver, string uniquePupilNo)
+        {
+            ClickLabelUniquePupilNo(driver);
+            EnterTextIntoFieldUniquePupilNo(driver, uniquePupilNo);
+        }
+
+
+        //Method a enter a value into the Former Unique Pupil No field
+
+        public static void EnterFormerUniquePupilNo(IWebDriver driver, string formerUniquePupilNo)
+        {
+            ClickLabelFormerUniquePupilNo(driver);
+            EnterTextIntoFieldFormerUniquePupilNo(driver, formerUniquePupilNo);
+        }
+
+
+        //Method a enter a value into the Professional Registration No field
+
+        public static void EnterProfessionalRegistrationNo(IWebDriver driver, string professionalRegistrationNo)
+        {
+            ClickLabelProfessionalRegistrationNo(driver);
+            EnterTextIntoFieldProfessionalRegistrationNo(driver, professionalRegistrationNo);
+        }
+
+
+        //Method a enter a value into the Court Case No field
+
+        public static void EnterCourtCaseNo(IWebDriver driver, string courtCaseNo)
+        {
+            ClickLabelCourtCaseNo(driver);
+            EnterTextIntoFieldCourtCaseNo(driver, courtCaseNo);
+        }
+
+
+        //Method a enter a value into the Birth Certificate No field
+
+        public static void EnterBirthCertificateNo(IWebDriver driver, string birthCertificateNo)
+        {
+            ClickLabelBirthCertificateNo(driver);
+            EnterTextIntoFieldBirthCertificateNo(driver, birthCertificateNo);
+        }
+
+
+        //Method to change the value in the Is External Person field
+
+        public static void EnterIsExternalPerson(IWebDriver driver, string isExternalPerson)
+        {
+            SelectValueForIsExternalPersonField(driver, isExternalPerson);
+        }
+
+
+        //Method a enter a value into the Home Office Registration No field
+
+        public static void EnterHomeOfficeRegistrationNo(IWebDriver driver, string homeOfficeRegistrationNo)
+        {
+            ClickLabelHomeOfficeRegistrationNo(driver);
+            EnterTextIntoFieldHomeOfficeRegistrationNo(driver, homeOfficeRegistrationNo);
+        }
+
+
+        //Method to enter text into the UPN Unknown Reason field
+
+
+        public static void EnterUPNUnknownReason(IWebDriver driver, string upnUnknownReason, bool isUsingLookup = true)
+        {
+            if (isUsingLookup)
+            {
+                //Default pathway
+                //Selects the lookup button
+                //Then clicks the item from lookup menu that contains our value
+                ClickLabelUPNUnknownReason(driver);
+                ClickLookupUPNUnknownReason(driver);
+                SelectUPNUnknownReasonUsingLookup(driver, upnUnknownReason);
+
+            }
+
+            if (!isUsingLookup)
+            {
+                //The old method
+                //still valid, but enters text only
+                ClickLabelUPNUnknownReason(driver);
+                EnterUPNUnknownReason(driver, upnUnknownReason);
+            }
+        }
+
+
+        //Method to select a value from the MH Measure dropdown menu
+
+        public static void EnterMHMeasure(IWebDriver driver, string mhMeasure)
+        {
+            ClickLabelMHMeasure(driver);
+            SelectMHMeasureFromDropDown(driver, mhMeasure);
         }
 
 
@@ -426,7 +612,7 @@ namespace WCCIS.Specs.PageObjects
             selectElementReligion.SelectByText(religion);
         }
 
-        //Method to locate Religion from the dropdown
+        //Method to locate the Religion dropdown
 
         private static IWebElement LocateDropDownReligion(IWebDriver driver)
         {
@@ -559,20 +745,32 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectIsVeteranFromDropDown(IWebDriver driver, string isVeteran)
         {
+         
+            int index;
+
+            if (isVeteran == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
             IWebElement dropDownVeteran = LocateDropDownVeteran(driver);
             var selectVeteran = new SelectElement(dropDownVeteran);
-            selectVeteran.SelectByValue(isVeteran);
+            selectVeteran.SelectByIndex(index);
         }
 
         //Method to locate Veteran from the dropdown
 
         private static IWebElement LocateDropDownVeteran(IWebDriver driver)
         {
-            string dropDownVeteranLocation = "cw_veteran_i";
-            driver.WaitUntilVisible(By.Id(dropDownVeteranLocation));
+            string dropDownVeteranLocation = "//*[@id=\"cw_veteran_i\"]";
+            driver.WaitUntilVisible(By.XPath(dropDownVeteranLocation));
             //Find the drop down only
             // act on the returned value to select items or check current value 
-            IWebElement veteranDropDown = driver.FindElement(By.Id(dropDownVeteranLocation));
+            IWebElement veteranDropDown = driver.FindElement(By.XPath(dropDownVeteranLocation));
             return veteranDropDown;
         }
 
@@ -592,9 +790,20 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectIsInterpreterRequiredFromDropDown(IWebDriver driver, string isInterpreterRequired)
         {
+            int index;
+
+            if (isInterpreterRequired == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
             IWebElement dropDownInterpreterRequired = LocateDropDownInterpreterRequired(driver);
             var selectInterpreterRequired = new SelectElement(dropDownInterpreterRequired);
-            selectInterpreterRequired.SelectByValue(isInterpreterRequired);
+            selectInterpreterRequired.SelectByIndex(index);
         }
 
         //Method to locate an Interpreter Required option from the dropdown
@@ -706,11 +915,11 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to select an option for Lives Alone from the dropdown
 
-        private static void SelectLivesAloneOptionFromDropDown(IWebDriver driver, string livesAlone)
+        private static void SelectLivesAloneOptionFromDropDown(IWebDriver driver, int livesAlone)
         {
             IWebElement dropDownLivesAlone = LocateDropDownLivesAlone(driver);
             var selectLivesAlone = new SelectElement(dropDownLivesAlone);
-            selectLivesAlone.SelectByValue(livesAlone);
+            selectLivesAlone.SelectByIndex(livesAlone);
         }
 
         //Method to locate an Lives Alone option from the dropdown
@@ -779,12 +988,416 @@ namespace WCCIS.Specs.PageObjects
 
         //Method to enter text into the LMP Confirmed By field
 
-        private static void EnterTextIntoLMPConfirmedByField(IWebDriver driver, string lmpConfirmedBy)
+        private static void EnterTextIntoFieldLMPConfirmedBy(IWebDriver driver, string dateOfBirth)
         {
-            string textFieldLMGConfirmedBy = "//*[@id=\"cw_immigrationstatusreferenceid_ledit\"]";
-            driver.WaitUntilVisible(By.XPath(textFieldLMGConfirmedBy));
-            IWebElement inputField = driver.FindElement(By.XPath(textFieldLMGConfirmedBy));
-            inputField.SendKeys(lmpConfirmedBy);
+            string textFieldDateOfBirth = "//*[@id=\"cw_placeofbirth_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldDateOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldDateOfBirth));
+            inputField.SendKeys(dateOfBirth);
+        }
+
+
+        //Method to select an option from the Has Teenage Parent field
+
+        private static void SelectValueForTeenageParentField(IWebDriver driver, string hasTeenageParent)
+        {
+            string textFieldHasTeenageParentLabel = "//*[@id=\"cw_teenagemother_cl\"]";
+            string textFieldLocation = "//*[@id=\"cw_teenagemother\"]";
+            string textFieldValue = driver.FindElement(By.XPath(textFieldLocation)).Text;
+
+            if (hasTeenageParent == "No")
+            {
+                if (textFieldValue == "Yes")
+                {
+                    driver.FindElement(By.XPath(textFieldHasTeenageParentLabel)).Click();
+                }
+            } else
+            {
+                if (textFieldValue == "No")
+                {
+                    driver.FindElement(By.XPath(textFieldHasTeenageParentLabel)).Click();
+                }
+            }
+        }
+
+
+        //Method to click the click the Days Gestation label
+
+        private static void ClickLabelDaysGestation(IWebDriver driver)
+        {
+            string labelDaysGestation = "//*[@id=\"cw_daysgestation_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelDaysGestation));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelDaysGestation));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Days Gestation field
+
+        private static void EnterTextIntoFieldDaysGestation(IWebDriver driver, string daysGestation)
+        {
+            string textFieldDaysGestationh = "//*[@id=\"cw_daysgestation_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldDaysGestationh));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldDaysGestationh));
+            inputField.SendKeys(daysGestation);
+        }
+
+
+        //Method to click the click the Expected Date Of Birth label
+
+        private static void ClickLabelExpectedDateOfBirth(IWebDriver driver)
+        {
+            string labelExpectedDateOfBirth = "//*[@id=\"cw_expecteddateofbirth\"]";
+            driver.WaitUntilVisible(By.XPath(labelExpectedDateOfBirth));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelExpectedDateOfBirth));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the Expected Date Of Birth field
+
+        private static void EnterTextIntoFieldExpectedDateOfBirth(IWebDriver driver, string expectedDateOfBirth)
+        {
+            string textFieldExpectedDateOfBirth = "//*[@id=\"cw_expecteddateofbirth_iDateInput\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldExpectedDateOfBirth));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldExpectedDateOfBirth));
+            inputField.SendKeys(expectedDateOfBirth);
+        }
+
+
+        //Method to click the click the Signing Required label
+
+        private static void ClickLabelSigningRequired(IWebDriver driver)
+        {
+            string labelSigningRequiredLocation = "//*[@id=\"cw_signingrequired_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSigningRequiredLocation));
+            IWebElement labeSigningRequired = driver.FindElement(By.XPath(labelSigningRequiredLocation));
+            labeSigningRequired.Click();
+        }
+
+
+        //Method to select a value from the Signing Required dropdown
+
+        private static void SelectSigningRequiredFromDropDown(IWebDriver driver, string isSigningRequired)
+        {
+            int index;
+
+            if (isSigningRequired == "Yes")
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+
+            IWebElement dropDownSigningRequired = LocateDropDownSigningRequired(driver);
+            var selectSigningRequired = new SelectElement(dropDownSigningRequired);
+            selectSigningRequired.SelectByIndex(index);
+        }
+
+
+        //Method to locate Signing Required Value from the dropdown
+
+        private static IWebElement LocateDropDownSigningRequired(IWebDriver driver)
+        {
+            string dropDownSigningRequiredLocation = "cw_signingrequired_i";
+            driver.WaitUntilVisible(By.Id(dropDownSigningRequiredLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement signingRequiredDropDown = driver.FindElement(By.Id(dropDownSigningRequiredLocation));
+            return signingRequiredDropDown;
+        }
+
+
+        //Method to click the click the SSD Number label
+
+        private static void ClickLabelSSDNumber(IWebDriver driver)
+        {
+            string labelSSDNumber = "//*[@id=\"cw_ssdnumber_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelSSDNumber));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelSSDNumber));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the SSD Number field
+
+        private static void EnterTextIntoFieldSSDNumber(IWebDriver driver, string ssdNumber)
+        {
+            string textFieldSSDNumber = "//*[@id=\"cw_ssdnumber_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldSSDNumber));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldSSDNumber));
+            inputField.SendKeys(ssdNumber);
+        }
+
+
+        //Method to click the click the NI No label
+
+        private static void ClickLabelNINo(IWebDriver driver)
+        {
+            string labelNINo = "//*[@id=\"cw_nationalinsuranceno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNINo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNINo));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the NI No field
+
+        private static void EnterTextIntoFieldNINo(IWebDriver driver, string niNo)
+        {
+            string textFieldNINo = "//*[@id=\"cw_nationalinsuranceno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldNINo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldNINo));
+            inputField.SendKeys(niNo);
+        }
+
+
+        //Method to click the click the NHS No (Pre 1995) label
+
+        private static void ClickLabelNHSNoPre1995(IWebDriver driver)
+        {
+            string labelNHSNoPre1995 = "//*[@id=\"cw_nhsnopre1995_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelNHSNoPre1995));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelNHSNoPre1995));
+            labelLocation.Click();
+        }
+
+        //Method to enter text into the NHS No (Pre 1995) field
+
+        private static void EnterTextIntoFieldNHSNoPre1995(IWebDriver driver, string nhsNoPre1995)
+        {
+            string textFieldNHSNoPre1995 = "//*[@id=\"cw_nhsnopre1995_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldNHSNoPre1995));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldNHSNoPre1995));
+            inputField.SendKeys(nhsNoPre1995);
+        }
+
+
+        //Method to click the click the Unique Pupil No label
+
+        private static void ClickLabelUniquePupilNo(IWebDriver driver)
+        {
+            string labelUniquePupilNo = "//*[@id=\"cw_uniquepupilno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelUniquePupilNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelUniquePupilNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Unique Pupil No field
+
+        private static void EnterTextIntoFieldUniquePupilNo(IWebDriver driver, string uniquePupilNo)
+        {
+            string textFieldUniquePupilNo = "//*[@id=\"cw_uniquepupilno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldUniquePupilNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldUniquePupilNo));
+            inputField.SendKeys(uniquePupilNo);
+        }
+
+
+        //Method to click the click the Former Unique Pupil No label
+
+        private static void ClickLabelFormerUniquePupilNo(IWebDriver driver)
+        {
+            string labelFormerUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelFormerUniquePupilNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelFormerUniquePupilNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Former Unique Pupil No field
+
+        private static void EnterTextIntoFieldFormerUniquePupilNo(IWebDriver driver, string formerUniquePupilNo)
+        {
+            string textFieldFormerUniquePupilNo = "//*[@id=\"cw_formeruniquepupilno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldFormerUniquePupilNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldFormerUniquePupilNo));
+            inputField.SendKeys(formerUniquePupilNo);
+        }
+
+
+        //Method to click the click the Professional Registration No label
+
+        private static void ClickLabelProfessionalRegistrationNo(IWebDriver driver)
+        {
+            string labelProfessionalRegistrationNo = "//*[@id=\"cw_professionalregistrationnumber_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelProfessionalRegistrationNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelProfessionalRegistrationNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Professional Registration No field
+
+        private static void EnterTextIntoFieldProfessionalRegistrationNo(IWebDriver driver, string professionalRegistrationNo)
+        {
+            string textFieldProfessionalRegistrationNo = "//*[@id=\"cw_professionalregistrationnumber_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldProfessionalRegistrationNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldProfessionalRegistrationNo));
+            inputField.SendKeys(professionalRegistrationNo);
+        }
+
+        //Method to click the click the Court Case No label
+
+        private static void ClickLabelCourtCaseNo(IWebDriver driver)
+        {
+            string labelCourtCaseNo = "//*[@id=\"cw_courtcaseno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelCourtCaseNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelCourtCaseNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Court Case No field
+
+        private static void EnterTextIntoFieldCourtCaseNo(IWebDriver driver, string courtCaseNo)
+        {
+            string textFieldCourtCaseNo = "//*[@id=\"cw_courtcaseno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldCourtCaseNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldCourtCaseNo));
+            inputField.SendKeys(courtCaseNo);
+        }
+
+
+        //Method to click the click the Birth Certificate No label
+
+        private static void ClickLabelBirthCertificateNo(IWebDriver driver)
+        {
+            string labelBirthCertificateNo = "//*[@id=\"cw_birthcertificateno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelBirthCertificateNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelBirthCertificateNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Birth Certificate No field
+
+        private static void EnterTextIntoFieldBirthCertificateNo(IWebDriver driver, string birthCertificateNo)
+        {
+            string textFieldBirthCertificateNo = "//*[@id=\"cw_birthcertificateno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldBirthCertificateNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldBirthCertificateNo));
+            inputField.SendKeys(birthCertificateNo);
+        }
+
+
+        //Method to select an option from the Is External Person field
+
+        private static void SelectValueForIsExternalPersonField(IWebDriver driver, string isExternalPerson)
+        {
+            string textFieldIsExternalPersonLabel = "//*[@id=\"cw_isexternalclient_cl\"]";
+            string textFieldLocation = "//*[@id=\"cw_isexternalclient\"]";
+            string textFieldValue = driver.FindElement(By.XPath(textFieldLocation)).Text;
+
+            if (isExternalPerson == "No")
+            {
+                if (textFieldValue == "Yes")
+                {
+                    driver.FindElement(By.XPath(textFieldIsExternalPersonLabel)).Click();
+                }
+            }
+            else
+            {
+                if (isExternalPerson == "No")
+                {
+                    driver.FindElement(By.XPath(textFieldIsExternalPersonLabel)).Click();
+                }
+            }
+        }
+
+
+        //Method to click the click the Home Office Registration No label
+
+        private static void ClickLabelHomeOfficeRegistrationNo(IWebDriver driver)
+        {
+            string labelHomeOfficeRegistrationNo = "//*[@id=\"cw_homeofficeregistrationno_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelHomeOfficeRegistrationNo));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelHomeOfficeRegistrationNo));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the Home Office Registration No field
+
+        private static void EnterTextIntoFieldHomeOfficeRegistrationNo(IWebDriver driver, string homeOfficeRegistrationNo)
+        {
+            string textFieldHomeOfficeRegistrationNo = "//*[@id=\"cw_homeofficeregistrationno_i\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldHomeOfficeRegistrationNo));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldHomeOfficeRegistrationNo));
+            inputField.SendKeys(homeOfficeRegistrationNo);
+        }
+
+
+        //Method to click the click the UPN Unknown Reason label
+
+        private static void ClickLabelUPNUnknownReason(IWebDriver driver)
+        {
+            string labelUPNUnknownReason = "//*[@id=\"cw_upnunknownreasonid_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelUPNUnknownReason));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelUPNUnknownReason));
+            labelLocation.Click();
+        }
+
+
+        //Method to enter text into the UPN Unknown Reason field
+
+        private static void EnterTextIntoFieldUPNUnknownReason(IWebDriver driver, string upnUnknownReason)
+        {
+            string textFieldUPNUnknownReason = "//*[@id=\"cw_upnunknownreasonid_ledit\"]";
+            driver.WaitUntilVisible(By.XPath(textFieldUPNUnknownReason));
+            IWebElement inputField = driver.FindElement(By.XPath(textFieldUPNUnknownReason));
+            inputField.SendKeys(upnUnknownReason);
+        }
+
+
+        //Method to click the lookup button next to the UPN Unknown Reason field
+
+        private static void ClickLookupUPNUnknownReason(IWebDriver driver)
+        {
+            IWebElement lookupUPNUnknownReason = driver.FindElement(By.XPath("//*[@id=\"cw_upnunknownreasonid_lookupSearch\"]"));
+            lookupUPNUnknownReason.Click();
+        }
+
+
+        //Method to select a UPN Unknown Reason from the lookup menu
+
+        private static void SelectUPNUnknownReasonUsingLookup(IWebDriver driver, string upnUnknowReason)
+        {
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_upnunknownreasonid_IMenu\"]"));
+            driver.FindElement(By.XPath("//*[text()[contains(.,'" + upnUnknowReason + "')]]")).Click();
+        }
+
+
+        //Method to click the click the MH Measure label
+
+        private static void ClickLabelMHMeasure(IWebDriver driver)
+        {
+            string labelMHMEasure = "//*[@id=\"cw_mentalhealthmeasure_cl\"]";
+            driver.WaitUntilVisible(By.XPath(labelMHMEasure));
+            IWebElement labelLocation = driver.FindElement(By.XPath(labelMHMEasure));
+            labelLocation.Click();
+        }
+
+
+        //Method to select a MH Measure from the dropdown
+
+        private static void SelectMHMeasureFromDropDown(IWebDriver driver, string mhMeasure)
+        {
+            IWebElement dropDownMHMeasure = LocateDropDownMHMeasure(driver);
+            var selectMHMeasure = new SelectElement(dropDownMHMeasure);
+            selectMHMeasure.SelectByText(mhMeasure);
+        }
+
+        //Method to locate MH Measure from the dropdown
+
+        private static IWebElement LocateDropDownMHMeasure(IWebDriver driver)
+        {
+            string dropDownMHMeasureLocation = "cw_mentalhealthmeasure_i";
+            driver.WaitUntilVisible(By.Id(dropDownMHMeasureLocation));
+            //Find the drop down only
+            // act on the returned value to select items or check current value 
+            IWebElement mhMeasureDropDown = driver.FindElement(By.Id(dropDownMHMeasureLocation));
+            return mhMeasureDropDown;
         }
 
     }

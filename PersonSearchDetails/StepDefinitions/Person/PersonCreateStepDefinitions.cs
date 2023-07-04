@@ -12,6 +12,7 @@ using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 using static WCCIS.Specs.Enums.MandatoryFields;
+using static WCCIS.Specs.Enums.CoreDemographicsDropdownValues;
 
 namespace WCCIS.specs.StepDefinitions
 {
