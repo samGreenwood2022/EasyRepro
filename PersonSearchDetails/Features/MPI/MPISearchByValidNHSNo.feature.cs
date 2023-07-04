@@ -75,14 +75,16 @@ namespace WCCIS.Specs.Features.MPI
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("[MPISearchByValidNHSNo]")]
+        [NUnit.Framework.DescriptionAttribute("MPISearchByValidNHSNo")]
         [NUnit.Framework.CategoryAttribute("RegressionTest")]
+        [NUnit.Framework.CategoryAttribute("MpiPdq")]
         public void MPISearchByValidNHSNo()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest"};
+                    "RegressionTest",
+                    "MpiPdq"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[MPISearchByValidNHSNo]", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchByValidNHSNo", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -94,10 +96,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 8
- testRunner.Given("[An administrator has logged in]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
- testRunner.When("[an MPI search is attempted with NHS Number \'5283627144\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("an MPI search is attempted with NHS Number \'5283627144\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
  testRunner.Then("a patient result is returned with NHS number \'5283627144\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
