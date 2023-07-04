@@ -12,6 +12,7 @@ using WCCIS.Specs.Extentions;
 using WCCIS.Specs.PageObjects;
 using WCCIS.Specs.PageObjects.Person;
 using static WCCIS.Specs.Enums.MandatoryFields;
+using static WCCIS.Specs.Enums.CoreDemographicsDropdownValues;
 
 namespace WCCIS.specs.StepDefinitions
 {
@@ -66,6 +67,16 @@ namespace WCCIS.specs.StepDefinitions
             //Page_PersonAdditionalDemographicDetails.EnterCountyOfOrigin(driver, "Algeria");
 
             driver.SwitchTo().Frame("contentIFrame1");
+            xrmBrowser.ThinkTime(1000);
+            driver.WaitForPageToLoad();
+            Page_PersonCoreDemographics.EnterFirstName(driver, firstName);
+            Page_PersonCoreDemographics.EnterLastName(driver, lastName);
+            Page_PersonCoreDemographics.EnterEthnicity(driver, ethnicity);
+            Page_PersonCoreDemographics.EnterPreferredLanguage(driver, preferredLanguage);
+            Page_PersonCoreDemographics.EnterGender(driver, gender);
+            Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
+            Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
 
             Page_SocialCareReferral.EnterReferralReason(driver, "Adoption Letterbox");
             Page_SocialCareReferral.EnterReasonText(driver, "some sample text");

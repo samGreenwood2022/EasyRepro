@@ -77,10 +77,12 @@ namespace WCCIS.Specs.Features.MPI
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("MPISearchForValidHospNoAndAssigningAuthority")]
         [NUnit.Framework.CategoryAttribute("RegressionTest")]
+        [NUnit.Framework.CategoryAttribute("MpiPdq")]
         public void MPISearchForValidHospNoAndAssigningAuthority()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest"};
+                    "RegressionTest",
+                    "MpiPdq"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchForValidHospNoAndAssigningAuthority", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
@@ -94,7 +96,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 8
- testRunner.Given("[An administrator has logged in]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
  testRunner.When("an MPI search is attempted with Hospital Number \'X824557 \' and Assigning Authorit" +

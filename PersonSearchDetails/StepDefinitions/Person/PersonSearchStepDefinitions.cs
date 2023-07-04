@@ -156,6 +156,21 @@ namespace WCCIS.specs.StepDefinitions
         }
 
 
+        [When(@"i perform a search using house number '([^']*)' and postcode '([^']*)'")]
+        public void WhenIPerformASearchUsingHouseNumberAndPostcode(string houseNo, string postCode)
+        {
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser); 
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            xrmBrowser.ThinkTime(1000);
+            Page_PersonSearch.EnterPropertyNo(driver, houseNo);
+            Page_PersonSearch.EnterPostcode(driver, postCode);
+            Page_PersonSearch.ClickSearch(driver);
+
+        }
+
+
+
+
 
     }
 }

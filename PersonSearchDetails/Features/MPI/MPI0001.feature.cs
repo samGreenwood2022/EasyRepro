@@ -75,14 +75,14 @@ namespace WCCIS.Specs.Features.MPI
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("[MPISearchErrorMessageWhenTheNHSNumberIsLessThan10Digits]")]
+        [NUnit.Framework.DescriptionAttribute("MPISearchErrorMessageWhenTheNHSNumberIsLessThan10Digits")]
         [NUnit.Framework.CategoryAttribute("RegressionTest")]
         public void MPISearchErrorMessageWhenTheNHSNumberIsLessThan10Digits()
         {
             string[] tagsOfScenario = new string[] {
                     "RegressionTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[MPISearchErrorMessageWhenTheNHSNumberIsLessThan10Digits]", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchErrorMessageWhenTheNHSNumberIsLessThan10Digits", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -94,10 +94,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 8
- testRunner.Given("[An administrator has logged in]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
- testRunner.When("[an MPI search is attempted with NHS Number \'25\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("an MPI search is attempted with NHS Number \'25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
  testRunner.Then("an error message contains text \'NHS Number is invalid.\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
