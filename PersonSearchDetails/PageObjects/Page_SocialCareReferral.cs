@@ -681,7 +681,7 @@ namespace WCCIS.Specs.PageObjects
 
         private static void SelectSourceNameUsingLookup(IWebDriver driver, string sourceName)
         {
-            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_referralreasonid_IMenu\"]"));
+            driver.WaitUntilVisible(By.XPath("//*[@id=\"Dialog_cw_sourcenameid_IMenu\"]"));
             driver.FindElement(By.XPath("//*[text()[contains(.,'" + sourceName + "')]]")).Click();
         }
 
