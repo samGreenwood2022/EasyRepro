@@ -43,14 +43,14 @@ namespace WCCIS.specs.StepDefinitions
         {
             // generate a random string for surname, false or true sets the string to upper or lower case
             lastName = DHCWExtensions.RandomString(6, false);
-            
+
             //Open New Person Window
             SharedNavigation.ClickPeople(xrmBrowser);
             SharedNavigation.ClickNewPerson(xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
 
             xrmBrowser.ThinkTime(1000);
-            // select the correct iFrame
+
             driver.SwitchTo().Frame("contentIFrame1");
             xrmBrowser.ThinkTime(1000);
             driver.WaitForPageToLoad();
@@ -61,6 +61,7 @@ namespace WCCIS.specs.StepDefinitions
             Page_PersonCoreDemographics.EnterGender(driver, gender);
             Page_PersonCoreDemographics.EnterDateOfBirth(driver, dob);
             Page_PersonCoreDemographics.EnterDateMovedIn(driver, dateMovedIn);
+
 
             // save the record
             SharedNavigation.ClickSave(driver, xrmBrowser);

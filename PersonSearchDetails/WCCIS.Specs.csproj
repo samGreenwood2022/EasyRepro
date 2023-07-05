@@ -108,6 +108,7 @@
     <Compile Include="Enums\MandatoryFields.cs" />
     <Compile Include="Extensions\DHCWExtensions.cs" />
     <Compile Include="Hooks\Hooks1.cs" />
+    <Compile Include="PageObjects\Page_SocialCareReferral.cs" />
     <Compile Include="StepDefinitions\MPISearchLoadPatientGenderUnknownStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchLoadPatientGenderFemaleStepDefinitions.cs" />
     <Compile Include="StepDefinitions\MPI\MPISearchRetryAfterCriteriaMessageStepDefinitions.cs" />
