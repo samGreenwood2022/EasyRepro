@@ -17,8 +17,8 @@ namespace WCCIS.Specs.PageObjects.Person
         //public
 
         //Method for entering text into firstname 
-
-        public static void EnterFirstName(IWebDriver driver, string firstName)
+        // default first name is 'test', which is used to take user to next screen quickly to get to MPI Search
+        public static void EnterFirstName(IWebDriver driver, string firstName = "test")
         {
             IWebElement textBoxfirstName = LocateTextBoxFirstName(driver);
             textBoxfirstName.SendKeys(firstName);

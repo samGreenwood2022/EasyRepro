@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -28,55 +30,40 @@ namespace WCCIS.Specs.StepDefinitions
         [When(@"an MPI search is conducted using the first name '([^']*)' and surname '([^']*)'")]
         public void WhenAnMPISearchIsConductedUsingTheFirstNameAndSurname(string Forename, string Surname)
         {
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            //Select Person Search
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("test");
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver);
+            //Select Search 
+            Page_PersonSearch.ClickSearch(driver);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"NHSNo\"]")).Click();
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(Forename);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtLastName\"]")).SendKeys(Surname);
-            xrmBrowser.ThinkTime(1000);
+            //Select MPI Search
+            Page_PersonSearchResults.ClickMPISearch(driver);
+            Page_MPISearch.ClickNHSRadioNo(driver);
+            //Enter search details
+            Page_MPISearch.EnterSurname(driver, Surname);
+            Page_MPISearch.EnterFirstName(driver, Forename);         
         }
 
         [Then(@"the MPI search field will allow the special characters but remove excess from first name '([^']*)' and surname '([^']*)'")]
         public void ThenTheMPISearchFieldWillAllowTheSpecialCharactersButRemoveExcessFromFirstNameAndSurname(string Forename, string Surname)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            object firstNameObject = js.ExecuteScript("return $.trim($('#txtFirstName').val());");
-            Console.WriteLine(firstNameObject);
-            Assert.IsTrue(firstNameObject.ToString() == Forename.Substring(0, 50));
-            xrmBrowser.ThinkTime(1000);
-            object lastNameObject = js.ExecuteScript("return $.trim($('#txtLastName').val());");
-            Console.WriteLine(lastNameObject);
-            xrmBrowser.ThinkTime(1000);
-            Assert.IsTrue(lastNameObject.ToString() == Surname.Substring(0, 50));
-            driver.FindElement(By.XPath("//*[@id=\"txtDOB\"]")).SendKeys("01/01/2000");
-            xrmBrowser.ThinkTime(1000);
+            string firstName = Page_MPISearchResults.TrimFirstName(driver);
+            Assert.IsTrue(firstName == Forename.Substring(0, 50));
+            string lastName = Page_MPISearchResults.TrimLastName(driver);
+            Assert.IsTrue(lastName == Surname.Substring(0, 50));
+            Page_MPISearch.EnterDOB(driver, "01/01/2000");
         }
 
 
         [Then(@"no results will be found")]
         public void ThenNoResultsWillBeFound()
         {
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(2000);
-            var tableNotPresent = false;
-            try
-            {
-                IWebElement table = driver.FindElement(By.Id("CWGrid"));
-            }
-            catch
-            {
-                tableNotPresent = true;
-            }
-            Assert.IsTrue(tableNotPresent);
+            Page_MPISearch.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(5000);
+            Page_MPISearchResults.CheckNoResultsReturned(driver);
         }
     }
 }

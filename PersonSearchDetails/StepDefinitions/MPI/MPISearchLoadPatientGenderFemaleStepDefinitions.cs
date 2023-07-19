@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -26,43 +28,38 @@ namespace WCCIS.Specs.StepDefinitions
         [Given(@"an MPI Search is conducted with NHS number '([^']*)'")]
         public void GivenAnMPISearchIsConductedWithNHSNumber(string NHSNumber)
         {
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            //Select Person Search
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("test");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver);
+            //Select Search 
+            Page_PersonSearch.ClickSearch(driver);
             xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"txtNHSNo\"]")).SendKeys(NHSNumber);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(8000);
+            //Select MPI Search
+            Page_PersonSearchResults.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(2000);
+            //Enter search address
+            Page_MPISearch.EnterNHS(driver, NHSNumber);
+            //Click Search
+            Page_MPISearch.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(2000);
         }
 
         [When(@"the patient record is loaded with NHS number '([^']*)'")]
         public void WhenThePatientRecordIsLoadedWithNHSNumber(string NHSNumber)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(90000);
-            driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + NHSNumber + "']"));
-            xrmBrowser.ThinkTime(1000);
-            Actions act = new Actions(driver);
-            IWebElement result = driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + NHSNumber + "']"));
-            act.DoubleClick(result).Perform();
+            Page_MPISearchResults.OpenSearchResult(driver, NHSNumber);
             xrmBrowser.ThinkTime(5000);
         }
 
         [Then(@"the patient Gender field contains value '([^']*)'")]
         public void ThenThePatientGenderFieldContainsValue(string gender)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(3000);
-            driver.SwitchTo().Frame("contentIFrame0");
-            String NHSField = driver.FindElement(By.Id("gendercode")).Text;
-            xrmBrowser.ThinkTime(2000);
-            Assert.IsTrue(NHSField.Contains(gender));
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string genderValue = Page_PersonCoreDemographics.GetGender(driver);
+            Assert.IsTrue(genderValue.Contains(gender));
         }
 
     }

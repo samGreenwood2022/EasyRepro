@@ -82,5 +82,21 @@ namespace WCCIS.Specs.PageObjects
             return personId;
         }
 
+        //method for clicking eMPI Search
+
+        public static void ClickMPISearch(IWebDriver driver)
+        {
+            IWebElement buttonMPISearch = LocateButtonMPISearch(driver);
+            buttonMPISearch.Click();
+        }
+
+        //Method for finding MPI Search button
+
+        private static IWebElement LocateButtonMPISearch(IWebDriver driver)
+        {
+            IWebElement buttonMPISearch = driver.FindElement(By.Name("btnEMPISearch"));
+            return buttonMPISearch;
+        }
+
     }
 }

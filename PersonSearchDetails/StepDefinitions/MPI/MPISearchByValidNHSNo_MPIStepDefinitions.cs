@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -27,26 +28,16 @@ namespace WCCIS.Specs.StepDefinitions
         [Then(@"a patient result is returned with NHS number '([^']*)'")]
         public void ThenAPatientResultIsReturnedWithNHSNumber(string NHSNumber)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + NHSNumber + "']"));
+            Page_MPISearchResults.LocateResult(driver, NHSNumber);            
             xrmBrowser.ThinkTime(1000);
         }
 
         [Then(@"the user is able to open the record with NHS number '([^']*)'")]
         public void ThenTheUserIsAbleToOpenTheRecordWithNHSNumber(string NHSNumber)
         {
-            Actions act = new Actions(driver);
-            IWebElement result = driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + NHSNumber + "']"));
-            act.DoubleClick(result).Perform();
-            xrmBrowser.ThinkTime(5000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(3000);
-            driver.SwitchTo().Frame("contentIFrame0");
-            String NHSField = driver.FindElement(By.Id("cw_nhsno")).Text;
-            xrmBrowser.ThinkTime(2000);
-            NHSField = NHSField.Replace(" ", "");
-            xrmBrowser.ThinkTime(2000);
+            Page_MPISearchResults.OpenSearchResult(driver, NHSNumber);
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string NHSField = Page_PersonCoreDemographics.GetUnformattedNHS(driver);
             Assert.IsTrue(NHSField.Contains(NHSNumber));
         }
     }

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace WCCIS.Specs.Features.MPI
+namespace WCCIS.Specs.Features.Person.PersonCreate
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,23 +20,22 @@ namespace WCCIS.Specs.Features.MPI
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("MPISearchByDesTownCounty")]
-    public partial class MPISearchByDesTownCountyFeature
+    [NUnit.Framework.DescriptionAttribute("PC0004 - Person create - validation")]
+    public partial class PC0004_PersonCreate_ValidationFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "MPISearchByDesTownCounty.feature"
+#line 1 "PC0004.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/MPI", "MPISearchByDesTownCounty", "MPI search is conducted using three lines of address: Other Designation, Town, Co" +
-                    "unty", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person/PersonCreate", "PC0004 - Person create - validation", "To verify that mandatory fields are active when creating a new person", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,16 +74,14 @@ namespace WCCIS.Specs.Features.MPI
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("MPISearchByDesTownCounty")]
-        [NUnit.Framework.CategoryAttribute("RegressionTest")]
-        [NUnit.Framework.CategoryAttribute("MpiPdq")]
-        public void MPISearchByDesTownCounty()
+        [NUnit.Framework.DescriptionAttribute("Create a new person and ensure all mandatory fields are active")]
+        [NUnit.Framework.CategoryAttribute("tag1")]
+        public void CreateANewPersonAndEnsureAllMandatoryFieldsAreActive()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest",
-                    "MpiPdq"};
+                    "tag1"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchByDesTownCounty", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new person and ensure all mandatory fields are active", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -96,14 +93,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("that an adult support worker has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.When("an MPI search is conducted using Other Designation \'Smalltown\', Town \'Hawick\' and" +
-                        " County \'Pembrokeshire\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i start the process of creating a new person", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
- testRunner.Then("no result is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the expected mandatory fields are active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

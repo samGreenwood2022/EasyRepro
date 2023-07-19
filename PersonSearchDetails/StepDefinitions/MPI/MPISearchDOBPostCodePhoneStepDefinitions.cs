@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -27,24 +29,26 @@ namespace WCCIS.Specs.StepDefinitions
         [When(@"the user only enters the DOB, postcode and phone number before clicking Search '([^']*)' '([^']*)' '([^']*)'")]
         public void WhenTheUserOnlyEntersTheDOBPostcodeAndPhoneNumberBeforeClickingSearch(string DOB, string Postcode, string PhoneNumber)
         {
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            //Select Person Search
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("test");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver);
+            //Select Search 
+            Page_PersonSearch.ClickSearch(driver);
             xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"NHSNo\"]")).Click();
+            //Select MPI Search
+            Page_PersonSearchResults.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(2000);
+            Page_MPISearch.ClickNHSRadioNo(driver);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtDOB\"]")).SendKeys(DOB);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtPostCode\"]")).SendKeys(Postcode);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtPhone\"]")).SendKeys(PhoneNumber);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
+            //Enter search address
+            Page_MPISearch.EnterDOB(driver, DOB);
+            Page_MPISearch.EnterPostCode(driver, Postcode);
+            Page_MPISearch.EnterPhoneNumber(driver, PhoneNumber);
+            //Click Search
+            Page_MPISearch.ClickMPISearch(driver);
             xrmBrowser.ThinkTime(2000);
         }
     }

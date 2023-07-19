@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -26,10 +27,9 @@ namespace WCCIS.Specs.StepDefinitions
         [Given(@"a result is returned with Gender as '([^']*)'")]
         public void GivenAResultIsReturnedWithGenderAs(string searchValue)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(90000);
-            driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + searchValue + "']"));
-            xrmBrowser.ThinkTime(1000);
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string gender = Page_PersonCoreDemographics.GetGender(driver);
+            Assert.IsTrue(gender.Contains(searchValue));
         }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -26,20 +27,18 @@ namespace WCCIS.Specs.StepDefinitions
         [When(@"an error message contains text '([^']*)'")]
         public void WhenAnErrorMessageContainsText(string errorMessage)
         {
-            String error = driver.FindElement(By.XPath("//*[@id=\"CWNotificationMessage_EMPISearch\"]")).Text;
-            Console.WriteLine(error);
+            string error = Page_MPISearch.GetErrorMessage(driver);
             Assert.IsTrue(error.Contains(errorMessage));
         }
 
         [When(@"the user retries the MPI Search with Surname '([^']*)' and Postcode '([^']*)'")]
         public void WhenTheUserRetriesTheMPISearchWithSurnameAndPostcode(string Surname, string Postcode)
         {
-            driver.FindElement(By.XPath("//*[@id=\"txtLastName\"]")).SendKeys(Surname);
+            Page_MPISearch.EnterSurname(driver, Surname);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtPostCode\"]")).SendKeys(Postcode);
+            Page_MPISearch.EnterPostCode(driver, Postcode);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(2000);
+            Page_MPISearch.ClickMPISearch(driver);
         }
     }
 }

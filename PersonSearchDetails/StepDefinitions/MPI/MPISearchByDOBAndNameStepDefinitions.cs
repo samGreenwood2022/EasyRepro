@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -28,24 +30,26 @@ namespace WCCIS.Specs.StepDefinitions
         [When(@"an MPI search is attempted with Forename '([^']*)', Surname '([^']*)' and DOB '([^']*)'")]
         public void WhenAnMPISearchIsAttemptedWithForenameSurnameAndDOB(string Forename, string Surname, string DOB)
         {
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            //Select Person Search
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("test");
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
-            xrmBrowser.ThinkTime(4000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver);
+            //Select Search 
+            Page_PersonSearch.ClickSearch(driver);
             xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"NHSNo\"]")).Click();
+            //Select MPI Search
+            Page_PersonSearchResults.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(2000);
+            Page_MPISearch.ClickNHSRadioNo(driver);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys(Forename);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtLastName\"]")).SendKeys(Surname);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtDOB\"]")).SendKeys(DOB);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
+            //Enter search criteria
+            Page_MPISearch.EnterFirstName(driver, Forename);
+            Page_MPISearch.EnterSurname(driver, Surname);
+            Page_MPISearch.EnterDOB(driver, DOB);
+            //Click Search
+            Page_MPISearch.ClickMPISearch(driver);
             xrmBrowser.ThinkTime(2000);
         }
 
@@ -53,35 +57,26 @@ namespace WCCIS.Specs.StepDefinitions
         public void ThenAPatientResultIsReturnedWithValue(string searchValue)
         {
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + searchValue + "']"));
-            xrmBrowser.ThinkTime(1000);
+            Page_MPISearchResults.LocateResult(driver, searchValue);
         }
 
         [Then(@"the user is able to open the record with Forename '([^']*)', Surname '([^']*)' and DOB '([^']*)'")]
         public void ThenTheUserIsAbleToOpenTheRecordWithForenameSurnameAndDOB(string Forename, string Surname, string DOB)
         {
-            Actions act = new Actions(driver);
-            IWebElement result = driver.FindElement(By.XPath("//table/tbody/tr/td[@title='" + DOB + "']"));
-            act.DoubleClick(result).Perform();
-            xrmBrowser.ThinkTime(5000);
+            Page_MPISearchResults.OpenSearchResult(driver, DOB);
+            xrmBrowser.ThinkTime(4000);
         }
 
 
         [Then(@"the record contains the value Forename '([^']*)', Surname '([^']*)' and DOB '([^']*)'")]
         public void ThenTheRecordContainsTheValueForenameSurnameAndDOB(string Forename, string Surname, string DOB)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(3000);
-            driver.SwitchTo().Frame("contentIFrame0");
-            String firstname = driver.FindElement(By.Id("firstname")).Text;
-            xrmBrowser.ThinkTime(1000);
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string firstname = Page_PersonCoreDemographics.GetFirstNameValue(driver);
             Assert.IsTrue(firstname.Contains(Forename));
-            String lastname = driver.FindElement(By.Id("lastname")).Text;
-            xrmBrowser.ThinkTime(1000);
+            string lastname = Page_PersonCoreDemographics.GetLastNameValue(driver);
             Assert.IsTrue(lastname.Contains(Surname));
-            String birthdate = driver.FindElement(By.Id("birthdate")).Text;
-            xrmBrowser.ThinkTime(1000);
+            string birthdate = Page_PersonCoreDemographics.GetDOBValue(driver);
             Assert.IsTrue(birthdate.Contains(DOB));
         }
 

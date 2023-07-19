@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -28,70 +29,17 @@ namespace WCCIS.Specs.StepDefinitions
         [Then(@"a result is returned with values '([^']*)', '([^']*)' and '([^']*)'")]
         public void ThenAResultIsReturnedWithValuesAnd(string firstName, string surname, string DOB)
         {
-            var tableNotPresent = false;
-            try
-            {
-                IWebElement table = driver.FindElement(By.Id("CWGrid"));
-            }
-            catch (NoSuchElementException tableNotDisplayed)
-            {
-                tableNotPresent = true;      
-            }
-            if (tableNotPresent)
-            {
-                throw new Exception("MPI found no results. Test aborted.");
-            }
-
-            // init table element
-            IWebElement resultTable = driver.FindElement(By.Id("CWGrid"));
-
-            // init tr elements from the table
-            ReadOnlyCollection<IWebElement> allSearchResultRows = resultTable.FindElements(By.TagName("tr"));
-            
-            // init searchResult as empty
-            IWebElement searchResult = null;
-
-            // loop through each row and check if it contains all the values under test
-            foreach (IWebElement resultRow in allSearchResultRows)
-            {
-                string resultFirstName = resultRow.FindElement(By.CssSelector("td[title='" + firstName + "']")).Text;
-                string resultSurname = resultRow.FindElement(By.CssSelector("td[title='" + surname + "']")).Text;
-                string resultDOB = resultRow.FindElement(By.CssSelector("td[title='" + DOB + "']")).Text;
-                if (resultDOB==DOB && resultFirstName==firstName && resultSurname==surname)
-                {
-                    searchResult = resultRow;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            switch (searchResult)
-            {
-                case null:
-                    throw new Exception("No matching results were returned. Test aborted.");
-                default:
-                    {
-                        Actions act = new Actions(driver);
-                        act.DoubleClick(searchResult).Perform();
-                        xrmBrowser.ThinkTime(5000);
-                        break;
-                    }
-            }
+            Page_MPISearchResults.CheckResultsReturned(driver);
+            Page_MPISearchResults.FindAndOpenFullNamePostcodeMatch(driver, firstName, surname, DOB);
         }
 
         [Then(@"the result can be opened with the values '([^']*)', '([^']*)', and '([^']*)' to create a new record")]
         public void ThenTheResultCanBeOpenedWithTheValuesAndToCreateANewRecord(string firstNameValue, string lastNameValue, string DOBValue)
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(3000);
-            driver.SwitchTo().Frame("contentIFrame0");
-            String firstField = driver.FindElement(By.Id("firstname")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String surnameField = driver.FindElement(By.Id("lastname")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String DOBField = driver.FindElement(By.Id("birthdate")).Text;
-            xrmBrowser.ThinkTime(2000);
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string firstField = Page_PersonCoreDemographics.GetFirstNameValue(driver);
+            string surnameField = Page_PersonCoreDemographics.GetLastNameValue(driver);
+            string DOBField = Page_PersonCoreDemographics.GetDOBValue(driver);
             Assert.IsTrue(firstField.Contains(firstNameValue));
             Assert.IsTrue(surnameField.Contains(lastNameValue));
             Assert.IsTrue(DOBField.Contains(DOBValue));

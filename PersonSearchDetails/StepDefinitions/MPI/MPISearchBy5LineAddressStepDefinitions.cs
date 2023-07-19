@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using TechTalk.SpecFlow;
 using WCCIS.Specs.Extentions;
+using WCCIS.Specs.PageObjects.Person;
+using WCCIS.Specs.PageObjects;
 
 namespace WCCIS.Specs.StepDefinitions
 {
@@ -28,104 +30,47 @@ namespace WCCIS.Specs.StepDefinitions
         [When(@"an MPI search is attempted using address fields '([^']*)', '([^']*)', '([^']*)', '([^']*)', '([^']*)'")]
         public void WhenAnMPISearchIsAttemptedUsingAddressFields(string Street, string OtherDesignation, string City, string County, string Postcode)
         {
-            xrmBrowser.CommandBar.ClickCommand("PERSON SEARCH");
+            //Select Person Search
+            SharedNavigation.ClickPersonSearch(driver, xrmBrowser);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtFirstName\"]")).SendKeys("test");
+            //Enter first name
+            Page_PersonSearch.EnterFirstName(driver, "test");
+            //Select Search 
+            Page_PersonSearch.ClickSearch(driver);
+            xrmBrowser.ThinkTime(2000);
+            //Select MPI Search
+            Page_PersonSearchResults.ClickMPISearch(driver);
+            xrmBrowser.ThinkTime(2000);
+            Page_MPISearch.ClickNHSRadioNo(driver);
             xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnFind")).Click();
+            //Enter search address
+            Page_MPISearch.EnterStreet(driver, Street);
+            Page_MPISearch.EnterOtherDes(driver, OtherDesignation);
+            Page_MPISearch.EnterCity(driver, City);
+            Page_MPISearch.EnterCounty(driver, County);
+            Page_MPISearch.EnterPostCode(driver, Postcode);
+            //Click Search
+            Page_MPISearch.ClickMPISearch(driver);
             xrmBrowser.ThinkTime(4000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(2000);
-            driver.FindElement(By.XPath("//*[@id=\"NHSNo\"]")).Click();
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtStreetAddress\"]")).SendKeys(Street);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtOtherDesignation\"]")).SendKeys(OtherDesignation);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtCity\"]")).SendKeys(City);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtStateOrProvince\"]")).SendKeys(County);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.XPath("//*[@id=\"txtPostCode\"]")).SendKeys(Postcode);
-            xrmBrowser.ThinkTime(1000);
-            driver.FindElement(By.Name("btnEMPISearch")).Click();
-            xrmBrowser.ThinkTime(2000);
         }
 
         [Then(@"a result is returned with values '([^']*)', '([^']*)', '([^']*)', '([^']*)', '([^']*)'")]
         public void ThenAResultIsReturnedWithValues(string Street, string OtherDesignation, string City, string County, string Postcode)
         {
-            var tableNotPresent = false;
-            try
-            {
-                IWebElement table = driver.FindElement(By.Id("CWGrid"));
-            }
-            catch (NoSuchElementException tableNotDisplayed)
-            {
-                tableNotPresent = true;
-            }
-            if (tableNotPresent)
-            {
-                throw new Exception("MPI found no results. Test aborted.");
-            }
-
-            // init table element
-            IWebElement resultTable = driver.FindElement(By.Id("CWGrid"));
-
-            // init tr elements from the table
-            ReadOnlyCollection<IWebElement> allSearchResultRows = resultTable.FindElements(By.TagName("tr"));
-
-            // init searchResult as empty
-            IWebElement searchResult = null;
-
-            // loop through each row and check if it contains all the values under test
-            foreach (IWebElement resultRow in allSearchResultRows)
-            {
-                string resultStreet = resultRow.FindElement(By.CssSelector("td[title='" + Street + "']")).Text;
-                string resultOtherDesignation = resultRow.FindElement(By.CssSelector("td[title='" + OtherDesignation + "']")).Text;
-                string resultCity = resultRow.FindElement(By.CssSelector("td[title='" + City + "']")).Text;
-                string resultCounty = resultRow.FindElement(By.CssSelector("td[title='" + County + "']")).Text;
-                string resultPostcode = resultRow.FindElement(By.CssSelector("td[title='" + Postcode + "']")).Text;
-                if (resultStreet == Street && resultOtherDesignation == OtherDesignation && resultCity == City && resultCounty == County && resultPostcode == Postcode)
-                {
-                    searchResult = resultRow;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            switch (searchResult)
-            {
-                case null:
-                    throw new Exception("No matching results were returned. Test aborted.");
-                default:
-                    {
-                        Actions act = new Actions(driver);
-                        act.DoubleClick(searchResult).Perform();
-                        xrmBrowser.ThinkTime(5000);
-                        break;
-                    }
-            }
+            Page_MPISearchResults.CheckResultsReturned(driver);
+            Page_MPISearchResults.FindAndOpen5LineAddressMatch(driver, Street, OtherDesignation, City, County, Postcode);
         }
 
         [Then(@"the result can be opened with values '([^']*)', '([^']*)', '([^']*)', '([^']*)', '([^']*)' to create a new record")]
         public void ThenTheResultCanBeOpenedWithValuesToCreateANewRecord(string Street, string OtherDesignation, string City, string County, string Postcode)
-        {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            xrmBrowser.ThinkTime(3000);
-            driver.SwitchTo().Frame("contentIFrame0");
-            String StreetField = driver.FindElement(By.Id("address1_line1")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String OthDesField = driver.FindElement(By.Id("address1_line2")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String CityField = driver.FindElement(By.Id("address1_city")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String CountyField = driver.FindElement(By.Id("address1_stateorprovince")).Text;
-            xrmBrowser.ThinkTime(2000);
-            String PostCodeField = driver.FindElement(By.Id("address1_postalcode")).Text;
-            xrmBrowser.ThinkTime(2000);
+        { 
+            Page_MPISearchResults.SwitchToNewRecord(driver);
+            string StreetField = Page_PersonCoreDemographics.GetStreetValue(driver);
+            string OthDesField = Page_PersonCoreDemographics.GetOtherDesignationValue(driver);
+            string CityField = Page_PersonCoreDemographics.GetCityValue(driver);
+            string CountyField = Page_PersonCoreDemographics.GetCountyValue(driver);
+            string PostCodeField = Page_PersonCoreDemographics.GetPostCodeValue(driver);
             Assert.IsTrue(StreetField.Contains(Street));
             Assert.IsTrue(OthDesField.Contains(OtherDesignation));
             Assert.IsTrue(CityField.Contains(City));

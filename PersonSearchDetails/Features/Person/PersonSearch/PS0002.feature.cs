@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace WCCIS.Specs.Features.MPI
+namespace WCCIS.Specs.Features.Person.PersonSearch
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,23 +20,23 @@ namespace WCCIS.Specs.Features.MPI
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("MPISearchByDesTownCounty")]
-    public partial class MPISearchByDesTownCountyFeature
+    [NUnit.Framework.DescriptionAttribute("PS0002 - Person Search - wildcards")]
+    public partial class PS0002_PersonSearch_WildcardsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "MPISearchByDesTownCounty.feature"
+#line 1 "PS0002.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/MPI", "MPISearchByDesTownCounty", "MPI search is conducted using three lines of address: Other Designation, Town, Co" +
-                    "unty", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Person/PersonSearch", "PS0002 - Person Search - wildcards", "Regression Pack Scenario - PS0002\r\nTo ensure a person search can be performed whe" +
+                    "n using wildcards\r\nensure the returned record is correct", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,17 +75,15 @@ namespace WCCIS.Specs.Features.MPI
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("MPISearchByDesTownCounty")]
-        [NUnit.Framework.CategoryAttribute("RegressionTest")]
-        [NUnit.Framework.CategoryAttribute("MpiPdq")]
-        public void MPISearchByDesTownCounty()
+        [NUnit.Framework.DescriptionAttribute("A person search using wildcards")]
+        [NUnit.Framework.CategoryAttribute("smokeTest")]
+        public void APersonSearchUsingWildcards()
         {
             string[] tagsOfScenario = new string[] {
-                    "RegressionTest",
-                    "MpiPdq"};
+                    "smokeTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MPISearchByDesTownCounty", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A person search using wildcards", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -95,15 +93,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
- testRunner.Given("An administrator has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+ testRunner.Given("that a childrens support worker has logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
- testRunner.When("an MPI search is conducted using Other Designation \'Smalltown\', Town \'Hawick\' and" +
-                        " County \'Pembrokeshire\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+ testRunner.When("i perform a person search using a wildcards \'J*\', \'Z*\' & dob \'12/08/1976\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
- testRunner.Then("no result is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 12
+ testRunner.Then("the returned record will show the correct name, id, dob & address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

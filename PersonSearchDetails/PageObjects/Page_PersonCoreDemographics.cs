@@ -2,7 +2,9 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Net;
 using System.Reflection.Emit;
+using System.Security.Policy;
 using WCCIS.Specs.Extentions;
 
 namespace WCCIS.Specs.PageObjects
@@ -37,6 +39,13 @@ namespace WCCIS.Specs.PageObjects
             //This activates the field, so you can set the dropdown
             ClickLabelGender(driver);
             SelectGenderFromDropDown(driver, gender);
+        }
+
+        //return value in gender field
+        public static string GetGender(IWebDriver driver)
+        {
+            string gender = GetGenderValue(driver);
+            return gender;
         }
 
         public static void EnterPreferredLanguage(IWebDriver driver, string preferredLanguage, bool isUsingLookup = false)
@@ -79,7 +88,15 @@ namespace WCCIS.Specs.PageObjects
                 EnterTextIntoDOBField(driver, dateOfBirth);
             }
         }
- 
+
+        // Method for finding value in the Date of Birth field
+
+        public static String GetDOBValue(IWebDriver driver)
+        {
+            string dobField = driver.FindElement(By.Id("birthdate")).Text;
+            return dobField;
+        }
+
         public static void EnterEthnicity(IWebDriver driver, string ethnicity, bool isUsingLookup = false)
         {
             if (isUsingLookup)
@@ -120,6 +137,17 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoNHSNumberField(driver, nhsNumber);
         }
 
+        //Get the NHS number within a record, unformatted (without spaces)
+        public static string GetUnformattedNHS(IWebDriver driver)
+        {
+            //find NHS Number
+            string NHSField = GetNHSNumber(driver);
+            //remove any spaces within NHS number
+            NHSField = NHSField.Replace(" ", "");
+            // return the unformatted NHS number
+            return NHSField;
+        }
+
         //This method will click the Label and then type into the First Name Text Box
 
         public static void EnterFirstName(IWebDriver driver, string firstName)
@@ -128,12 +156,28 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoFirstNameField(driver, firstName);
         }
 
+        // Method for finding value in the First Name field
+
+        public static String GetFirstNameValue(IWebDriver driver)
+        {
+            string firstNameField = driver.FindElement(By.Id("firstname")).Text;
+            return firstNameField;
+        }
+
         //This method will click the Label and then type into the Last Name Text Box
 
         public static void EnterLastName(IWebDriver driver, string lastName)
         {
             ClickLabelLastName(driver);
             EnterTextIntoLastNameField(driver, lastName);
+        }
+
+        // Method for finding value in the Last Name field
+
+        public static String GetLastNameValue(IWebDriver driver)
+        {
+            string lastNameField = driver.FindElement(By.Id("lastname")).Text;
+            return lastNameField;
         }
 
         //Method to enter values into the Property Number field
@@ -153,6 +197,22 @@ namespace WCCIS.Specs.PageObjects
 
         }
 
+        // Method for finding value in the First Line of Address field
+
+        public static String GetStreetValue(IWebDriver driver)
+        {
+            string StreetField = driver.FindElement(By.Id("address1_line1")).Text;
+            return StreetField;
+        }
+
+        // Method for finding value in the Second Line of Address field
+
+        public static String GetOtherDesignationValue(IWebDriver driver)
+        {
+            string OtherDesField = driver.FindElement(By.Id("address1_line2")).Text;
+            return OtherDesField;
+        }
+
         //Method for entering text into Town/City field
 
         public static void EnterTownCity(IWebDriver driver, string townCity)
@@ -160,6 +220,14 @@ namespace WCCIS.Specs.PageObjects
 
             ClickLabelTownCity(driver);
             EnterTextIntoTownCity(driver, townCity);
+        }
+
+        // Method for finding value in the City/Town Line of Address field
+
+        public static String GetCityValue(IWebDriver driver)
+        {
+            string CityField = driver.FindElement(By.Id("address1_city")).Text;
+            return CityField;
         }
 
         //Method for entering text into the County field
@@ -170,12 +238,28 @@ namespace WCCIS.Specs.PageObjects
             EnterTextIntoTextBoxCounty(driver, county);
         }
 
+        // Method for finding value in the City/Town Line of Address field
+
+        public static String GetCountyValue(IWebDriver driver)
+        {
+            string CountyField = driver.FindElement(By.Id("address1_stateorprovince")).Text;
+            return CountyField;
+        }
+
         //A method for entering text into the Post Code field
 
         public static void EnterPostCode(IWebDriver driver, string postCode)
         {
             ClickLabelPostCode(driver);
             EnterTextIntoTextBoxPostCode(driver, postCode);
+        }
+
+        // Method for finding value in the post code Line of Address field
+
+        public static String GetPostCodeValue(IWebDriver driver)
+        {
+            string PostCodeField = driver.FindElement(By.Id("address1_postalcode")).Text;
+            return PostCodeField;
         }
 
         //Method for clearing Date MOved In field
@@ -272,6 +356,7 @@ namespace WCCIS.Specs.PageObjects
                 EnterTextIntoTextBoxGPStartDate(driver, startDate);
             }
         }
+
 
         //---------------------------------------------------------------------------------------------------------
 
@@ -554,7 +639,14 @@ namespace WCCIS.Specs.PageObjects
             return genderLabel;
         }
 
-        //Method to click Peferred Language from lookup
+        //Method to locate value in Gender field
+        private static string GetGenderValue(IWebDriver driver)
+        {
+            string gender = driver.FindElement(By.Id("gendercode")).Text;
+            return gender;
+        }
+
+        //Method to click Preferred Language from lookup
 
         private static void ClickPreferredLanguageUsingLookup(IWebDriver driver, string preferredLanguage)
         {
@@ -853,6 +945,16 @@ namespace WCCIS.Specs.PageObjects
             nhsNumberTextBox.SendKeys(nhsNumber + Keys.Enter);
         }
 
+        // Get value in NHS field and return
+
+        private static string GetNHSNumber(IWebDriver driver)
+        {
+            //Find the value in NHS Number field
+            String NHSField = driver.FindElement(By.Id("cw_nhsno")).Text;
+            // return the field
+            return NHSField;
+        }
+
         //Method to clear any values from the Date Moved In field
 
         private static void ClearTextBoxDateMovedIn(IWebDriver driver)
@@ -1023,7 +1125,6 @@ namespace WCCIS.Specs.PageObjects
             }
 
         }
-
 
     }
 }
